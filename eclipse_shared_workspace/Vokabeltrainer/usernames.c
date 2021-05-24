@@ -1,8 +1,17 @@
+/*
+ * usernames.c
+ *
+ *  Created on: 22.05.2021
+ *      Author: Luca
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
+#include "voc_functions.h"
 
 
-int main()
+int username_list()
 {
 	FILE *datei_users_ptr;										//FILE pointer zum öffnen der Usernames.txt Datei
 	int c = 0;													//Char Platzhalter zum auslesen der Datei
@@ -26,32 +35,30 @@ int main()
 			scanf("%s", user_ptr->name);						//Es können noch keine Leerzeichen eingescannt werden
 			strcat(user_ptr->name, ";");						//Semikolon an neuen Nutzernamen in Datei anhängen
 			fprintf(datei_users_ptr, user_ptr->name);
-			printf("Nutzer eingelesen\n");
+			printf("Nutzer eingelesen");
 		}
-		else													//Wenn Datei existiert (und entsprechend schon ein User bekannt ist)
+		else													//Wenn Datei existiert (und entsprechend schon ein User bekannt ist); alle bekannten User auflisten
 		{
 			printf("Bitte einen der folgenden Nutzer auswaehlen, oder einen neuen Nutzernamen anlegen: \n");
 
 
 
+				while(	(c = fgetc(datei_users_ptr) ) != EOF)		//Schleife für das auflisten aller Usernames
 
-
-			while(	(c = fgetc(datei_users_ptr) ) != EOF)		//Schleife für das auflisten aller Usernames
-
-				{
-					user_ptr = malloc(sizeof(struct username));	//erstelle neuen Nutzerplatz in der Liste
-
-					while( c != 59 )								//Wenn KEIN Strichpunkt kommt
 					{
-						putchar(user_ptr->name);				//Normalfall: ein Buchstabe nach dem anderen
-					}
-						printf("%s", user_ptr->name);
-						printf("\n");							//Zeilenumbruch (für nächsten Nutzernamen)
+						if( c == 59 )								//Wenn Strichpunkt kommt
+						{
+							printf("\n");							//Zeilenumbruch (für nächsten Nutzernamen)
+						}
+						else
+							putchar(c);								//Normalfall: ein Buchstabe nach dem anderen
+						}
 
-
-				}
 
 		}
+
+
+
 
 		printf("Ende\n");
 		int a = 0;
@@ -62,4 +69,3 @@ int main()
 
 	return 0;
 }
-
