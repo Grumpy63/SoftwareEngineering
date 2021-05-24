@@ -1,0 +1,6 @@
+- Kommentare für Funktionsbschreibung über der Funktionsdefinition
+- Kommentare möglichst in der gleichen Zeile wie der Code
+- Jede Zeile kommentieren
+- Funktionen detailliert beschreiben
+- 
+-
