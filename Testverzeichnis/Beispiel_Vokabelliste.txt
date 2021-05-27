@@ -1,0 +1,9 @@
+englisch;deutsch;
+!unit 1;
+house;haus;
+bike;fahrrad;
+table;tisch;
+!unit 2;
+dog;hund;
+cat;katze;
+pig;schwein;
