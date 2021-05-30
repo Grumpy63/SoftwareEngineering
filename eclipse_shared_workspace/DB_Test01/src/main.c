@@ -25,7 +25,7 @@ int main(void) {
 	 * */
 
 	//stackflow code
-/*	char * buffer = 0;
+	/*char * buffer = 0;
 	long length;
 
 	if (fPointer)
@@ -43,6 +43,7 @@ int main(void) {
 
 	if (buffer)
 	{
+		printf(*buffer);
 	  // start to process your data / extract strings here...
 	}*/
 
