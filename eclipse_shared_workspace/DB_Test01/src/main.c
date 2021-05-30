@@ -17,7 +17,7 @@ int main(void) {
 
 	FILE * fPointer = NULL;
 	//fPointer = fopen("C:/Users/DDevi/Desktop/Desk.txt","r"); // Test case if only files in appdata do not work
-	fPointer = fopen("C:/Users/DDevi/AppData/Local/GitHubDesktop/app-2.8.1/SoftwareEngineering/eclipse_shared_workspace/DB_Test01/Debug/Testdokument.txt","r");
+	fPointer = fopen("C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\Datenablage\\Beispiel_Vokabelliste.txt","r");
 
 	/*Files in APP Data work too, yey
 	 *fopen returns 0 if file is not found
@@ -51,7 +51,8 @@ int main(void) {
 
 	while(!feof(fPointer)){
 		fgets(singleLine, 150, fPointer);
-		puts(singleLine);
+		//puts(singleLine);
+		printf(singleLine);
 	}
 
 	fclose(fPointer);
