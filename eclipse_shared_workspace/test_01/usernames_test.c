@@ -1,29 +1,25 @@
 /*
- * usernames.c
+ * usernames_test.c
  *
- *  Created on: 22.05.2021
- *      Author: Luca Elsesser
+ *  Created on: 31.05.2021
+ *      Author: Luca
  */
 
-
+#include "test_header.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "voc_functions.h"
+#define SEMIKOLON 59
 
-#define SEMIKOLON 59													//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
-
-
-
-struct username *username_list()
-{
+struct username *usernames(){
 
 
-	FILE *datei_users_ptr;												//FILE pointer zum öffnen der Usernames.txt Datei
+FILE *datei_users_ptr;												//FILE pointer zum öffnen der Usernames.txt Datei
 
 	int c = 0;															//Char Platzhalter zum auslesen der Datei
 	int u = 0;															//Variable benutzt in Erstellung User verkettete Liste
 	int t = 0;															//Variable für Vergleich der Nutzernamen (Merker: ist Name bereits bekannt?)
+
 
 	struct username *user_ptr = NULL;									//Pointer auf struct username um unbegrenzte Useranzahl zu realisieren
 	struct username *user_help_ptr = NULL;								//Pointer zum anlegen der Liste (festhalten des letzen users)
@@ -45,7 +41,7 @@ struct username *username_list()
 			fprintf(datei_users_ptr, ";");										//Anhängen des Semikolons in Datei Usernames.txt für Konformität
 			printf("Nutzer erfolgreich angelegt!\n");
 			printf("Ende der Erstellung von Usertext.txt\n");
-			return(entered_user_ptr);															//return 1 für neuer Nutzer erstellt
+			return(entered_user_ptr);															//return pointer auf aktuellen User
 		}
 		else																	//Wenn Datei existiert (und entsprechend schon ein User bekannt ist); alle bekannten User auflisten
 		{
@@ -118,7 +114,8 @@ struct username *username_list()
 			}
 
 
-		if(t == 0)																		//Wenn eingegebener Nutzer noch nicht existiert
+
+		if(t == 0)																		//Wenn eingegebener Nutzer noch nicht existiert, erweitere die verkettete Liste undüberschreibe die existierende Usernames.txt
 		{
 			fprintf(datei_users_ptr, entered_user_ptr->name);							//Angelegter Name wird  in Usernames.txt angehängt
 			fprintf(datei_users_ptr, ";");												//Semikolon wird angehängt
@@ -126,5 +123,8 @@ struct username *username_list()
 		}
 
 
-	return(entered_user_ptr);
+		return(entered_user_ptr);
 }
+
+
+
