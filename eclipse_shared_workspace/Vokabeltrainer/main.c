@@ -19,6 +19,10 @@ int main()
 
 
 
+	printf("Willkommen in der Main!");
+	int a = 0;
+	scanf("%d", &a);
+
 
 	return 0;
 }
