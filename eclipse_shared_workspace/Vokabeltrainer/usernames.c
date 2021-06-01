@@ -21,6 +21,7 @@ struct username *username_list()
 
 	FILE *datei_users_ptr;												//FILE pointer zum öffnen der Usernames.txt Datei
 
+	char dummy_zeichen = ' ';										//Zum einlesen von Leerzeichen
 	int c = 0;															//Char Platzhalter zum auslesen der Datei
 	int u = 0;															//Variable benutzt in Erstellung User verkettete Liste
 	int t = 0;															//Variable für Vergleich der Nutzernamen (Merker: ist Name bereits bekannt?)
@@ -40,7 +41,14 @@ struct username *username_list()
 			printf("Noch keine Nutzer bekannt! \nBitte einen neuen Nutzernamen eingeben: ");
 
 			entered_user_ptr = malloc(sizeof(struct username));					//Setze entered_user_ptr auf neu erstelltes Element (ersten User)
-			scanf("%s", entered_user_ptr->name);								//Es können noch keine Leerzeichen eingescannt werden
+
+			scanf("%[^\r\n]", entered_user_ptr->name);							//Es können auch Leerzeichen eingegeben werden
+			scanf("%c", &dummy_zeichen);										//Leeren des Puffers
+			if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+			{
+				scanf("%c", &dummy_zeichen);
+			}
+
 			fprintf(datei_users_ptr, entered_user_ptr->name);					//Eingegebenen Nutzernamen in die Datei Usernames.txt schreiben
 			fprintf(datei_users_ptr, ";");										//Anhängen des Semikolons in Datei Usernames.txt für Konformität
 			printf("Nutzer erfolgreich angelegt!\n");
@@ -59,7 +67,6 @@ struct username *username_list()
 						//ANLEGEN EINER VERKETTETEN LISTE MIT ALLEN BESTEHENDEN USER
 						while(	(c = fgetc(datei_users_ptr) ) != EOF)					//Schleife für das auflisten aller Usernames, solange nicht end of file erreicht
 								{
-
 
 									if( c != SEMIKOLON )								//Wenn KEIN Semikolon kommt
 									{
@@ -96,7 +103,12 @@ struct username *username_list()
 
 		entered_user_ptr = malloc(sizeof(struct username));											//Festlegen des Pointers für den aktuell gewählten User
 
-		scanf("%s", entered_user_ptr->name);														//Einlesen des gewählten Users
+		scanf("%[^\r\n]", entered_user_ptr->name);													//User mit Leerzeichen eingeben
+		scanf("%c", &dummy_zeichen);																//Leeren des Puffers
+		if(dummy_zeichen == '\r')																	//auch auf anderen OS (haben evtl mehr Zeichen)
+			{
+				scanf("%c", &dummy_zeichen);
+			}
 
 
 		//Es erfolgt die Überprüfung auf die Existenz (Doppelnennung) des Namens
