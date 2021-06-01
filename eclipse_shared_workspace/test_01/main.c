@@ -1,25 +1,30 @@
 /*
- * main.c
+ * usernames.c
  *
- *  Created on: 13.05.2021
- *      Author: Luca
+ *  Created on: 22.05.2021
+ *      Author: Luca Elsesser
  */
 
-#include <stdio.h>
 
-int main(void)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "test_header.h"
+
+#define SEMIKOLON 59													//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
+
+
+
+int main()
 {
 
-	setbuf(stdout, NULL);
+	struct username *aktueller_nutzer = NULL;
 
+	aktueller_nutzer = usernames();
 
+	printf("Willkommen in der Main %s", aktueller_nutzer->name);
 	int a = 0;
-
-	printf("Hello World, bitte gib eine Zahl ein: ");
-
-	scanf("%d", &a);
-
-	printf("Die Zahl lautet %d.", a);
+	scanf("%s", &a);
 
 	return 0;
 }
