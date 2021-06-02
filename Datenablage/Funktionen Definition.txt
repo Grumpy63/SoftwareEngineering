@@ -1,0 +1,11 @@
+
+
+struct username{				//Struktur zum verwalten der Nutzernamen
+	char name[256];				//Hier werden die Nutzernamen gespeichert (maximal 256 Charaktere)
+	struct username *next_user;		//Pointer auf den nächsten User für verkettete Liste
+		}
+
+struct username *username_list(); 		//Funktion gibt pointer auf struct username mit aktuellem Nutzer zurück
+				  		//indem sie den Benutzer die bestehenden Namen in der Datei Usernames.txt anzeigt
+				  		//bzw. die Datei erstellt wenn sie noch nicht besteht, und den Nutzer einen Nutzer
+				 		//auswählen bzw. neuen erstellen lässt
