@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../main.c \
-../usernames.c 
+../usernames.c \
+../verzeichnis.c 
 
 OBJS += \
 ./main.o \
-./usernames.o 
+./usernames.o \
+./verzeichnis.o 
 
 C_DEPS += \
 ./main.d \
-./usernames.d 
+./usernames.d \
+./verzeichnis.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

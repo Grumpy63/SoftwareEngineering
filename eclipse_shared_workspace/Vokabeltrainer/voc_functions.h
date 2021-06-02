@@ -43,4 +43,10 @@
 	//Ende der Definitionen für Abfrage der Vokabeln
 
 
+
+	//Definitionen für Auslesen des Verzeichnises
+
+	void verzeichnis_auslesen();										//Funktion gibt alle .txt-Dateien aus, die in dem Ordner zusammen mit der Anwendung abgelegt sind
+
+	//Ender der Definition für Auslesen des Verzeichnises
 #endif /* VOC_FUNCTIONS_H_ */
