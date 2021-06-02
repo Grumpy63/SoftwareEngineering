@@ -7,5 +7,33 @@ struct username{				//Struktur zum verwalten der Nutzernamen
 
 struct username *username_list(); 		//Funktion gibt pointer auf struct username mit aktuellem Nutzer zurück
 				  		//indem sie den Benutzer die bestehenden Namen in der Datei Usernames.txt anzeigt
+<<<<<<< Updated upstream
 				  		//bzw. die Datei erstellt wenn sie noch nicht besteht, und den Nutzer einen Nutzer
+				 		//auswählen bzw. neuen erstellen lässt				 		//auswählen bzw. neuen erstellen lässt
+=======
+				  		//bzw. die Datei erstellt wenn sie noch nicht besteht, und den Benutzer einen User
 				 		//auswählen bzw. neuen erstellen lässt
+
+
+int abfrage_richtung;				//1, 2, 3 je nach Abfrage Richtung
+int anzahl_abzufragen;				//mind. 2
+
+
+struct vokabel{
+	char vokabel_sprache1[256];
+	char vokabel_sprache2[256];
+	bool flag;
+	struct vokabel *next_vokabel;
+		}
+
+
+struct kategorie{
+	char kategorie_name[256];
+	struct vokabel *erste_vokabel;
+	int anzahl_in_kategorie;
+	struct kategorie *next_kategorie;
+		}
+
+
+struct kategorie *abzufragende_kategorie;	//Rückgabe 
+>>>>>>> Stashed changes
