@@ -24,7 +24,7 @@ int main()
 	int a = 0;
 	scanf("%d", &a);
 
-	verzeichnis_auslesen();
-
+	verzeichnis_auslesen();									//Funktionsaufruf zum Ausgeben der Vokabellisten
+	getchar();												//Nur hilfsweise um das Commandfenster offen zu halten
 	return 0;
 }
