@@ -13,6 +13,8 @@
 
 int main()
 {
+	int korrekte_vokablen = 0;								//counter für Anzahl der Korrekt eingegebenen Vokabeln
+	int *korrekte_vokabeln = &korrekte_vokablen;			//Pointer auf counter um in der Funktion die Anzahl hoch zu zählen
 
 	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
 
