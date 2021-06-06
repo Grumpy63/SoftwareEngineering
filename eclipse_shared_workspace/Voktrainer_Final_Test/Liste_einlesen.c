@@ -47,7 +47,7 @@ struct vokabel *v_alle_erste_ptr = NULL;
 
 
 
-void liste_einlesen(){
+struct kategorie *liste_einlesen(){
 	setbuf(stdout, NULL);
 	printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	scanf("%c", listenname);
