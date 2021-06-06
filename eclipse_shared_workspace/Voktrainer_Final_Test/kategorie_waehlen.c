@@ -5,4 +5,8 @@
  *      Author: David
  */
 
-
+#include <string.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include "header.h"
