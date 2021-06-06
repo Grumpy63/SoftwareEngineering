@@ -79,7 +79,7 @@ void liste_einlesen(){
 		  }
 		  while((c = fgetc(datei_liste_ptr)) != EOF)																//Zeichenweises Auslesen der Datei
 	      {
-	    	  //Es ist mindestens eine Kategorie vorhanden
+	    	  //Einlesen für den Fall, dass es mindestens eine Kategorie im Dokument gibt
 	    	  if(Flagge_Kategorie_mind == true)
 	    	  {
 	    		  //Beginn einer Kategorie
@@ -93,7 +93,7 @@ void liste_einlesen(){
 					  free(k_help_ptr);
 					  continue;																							//Der nächste Durchlauf der while-Schleife beginnt
 				  }
-				  //Einlesen einer Kategorie
+				  //Einlesen eines Kategorie-Namens
 				  if(Flagge_Kategorie == true && c != ';')
 				  {
 					  k_ptr->kategorie_name[array_position_kategorie] = c;
@@ -108,7 +108,7 @@ void liste_einlesen(){
 					  array_position_kategorie = 0;																				//Die array_position zurückgesetzt für eine mögliche nächste Kategorie
 					  continue;																							//Der nächste Durchlauf der while-schleife getriggert
 				  }
-				  //Allokieren erster struct vokabel
+				  //Allokieren struct vokabel
 				  if((Flagge_Semikolon0 == true && c != ';') || (Flagge_Vokabelpaar == true && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
 				  {
 					  v_alle_help_ptr = malloc(sizeof(struct vokabel));
@@ -117,21 +117,26 @@ void liste_einlesen(){
 					  v_help_ptr = malloc(sizeof(struct vokabel));
 					  v_ptr = v_help_ptr;
 					  free(v_help_ptr);
+					  k_ptr->anzahl_in_kategorie++;
+					  k_alle_ptr->anzahl_in_kategorie++;
 					  Flagge_Vokabel_allokiert = true;
 					  Flagge_Semikolon0 = false;
 					  Flagge_Vokabelpaar = false;
 				  }
+				  //Ende der Sprache1
 				  if(Flagge_Vokabel_allokiert == true && c == ';')
 				  {
 					  Flagge_Semikolon1 = true;
 					  array_position_vokabel = 0;
 				  }
+				  //Einlesen von Sprache1
 				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == false)
 				  {
 					  v_alle_ptr->vokabel_sprache1[array_position_vokabel] = c;
 					  v_ptr->vokabel_sprache1[array_position_vokabel] =c;
 					  array_position_vokabel++;
 				  }
+				  //Ende der Sprache2
 				  if(Flagge_Semikolon1 == true && c == ';')
 				  {
 					  Flagge_Semikolon2 = true;
@@ -140,8 +145,8 @@ void liste_einlesen(){
 					  Flagge_Vokabelpaar = true;
 					  v_alle_ptr = v_alle_ptr->next_vokabel;
 					  v_ptr = v_ptr->next_vokabel;
-
 				  }
+				  //Einlesen von Sprache2
 				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == true)
 				  {
 					  v_alle_ptr->vokabel_sprache2[array_position_vokabel] = c;
@@ -149,15 +154,51 @@ void liste_einlesen(){
 					  array_position_vokabel++;
 				  }
 	    	  	  }
-	    	  else{
+	    	  //Einlesen für den Fall, dass es keine weitere Kategorie im Dokument gibt
+	    	  else if(Flagge_Kategorie_mind == false)
+	    	  {
 
+	    		  //Allokieren struct vokabel
+				  if((Flagge_Vokabelpaar == true && c != ';') || (Flagge_Vokabel_allokiert == false && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
+				  {
+					  v_alle_help_ptr = malloc(sizeof(struct vokabel));
+					  v_alle_ptr = v_alle_help_ptr;
+					  free(v_alle_help_ptr);
+					  k_alle_ptr->anzahl_in_kategorie++;
+					  Flagge_Vokabel_allokiert = true;
+					  Flagge_Vokabelpaar = false;
+				  }
+				  //Ende der Sprache1
+				  if(Flagge_Vokabel_allokiert == true && c == ';')
+				  {
+					  Flagge_Semikolon1 = true;
+					  array_position_vokabel = 0;
+				  }
+				  //Einlesen von Sprache1
+				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == false)
+				  {
+					  v_alle_ptr->vokabel_sprache1[array_position_vokabel] = c;
+					  v_ptr->vokabel_sprache1[array_position_vokabel] =c;
+					  array_position_vokabel++;
+				  }
+				  //Ende der Sprache2
+				  if(Flagge_Semikolon1 == true && c == ';')
+				  {
+					  Flagge_Semikolon2 = true;
+					  Flagge_Semikolon1 = false;
+					  Flagge_Vokabel_allokiert = false;
+					  Flagge_Vokabelpaar = true;
+					  v_alle_ptr = v_alle_ptr->next_vokabel;
+					  v_ptr = v_ptr->next_vokabel;
+				  }
+				  //Einlesen von Sprache2
+				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == true)
+				  {
+					  v_alle_ptr->vokabel_sprache2[array_position_vokabel] = c;
+					  v_ptr->vokabel_sprache2[array_position_vokabel] =c;
+					  array_position_vokabel++;
+				  }
 	    	  }
-	    		  //Auslesen bis ";" und Abspeichern in einem Char Kategorie_Name
-	    		  //new struct Kategorie mit dem gespeicherten Char Kategorie_Name
-	    		  //Auslesen bis ";" und speichern in Vokabel_temp
-	    		  //new struct Vokabel und speichern in Sprache1
-	    		  //Auslesen bis ";" und speichern in Vokabel_temp
-	    		  //Speichern in Sprache2
 	      }
 	}
 }
