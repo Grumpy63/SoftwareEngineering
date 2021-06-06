@@ -20,5 +20,6 @@ int main(){
 
 	maximale_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
 
+	getchar();
 	return(0);
 }
