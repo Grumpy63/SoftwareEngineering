@@ -12,42 +12,43 @@
 #include <stdbool.h>
 #include "header.h"
 
-
-FILE *datei_liste_ptr;
-
-char dummy_zeichen = ' ';
-char listenname[256];
-char c;
-bool Flagge_Kategorie = false;
-bool Flagge_Kategorie_mind = false;
-bool Flagge_Semikolon0 = false;
-bool Flagge_Semikolon1 = false;
-bool Flagge_Semikolon2 = false;
-bool Flagge_Vokabelpaar = false;
-bool Flagge_Vokabel_allokiert = false;
-int array_position_kategorie = 0;
-int array_position_vokabel = 0;
-
-struct kategorie *k_ptr = NULL;
-struct kategorie *k_help_ptr = NULL;
-
-//Pointer für die Alle Vokabeln Liste
-struct kategorie *k_alle_erste_ptr = NULL;
-struct kategorie *k_alle_ptr = NULL;
-struct kategorie *k_alle_help_ptr = NULL;
-
-struct vokabel *v_ptr = NULL;
-struct vokabel *v_help_ptr = NULL;
-struct vokabel *v_erste_ptr = NULL;
-
-//Pointer für die Alle Vokabeln Liste
-struct vokabel *v_alle_ptr = NULL;
-struct vokabel *v_alle_help_ptr = NULL;
-struct vokabel *v_alle_erste_ptr = NULL;
-
-
-
 struct kategorie *liste_einlesen(){
+
+	FILE *datei_liste_ptr;
+
+	char dummy_zeichen = ' ';
+	char listenname[256];
+	char c;
+	bool Flagge_Kategorie = false;
+	bool Flagge_Kategorie_mind = false;
+	bool Flagge_Semikolon0 = false;
+	bool Flagge_Semikolon1 = false;
+	bool Flagge_Semikolon2 = false;
+	bool Flagge_Vokabelpaar = false;
+	bool Flagge_Vokabel_allokiert = false;
+	int array_position_kategorie = 0;
+	int array_position_vokabel = 0;
+
+	struct kategorie *k_ptr = NULL;
+	struct kategorie *k_help_ptr = NULL;
+
+	//Pointer für die Alle Vokabeln Liste
+	struct kategorie *k_alle_erste_ptr = NULL;
+	struct kategorie *k_alle_ptr = NULL;
+	struct kategorie *k_alle_help_ptr = NULL;
+
+	struct vokabel *v_ptr = NULL;
+	struct vokabel *v_help_ptr = NULL;
+	struct vokabel *v_erste_ptr = NULL;
+
+	//Pointer für die Alle Vokabeln Liste
+	struct vokabel *v_alle_ptr = NULL;
+	struct vokabel *v_alle_help_ptr = NULL;
+	struct vokabel *v_alle_erste_ptr = NULL;
+
+
+
+
 	setbuf(stdout, NULL);
 	printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	scanf("%c", listenname);
@@ -201,6 +202,7 @@ struct kategorie *liste_einlesen(){
 	    	  }
 	      }
 	}
+	return(k_alle_erste_ptr);
 }
 
 

@@ -10,8 +10,10 @@
 
 
 int main(){
+
 	verzeichnis_auslesen();
 
+	kategorie_waehlen(liste_einlesen());
 
 	return(0);
 }
