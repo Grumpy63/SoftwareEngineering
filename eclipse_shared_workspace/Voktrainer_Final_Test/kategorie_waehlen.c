@@ -19,12 +19,12 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 	setbuf(stdout, NULL);
 	if(k_alle_erste_ptr->next_kategorie == NULL)
 	{
-		printf("Kategorie %c wird abgefragt.", k_alle_erste_ptr->kategorie_name);
+		printf("Kategorie %s wird abgefragt.", k_alle_erste_ptr->kategorie_name);
 		return(k_alle_erste_ptr);
 	}
 	else if(k_alle_erste_ptr->next_kategorie->next_kategorie == NULL)
 	{
-		printf("Kategorie %c wird abgefragt.", k_alle_erste_ptr->next_kategorie->kategorie_name);
+		printf("Kategorie %s wird abgefragt.", k_alle_erste_ptr->next_kategorie->kategorie_name);
 		return(k_alle_erste_ptr->next_kategorie);
 	}
 
@@ -34,7 +34,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 
 	while(rueckgabe_help_ptr != NULL)
 	{
-		printf("(%d) %c\n", i, rueckgabe_help_ptr->kategorie_name);
+		printf("(%d) %s\n", i, rueckgabe_help_ptr->kategorie_name);
 		i++;
 		rueckgabe_help_ptr = rueckgabe_help_ptr->next_kategorie;
 	}
