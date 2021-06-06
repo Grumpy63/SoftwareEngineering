@@ -25,7 +25,7 @@ bool Flagge_Semikolon1 = false;
 bool Flagge_Semikolon2 = false;
 bool Flagge_Sprache1 = false;
 bool Flagge_Sprache2 = false;
-bool Flagge_erste_Vokabelpaar = false;
+bool Flagge_Vokabelpaar = false;
 bool Flagge_erste_Vokabel_allokiert = false;
 bool Flagge_Vokabel_allokiert = false;
 int array_position_kategorie = 0;
@@ -89,6 +89,7 @@ void liste_einlesen(){
 				  if(c == '!')																							//Wenn ausgelesenes Zeichen ein !, dann
 				  {
 					  Flagge_Kategorie = true;																			//Flagge_Kategorie speichert das Auftreten einer neuen Kategorie
+					  Flagge_Vokabelpaar = false;
 					  k_help_ptr = malloc(sizeof(struct kategorie));											//Speicherplatz für eine neue Kategorie wird allokiert
 					  k_ptr->next_kategorie = k_help_ptr;																		//Der Next pointer der vorherigen Kategorie wird auf den Speicher der neu allkoierten Kategorie gesetzt
 					  k_ptr = k_ptr->next_kategorie;
@@ -111,13 +112,48 @@ void liste_einlesen(){
 					  continue;																							//Der nächste Durchlauf der while-schleife getriggert
 				  }
 				  //Allokieren erster struct vokabel
-				  if(Flagge_Semikolon0 == true && c != ';') 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
+				  if((Flagge_Semikolon0 == true && c != ';') || (Flagge_Vokabelpaar == true && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
 				  {
+					  v_alle_help_ptr = malloc(sizeof(struct vokabel));
+					  v_alle_ptr = v_alle_help_ptr;
+					  free(v_alle_help_ptr);
+					  v_help_ptr = malloc(sizeof(struct vokabel));
+					  v_ptr = v_help_ptr;
+					  free(v_help_ptr);
+					  Flagge_Vokabel_allokiert = true;
+					  Flagge_Semikolon0 = false;
+					  Flagge_Vokabelpaar = false;
+				  }
+				  if(Flagge_Vokabel_allokiert == true && c == ';')
+				  {
+					  Flagge_Semikolon1 = true;
+					  array_position_vokabel = 0;
+				  }
+				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == false)
+				  {
+					  v_alle_ptr->vokabel_sprache1[array_position_vokabel] = c;
+					  v_ptr->vokabel_sprache1[array_position_vokabel] =c;
+					  array_position_vokabel++;
+				  }
+				  if(Flagge_Semikolon1 == true && c == ';')
+				  {
+					  Flagge_Semikolon2 = true;
+					  Flagge_Semikolon1 = false;
+					  Flagge_Vokabel_allokiert = false;
+					  Flagge_Vokabelpaar = true;
+					  v_alle_ptr = v_alle_ptr->next_vokabel;
+					  v_ptr = v_ptr->next_vokabel;
 
+				  }
+				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == true)
+				  {
+					  v_alle_ptr->vokabel_sprache2[array_position_vokabel] = c;
+					  v_ptr->vokabel_sprache2[array_position_vokabel] =c;
+					  array_position_vokabel++;
 				  }
 				  //Speichern erste Vokabel Sprache1
 
-	    	  }
+	    	  	  }
 	    	  else{
 
 	    	  }
