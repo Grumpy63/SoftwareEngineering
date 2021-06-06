@@ -6,17 +6,23 @@
 C_SRCS += \
 ../Liste_einlesen.c \
 ../Main.c \
-../verzeichnis.c 
+../kategorie_waehlen.c \
+../verzeichnis.c \
+../vokabelzahl_feststellen.c 
 
 OBJS += \
 ./Liste_einlesen.o \
 ./Main.o \
-./verzeichnis.o 
+./kategorie_waehlen.o \
+./verzeichnis.o \
+./vokabelzahl_feststellen.o 
 
 C_DEPS += \
 ./Liste_einlesen.d \
 ./Main.d \
-./verzeichnis.d 
+./kategorie_waehlen.d \
+./verzeichnis.d \
+./vokabelzahl_feststellen.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
