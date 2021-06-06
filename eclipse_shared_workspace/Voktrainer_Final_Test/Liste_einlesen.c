@@ -23,10 +23,7 @@ bool Flagge_Kategorie_mind = false;
 bool Flagge_Semikolon0 = false;
 bool Flagge_Semikolon1 = false;
 bool Flagge_Semikolon2 = false;
-bool Flagge_Sprache1 = false;
-bool Flagge_Sprache2 = false;
 bool Flagge_Vokabelpaar = false;
-bool Flagge_erste_Vokabel_allokiert = false;
 bool Flagge_Vokabel_allokiert = false;
 int array_position_kategorie = 0;
 int array_position_vokabel = 0;
@@ -151,8 +148,6 @@ void liste_einlesen(){
 					  v_ptr->vokabel_sprache2[array_position_vokabel] =c;
 					  array_position_vokabel++;
 				  }
-				  //Speichern erste Vokabel Sprache1
-
 	    	  	  }
 	    	  else{
 
