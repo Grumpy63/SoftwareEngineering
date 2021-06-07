@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Liste_einlesen.c \
+../Liste_einlesen_alt.c \
 ../Main.c \
 ../kategorie_waehlen.c \
 ../verzeichnis.c \
@@ -12,6 +13,7 @@ C_SRCS += \
 
 OBJS += \
 ./Liste_einlesen.o \
+./Liste_einlesen_alt.o \
 ./Main.o \
 ./kategorie_waehlen.o \
 ./verzeichnis.o \
@@ -19,6 +21,7 @@ OBJS += \
 
 C_DEPS += \
 ./Liste_einlesen.d \
+./Liste_einlesen_alt.d \
 ./Main.d \
 ./kategorie_waehlen.d \
 ./verzeichnis.d \

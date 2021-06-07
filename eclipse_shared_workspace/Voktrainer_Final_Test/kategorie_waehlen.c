@@ -14,7 +14,8 @@
 struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 {
 	struct kategorie *rueckgabe_help_ptr = NULL;
-	int i, a = 1;
+	int i = 1;
+	int a = 1;
 
 	setbuf(stdout, NULL);
 	if(k_alle_erste_ptr->next_kategorie == NULL)
