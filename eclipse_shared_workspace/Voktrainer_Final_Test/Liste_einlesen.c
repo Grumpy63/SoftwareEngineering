@@ -60,37 +60,37 @@ struct kategorie *liste_einlesen(){
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
 	}
 	}while(datei_vorlage_ptr == NULL);
-	
-	
-	
-	while(c != EOF)															
+
+
+
+	while(c != EOF)
 	{
 		c = fgetc(datei_vorlage_ptr);
-		
-		
+
+
 		if(c == '!')
 		{
 		  Flagge_Kategorie_mind = true;
 		  break;
 		}
-		
+
 	}
 
 	fseek(datei_vorlage_ptr, 0, SEEK_SET);
 
 	if(Flagge_Kategorie_mind == true){
-		
-		  while(c != EOF)																
+
+		  while(c != EOF)
 	      {
 			  //Nächstes Zeichen auslesen
 	    	  c = fgetc(datei_vorlage_ptr);
-	    	  
+
 	    	  //Zeilenbrüche raustrennen
 	    	  if(c == '\r' || c =='\n' || c == EOF)
 	    	  {
 	    		  continue;
 	    	  }
-	    	  
+
 			  //Beginn einer neuen Kategorie
 			  if(c == '!')
 			  {
@@ -108,7 +108,7 @@ struct kategorie *liste_einlesen(){
 
 				  continue;
 			  }
-				  
+
 			  //Einlesen eines Kategorie-Namens
 			  if(Flagge_Neue_Kategorie == true)
 			  {
@@ -173,7 +173,7 @@ struct kategorie *liste_einlesen(){
 
 	    	}//While: dokument auslesen zuende
 
-	    	 
+
 	}//if: kategorien vorhanden zuende
 
 	else{
@@ -235,7 +235,7 @@ struct kategorie *liste_einlesen(){
 		}//Ende While EOF fürt alle vok
 		return(alle_kategorien_ptr);
 	}//Ende else für abfrage ob !kategorie
-	      
+
 
 
 	//Eine Gesamt-Kategorie erschaffen.

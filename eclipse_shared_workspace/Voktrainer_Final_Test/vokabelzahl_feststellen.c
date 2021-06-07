@@ -16,10 +16,10 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 	int anzahl = 0;
 
 	setbuf(stdout, NULL);
-	printf("\nDie abzufragende Kategorie \"%s\" enthï¿½lt %d Vokabeln.\n\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
-	printf("Mï¿½chten Sie ï¿½ber:\n");
+	printf("\nDie abzufragende Kategorie \"%s\" enhält %d Vokabeln.\n\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
+	printf("Möchten Sie über:\n");
 	printf("(1) alle Vokabeln abgefragt werden oder\n");
-	printf("(2) nur ï¿½ber eine bestimmte Anzahl abgefragt werden?\n");
+	printf("(2) nur über eine bestimmte Anzahl abgefragt werden?\n");
 	while(1)
 	{
 		scanf("%d", &x);
@@ -31,11 +31,11 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 		{
 			while(1)
 			{
-				printf("Wie viele Vokabeln mï¿½chten Sie abgefragt werden?:\n");
+				printf("Wie viele Vokabeln möchten Sie abgefragt werden?:\n");
 				scanf("%d", &anzahl);
 				if(anzahl <= 0 || anzahl > abzufragende_kategorie->anzahl_in_kategorie)
 				{
-					printf("Die Eingabe ist ungï¿½ltig.\n");
+					printf("Die Eingabe ist ungültig.\n");
 
 				}
 				else
@@ -46,7 +46,7 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 
 		}
 		else{
-			printf("Die Eingabe ist ungï¿½ltig bitte geben Sie Ihre Auswahl erneut ein.\n");
+			printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");
 
 		}
 

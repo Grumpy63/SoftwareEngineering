@@ -5,7 +5,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Liste_einlesen.c \
-../Liste_einlesen_alt.c \
 ../Main.c \
 ../kategorie_waehlen.c \
 ../verzeichnis.c \
@@ -13,7 +12,6 @@ C_SRCS += \
 
 OBJS += \
 ./Liste_einlesen.o \
-./Liste_einlesen_alt.o \
 ./Main.o \
 ./kategorie_waehlen.o \
 ./verzeichnis.o \
@@ -21,7 +19,6 @@ OBJS += \
 
 C_DEPS += \
 ./Liste_einlesen.d \
-./Liste_einlesen_alt.d \
 ./Main.d \
 ./kategorie_waehlen.d \
 ./verzeichnis.d \
@@ -29,10 +26,10 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+%.o: ../%.c subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cygwin C Compiler'
-	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
