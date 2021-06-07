@@ -14,224 +14,253 @@
 
 struct kategorie *liste_einlesen(){
 
-	FILE *datei_liste_ptr;
+	FILE *datei_vorlage_ptr;
 
-	char dummy_zeichen = ' ';
-	char listenname[256];
 	char c;
-	bool Flagge_Kategorie = false;
+
+	bool Flagge_Neue_Kategorie = false;
 	bool Flagge_Kategorie_mind = false;
-	bool Flagge_Semikolon0 = false;
-	bool Flagge_Semikolon1 = false;
-	bool Flagge_Semikolon2 = false;
-	bool Flagge_Vokabelpaar = false;
-	bool Flagge_Vokabel_allokiert = false;
-	bool Flagge_erste_Vokabel_allokiert = false;
-	bool Flagge_erste_Vokabel_alle_allokiert = false;
+
+	bool Flagge_Vokabelpaar_beschreibbar = false;
+	bool Flagge_Kategorie_befuellbar = false;
+
+	bool Flagge_Vokabel1_vorhanden = false;
+	bool Flagge_Vokabel2_vorhanden = false;
+
+
+	bool Flagge_aktuelles_Vokablpaar = false;
+
+	bool Flagge_alleVokabel1_fertig = false;
+
 	int array_position_kategorie = 0;
 	int array_position_vokabel = 0;
 
-	struct kategorie *k_ptr = NULL;
-	struct kategorie *k_help_ptr = NULL;
 
-	//Pointer für die Alle Vokabeln Liste
-	struct kategorie *k_alle_erste_ptr = NULL;
-	struct kategorie *k_alle_ptr = NULL;
-	struct kategorie *k_alle_help_ptr = NULL;
+	struct kategorie * alle_kategorien_ptr = NULL;
+	struct vokabel * alle_vokablen_ende_ptr = NULL;
 
-	struct vokabel *v_ptr = NULL;
-	struct vokabel *v_help_ptr = NULL;
-	struct vokabel *v_erste_ptr = NULL;
+	struct kategorie * erste_kategorie_ptr = NULL;
+	struct kategorie * ende_kategorie_ptr = NULL;
+	struct vokabel * ende_vokabel_ptr = NULL;
 
-	//Pointer für die Alle Vokabeln Liste
-	struct vokabel *v_alle_ptr = NULL;
-	struct vokabel *v_alle_help_ptr = NULL;
-	struct vokabel *v_alle_erste_ptr = NULL;
+	struct vokabel * vokabel_laeufer_ptr = NULL;
+	struct kategorie * kategorie_laeufer_ptr = NULL;
 
 
-
-
+	do{
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	//scanf("%c", &listenname);
-	datei_liste_ptr = fopen("C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Release\\Beispiel_Vokabelliste.txt", "r");
-	if(datei_liste_ptr == NULL)
+	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste4.txt", "r");
+	//datei_counter_ptr = datei_vorlage_ptr;
+	if(datei_vorlage_ptr == NULL)
 	{
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
 	}
-	else{
-		  k_alle_erste_ptr = malloc(sizeof(struct kategorie));													//Speicher für erste Kategorie wird allokiert und dem Pointer kategorie_erste_ptr zugewiesen
-		  k_alle_erste_ptr->next_kategorie = NULL;
-		  k_ptr = k_alle_erste_ptr;
-		  v_alle_erste_ptr = k_alle_erste_ptr->erste_vokabel;
-		  v_alle_ptr = k_alle_erste_ptr->erste_vokabel;
+	}while(datei_vorlage_ptr == NULL);
+	
+	
+	
+	while(c != EOF)															
+	{
+		c = fgetc(datei_vorlage_ptr);
+		
+		
+		if(c == '!')
+		{
+		  Flagge_Kategorie_mind = true;
+		  break;
+		}
+		
+	}
 
-		  if(k_alle_erste_ptr == NULL)																			//Wenn Pointer kategorie_erste_ptr gleich NULL konnte kein Speicher allokiert werden
-		  {
-			  printf("Kein virtueller RAM zum Allokieren einer weiteren Kategorie mehr verfügbar.\n");
-			  exit(1);
-		  }
-		  strcpy(k_alle_erste_ptr->kategorie_name ,"Alle Vokabeln");													//Der Name der ersten Liste (mit allen Voikabeln) wird auf Alle Vokablen festgelegt
-		  while(c != EOF)																//Zeichenweises Auslesen der Datei
-		  {
-			  c = fgetc(datei_liste_ptr);
-			  if(c == '!')
-			  {
-				  Flagge_Kategorie_mind = true;
-				  break;
-			  }
-		  }
-		  while(c != EOF)																//Zeichenweises Auslesen der Datei
+	fseek(datei_vorlage_ptr, 0, SEEK_SET);
+
+	if(Flagge_Kategorie_mind == true){
+		
+		  while(c != EOF)																
 	      {
-	    	  c = fgetc(datei_liste_ptr);
-	    	  if(c == '\r' || '\n')
+			  //Nächstes Zeichen auslesen
+	    	  c = fgetc(datei_vorlage_ptr);
+	    	  
+	    	  //Zeilenbrüche raustrennen
+	    	  if(c == '\r' || c =='\n' || c == EOF)
 	    	  {
 	    		  continue;
 	    	  }
-	    	  //Einlesen für den Fall, dass es mindestens eine Kategorie im Dokument gibt
-	    	  if(Flagge_Kategorie_mind == true)
-	    	  {
-	    		  //Beginn einer Kategorie
-				  if(c == '!')																							//Wenn ausgelesenes Zeichen ein !, dann
-				  {
-					  Flagge_erste_Vokabel_allokiert = false;
-					  Flagge_Kategorie = true;																			//Flagge_Kategorie speichert das Auftreten einer neuen Kategorie
-					  Flagge_Vokabelpaar = false;
-					  k_ptr->next_kategorie = malloc(sizeof(struct kategorie));											//Speicherplatz für eine neue Kategorie wird allokiert
-					  k_ptr = k_ptr->next_kategorie;
-					  continue;																							//Der nächste Durchlauf der while-Schleife beginnt
-				  }
-				  //Einlesen eines Kategorie-Namens
-				  if(Flagge_Kategorie == true && c != ';')
-				  {
-					  k_ptr->kategorie_name[array_position_kategorie] = c;
-					  array_position_kategorie++;
-					  continue;
-				  }
-				  //Ende einer Kategorie
-				  if(Flagge_Kategorie == true && c == ';')																//Wenn eine Kategorie detektiert wurde und das eingelesene Zeichen ein Semikolon ist, dann
-				  {
-					  Flagge_Kategorie = false;																			//Wird die Flagge_Kategorie zurükgesetzt
-					  Flagge_Semikolon0 = true;																			//Das Ende der Kategorie wurde detektiert und dieser Zustand wird in der Flagge_Semikolon0 gespeichert
-					  array_position_kategorie = 0;																				//Die array_position zurückgesetzt für eine mögliche nächste Kategorie
-					  continue;																							//Der nächste Durchlauf der while-schleife getriggert
-				  }
-				  //Allokieren struct vokabel erstes Vokabelpaar einer Kategorie
-				  if((Flagge_erste_Vokabel_allokiert == false && Flagge_Semikolon0 == true && c != ';') || (Flagge_Vokabelpaar == true && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
-				  {
-					  k_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
-					  v_ptr = k_ptr->erste_vokabel;
-					  if(Flagge_erste_Vokabel_alle_allokiert == false)
-					  {
-						  k_alle_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
-						  v_alle_ptr = k_alle_ptr->erste_vokabel;
-						  Flagge_erste_Vokabel_alle_allokiert = true;
-					  }
-					  else
-					  {
-						  v_alle_ptr->next_vokabel = malloc(sizeof(struct vokabel));
-						  v_alle_ptr = v_alle_ptr->next_vokabel;
-					  }
-					  k_ptr->anzahl_in_kategorie++;
-					  k_alle_ptr->anzahl_in_kategorie++;
-					  Flagge_Vokabel_allokiert = true;
-					  Flagge_Semikolon0 = false;
-					  Flagge_Vokabelpaar = false;
-				  }
-				  //Allokieren struct vokabel nachfolgenden Vokabelpaare einer Kategorie
-				  if((Flagge_erste_Vokabel_allokiert == true && Flagge_Semikolon0 == true && c != ';') || (Flagge_Vokabelpaar == true && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
-				  {
-					  v_ptr->next_vokabel = malloc(sizeof(struct vokabel));
-					  v_ptr = v_ptr->next_vokabel;
-					  v_alle_ptr->next_vokabel = malloc(sizeof(struct vokabel));
-					  v_alle_ptr = v_alle_ptr->next_vokabel;
-					  k_ptr->anzahl_in_kategorie++;
-					  k_alle_ptr->anzahl_in_kategorie++;
-					  Flagge_Vokabel_allokiert = true;
-					  Flagge_Semikolon0 = false;
-					  Flagge_Vokabelpaar = false;
-					  Flagge_erste_Vokabel_allokiert = true;
-				  }
-				  //Ende der Sprache1
-				  if(Flagge_Vokabel_allokiert == true && c == ';' && Flagge_Semikolon1 == false)
-				  {
-					  Flagge_Semikolon1 = true;
-					  array_position_vokabel = 0;
-					  continue;
-				  }
-				  //Einlesen von Sprache1
-				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == false)
-				  {
-					  v_alle_ptr->vokabel_sprache1[array_position_vokabel] = c;
-					  v_ptr->vokabel_sprache1[array_position_vokabel] =c;
-					  array_position_vokabel++;
-				  }
-				  //Ende der Sprache2
-				  if(Flagge_Semikolon1 == true && c == ';')
-				  {
-					  Flagge_Semikolon2 = true;
-					  Flagge_Semikolon1 = false;
-					  Flagge_Vokabel_allokiert = false;
-					  Flagge_Vokabelpaar = true;
-					  Flagge_erste_Vokabel_allokiert = true;
-				  }
-				  //Einlesen von Sprache2
-				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == true)
-				  {
-					  v_alle_ptr->vokabel_sprache2[array_position_vokabel] = c;
-					  v_ptr->vokabel_sprache2[array_position_vokabel] =c;
-					  array_position_vokabel++;
-				  }
-	    	  	  }
-	    	  //Einlesen für den Fall, dass es keine weitere Kategorie im Dokument gibt
-	    	  else if(Flagge_Kategorie_mind == false)
-	    	  {
+	    	  
+			  //Beginn einer neuen Kategorie
+			  if(c == '!')
+			  {
+				  Flagge_Neue_Kategorie = true;
+				  Flagge_Kategorie_befuellbar = false;
 
-	    		  //Allokieren struct vokabel
-				  if((Flagge_Vokabelpaar == true && c != ';') || (Flagge_Vokabel_allokiert == false && c != ';')) 															//Wenn das Ende einer Kategorie erreicht ist und das eingelesene Zeichen kein Semikolon ist, dann
-				  {
-					  v_alle_help_ptr = malloc(sizeof(struct vokabel));
-					  v_alle_ptr = v_alle_help_ptr;
-					  free(v_alle_help_ptr);
-					  k_alle_ptr->anzahl_in_kategorie++;
-					  Flagge_Vokabel_allokiert = true;
-					  Flagge_Vokabelpaar = false;
+				  if(erste_kategorie_ptr == NULL){
+					  erste_kategorie_ptr = malloc(sizeof(struct kategorie));
+					  ende_kategorie_ptr = erste_kategorie_ptr;
 				  }
-				  //Ende der Sprache1
-				  if(Flagge_Vokabel_allokiert == true && c == ';')
+				  else{
+					  ende_kategorie_ptr->next_kategorie = malloc(sizeof(struct kategorie));
+					  ende_kategorie_ptr = ende_kategorie_ptr->next_kategorie;
+				  }
+
+				  continue;
+			  }
+				  
+			  //Einlesen eines Kategorie-Namens
+			  if(Flagge_Neue_Kategorie == true)
+			  {
+
+				  if(c == ';')
 				  {
-					  Flagge_Semikolon1 = true;
+					  Flagge_Neue_Kategorie = false;
+					  Flagge_Kategorie_befuellbar = true;
+					  array_position_kategorie = 0;
+					  continue;
+				  }
+				  ende_kategorie_ptr->kategorie_name[array_position_kategorie] = c;
+				  array_position_kategorie++;
+				  continue;
+			  }
+
+			  //Neues Vokabelpaar anzulegen
+			  if(Flagge_Vokabelpaar_beschreibbar == false && Flagge_Kategorie_befuellbar == true){
+				  Flagge_Vokabel1_vorhanden = false;
+				  Flagge_Vokabel2_vorhanden = false;
+
+				  if(ende_kategorie_ptr->erste_vokabel == NULL){
+					  ende_kategorie_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
+					  ende_vokabel_ptr = ende_kategorie_ptr->erste_vokabel;
+				  }
+				  else{
+					  ende_vokabel_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+					  ende_vokabel_ptr = ende_vokabel_ptr->next_vokabel;
+				  }
+				  ende_kategorie_ptr->anzahl_in_kategorie++;
+				  Flagge_Vokabelpaar_beschreibbar = true;
+			  }
+
+			  //Vokabel eins vorhanden
+			  if(Flagge_Vokabel1_vorhanden == false && Flagge_Vokabelpaar_beschreibbar == true){
+
+				  if(c == ';')
+				  {
+					  Flagge_Vokabel1_vorhanden = true;
 					  array_position_vokabel = 0;
+					  continue;
 				  }
-				  //Einlesen von Sprache1
-				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == false)
+				  ende_vokabel_ptr->vokabel_sprache1[array_position_vokabel] = c;
+				  array_position_vokabel++;
+				  continue;
+			  }
+
+			  //Vokabel zwei vorhanden
+			  if(Flagge_Vokabel2_vorhanden == false && Flagge_Vokabelpaar_beschreibbar == true){
+
+				  if(c == ';')
 				  {
-					  v_alle_ptr->vokabel_sprache1[array_position_vokabel] = c;
-					  v_ptr->vokabel_sprache1[array_position_vokabel] =c;
-					  array_position_vokabel++;
+					  Flagge_Vokabel2_vorhanden = true;
+					  Flagge_Vokabelpaar_beschreibbar = false;
+					  array_position_vokabel = 0;
+					  continue;
 				  }
-				  //Ende der Sprache2
-				  if(Flagge_Semikolon1 == true && c == ';')
-				  {
-					  Flagge_Semikolon2 = true;
-					  Flagge_Semikolon1 = false;
-					  Flagge_Vokabel_allokiert = false;
-					  Flagge_Vokabelpaar = true;
-					  v_alle_ptr = v_alle_ptr->next_vokabel;
-					  v_ptr = v_ptr->next_vokabel;
-				  }
-				  //Einlesen von Sprache2
-				  if(Flagge_Vokabel_allokiert == true && Flagge_Semikolon1 == true)
-				  {
-					  v_alle_ptr->vokabel_sprache2[array_position_vokabel] = c;
-					  v_ptr->vokabel_sprache2[array_position_vokabel] =c;
-					  array_position_vokabel++;
-				  }
+				  ende_vokabel_ptr->vokabel_sprache2[array_position_vokabel] = c;
+				  array_position_vokabel++;
+				  continue;
+			  }
+
+	    	}//While: dokument auslesen zuende
+
+	    	 
+	}//if: kategorien vorhanden zuende
+
+	else{
+		  while(c != EOF)
+	      {
+			  //Nächstes Zeichen auslesen
+	    	  c = fgetc(datei_vorlage_ptr);
+
+	    	  //Zeilenbrüche raustrennen
+	    	  if(c == '\r' || c =='\n' || c == EOF)
+	    	  {
+	    		  continue;
 	    	  }
-	      }
-	}
-	return(k_alle_erste_ptr);
-}
+
+	    	  //Einzige Erste Kategorie/Vokabel anlegen
+	    	  if(alle_kategorien_ptr == NULL){
+	    		  alle_kategorien_ptr = malloc(sizeof(struct kategorie));
+	    		  strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
+
+	    		  alle_kategorien_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
+	    		  alle_vokablen_ende_ptr =  alle_kategorien_ptr->erste_vokabel;
+	    		  Flagge_aktuelles_Vokablpaar = true;
+	    	  }
+
+	    	  //Vokabel 1
+	    	  if(Flagge_alleVokabel1_fertig == false){
+
+	    		  if(Flagge_aktuelles_Vokablpaar == false){
+	    			  alle_vokablen_ende_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+	    			  alle_vokablen_ende_ptr = alle_vokablen_ende_ptr->next_vokabel;
+	    			  Flagge_aktuelles_Vokablpaar = true;
+	    		  }
+
+	    		  if(c == ';'){
+	    			  Flagge_alleVokabel1_fertig = true;
+	    			  continue;
+	    		  }
+	    		  alle_vokablen_ende_ptr->vokabel_sprache1[array_position_vokabel] = c;
+	    		  array_position_vokabel++;
+	    	  }
+
+	    	  //Vokabel 2
+	    	  if(Flagge_alleVokabel1_fertig == true){
+
+	    		  if(c == ';'){
+	    			  Flagge_alleVokabel1_fertig = false;
+	    			  Flagge_aktuelles_Vokablpaar = false;
+	    			  alle_kategorien_ptr->anzahl_in_kategorie++;
+	    			  continue;
+	    		  }
+
+	    		  alle_vokablen_ende_ptr->vokabel_sprache2[array_position_vokabel] = c;
+	    		  array_position_vokabel++;
+	    	  }
+
+	      }//Ende While EOF fürt alle vok
+		  return(alle_kategorien_ptr);
+	}//Ende else für abfrage ob !kategorie
+	      
+
+
+	//Eine Gesamt-Kategorie erschaffen.
+	if(true){
+		alle_kategorien_ptr = malloc(sizeof(struct kategorie));
+		strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
+
+		alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
+		alle_kategorien_ptr->erste_vokabel = erste_kategorie_ptr->erste_vokabel;
+		alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
+
+		kategorie_laeufer_ptr = erste_kategorie_ptr;
+		vokabel_laeufer_ptr = alle_kategorien_ptr->erste_vokabel;
+
+		while(kategorie_laeufer_ptr->next_kategorie != NULL){
+
+			kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+
+			while(vokabel_laeufer_ptr->next_vokabel != NULL){
+				vokabel_laeufer_ptr = vokabel_laeufer_ptr->next_vokabel;
+			}
+
+			vokabel_laeufer_ptr->next_vokabel = kategorie_laeufer_ptr->erste_vokabel;
+			alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
+		}
+
+	}//Ende gesamtzkategorie erschaffen
+
+	return(alle_kategorien_ptr);
+}//Ende Funktion liste einlesen
 
 
 
