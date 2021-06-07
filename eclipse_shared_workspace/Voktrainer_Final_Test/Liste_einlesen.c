@@ -53,7 +53,7 @@ struct kategorie *liste_einlesen(){
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	//scanf("%c", &listenname);
-	datei_vorlage_ptr = fopen("C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt", "r");
+	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste6.csv", "r");
 	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
 	//C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt
 	//datei_counter_ptr = datei_vorlage_ptr;
@@ -88,7 +88,7 @@ struct kategorie *liste_einlesen(){
 	    	  c = fgetc(datei_vorlage_ptr);
 
 	    	  //Zeilenbrüche raustrennen
-	    	  if(c == '\r' || c =='\n' || c == EOF)
+	    	  if(c == '\r' || c == EOF)
 	    	  {
 	    		  continue;
 	    	  }
@@ -115,7 +115,7 @@ struct kategorie *liste_einlesen(){
 			  if(Flagge_Neue_Kategorie == true)
 			  {
 
-				  if(c == ';')
+				  if(c == ';'|| c == '\n')
 				  {
 					  Flagge_Neue_Kategorie = false;
 					  Flagge_Kategorie_befuellbar = true;
@@ -128,7 +128,7 @@ struct kategorie *liste_einlesen(){
 			  }
 
 			  //Neues Vokabelpaar anzulegen
-			  if(Flagge_Vokabelpaar_beschreibbar == false && Flagge_Kategorie_befuellbar == true){
+			  if(Flagge_Vokabelpaar_beschreibbar == false && Flagge_Kategorie_befuellbar == true && c!='\n' && c!=';'){
 				  Flagge_Vokabel1_vorhanden = false;
 				  Flagge_Vokabel2_vorhanden = false;
 
@@ -147,7 +147,7 @@ struct kategorie *liste_einlesen(){
 			  //Vokabel eins vorhanden
 			  if(Flagge_Vokabel1_vorhanden == false && Flagge_Vokabelpaar_beschreibbar == true){
 
-				  if(c == ';')
+				  if(c == ';' || c == '\n')
 				  {
 					  Flagge_Vokabel1_vorhanden = true;
 					  array_position_vokabel = 0;
@@ -161,7 +161,7 @@ struct kategorie *liste_einlesen(){
 			  //Vokabel zwei vorhanden
 			  if(Flagge_Vokabel2_vorhanden == false && Flagge_Vokabelpaar_beschreibbar == true){
 
-				  if(c == ';')
+				  if(c == ';' || c == '\n')
 				  {
 					  Flagge_Vokabel2_vorhanden = true;
 					  Flagge_Vokabelpaar_beschreibbar = false;
