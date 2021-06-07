@@ -54,6 +54,7 @@ struct kategorie *liste_einlesen(){
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	//scanf("%c", &listenname);
 	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt", "r");
+	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
 	//datei_counter_ptr = datei_vorlage_ptr;
 	if(datei_vorlage_ptr == NULL)
 	{
