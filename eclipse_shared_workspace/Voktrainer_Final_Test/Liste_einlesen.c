@@ -72,7 +72,7 @@ struct kategorie *liste_einlesen(){
 			  exit(1);
 		  }
 		  strcpy(k_alle_erste_ptr->kategorie_name ,"Alle Vokabeln");													//Der Name der ersten Liste (mit allen Voikabeln) wird auf Alle Vokablen festgelegt
-		  while(c != EOF)																//Zeichenweises Auslesen der Datei
+		  while(c != EOF)																								//Zeichenweises Auslesen der Datei
 		  {
 			  c = fgetc(datei_liste_ptr);
 			  if(c == '!')
@@ -81,7 +81,7 @@ struct kategorie *liste_einlesen(){
 				  break;
 			  }
 		  }
-		  while(c != EOF)																//Zeichenweises Auslesen der Datei
+		  while(c != EOF)																						//Zeichenweises Auslesen der Datei
 	      {
 	    	  c = fgetc(datei_liste_ptr);
 	    	  if(c == '\r' || '\n')
@@ -230,6 +230,9 @@ struct kategorie *liste_einlesen(){
 	    	  }
 	      }
 	}
+	printf("%s \n", k_alle_erste_ptr->kategorie_name);
+	printf("%s \n", k_alle_erste_ptr->next_kategorie->kategorie_name);
+	printf("%s \n", k_alle_erste_ptr->next_kategorie->next_kategorie->kategorie_name);
 	return(k_alle_erste_ptr);
 }
 
