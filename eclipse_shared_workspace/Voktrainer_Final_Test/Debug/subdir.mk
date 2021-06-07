@@ -8,7 +8,6 @@ C_SRCS += \
 ../Liste_einlesen_alt.c \
 ../Main.c \
 ../kategorie_waehlen.c \
-../richtung_waehlen.c \
 ../verzeichnis.c \
 ../vokabelzahl_feststellen.c 
 
@@ -17,7 +16,6 @@ OBJS += \
 ./Liste_einlesen_alt.o \
 ./Main.o \
 ./kategorie_waehlen.o \
-./richtung_waehlen.o \
 ./verzeichnis.o \
 ./vokabelzahl_feststellen.o 
 
@@ -26,7 +24,6 @@ C_DEPS += \
 ./Liste_einlesen_alt.d \
 ./Main.d \
 ./kategorie_waehlen.d \
-./richtung_waehlen.d \
 ./verzeichnis.d \
 ./vokabelzahl_feststellen.d 
 
