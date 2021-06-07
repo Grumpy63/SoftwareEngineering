@@ -33,6 +33,7 @@ struct kategorie *liste_einlesen(){
 
 
 	bool Flagge_erster_Durchlauf = false;
+	bool Flagge_Semikolon = false;
 
 	int array_position_kategorie = 0;
 	int array_position_vokabel = 0;
@@ -88,9 +89,17 @@ struct kategorie *liste_einlesen(){
 	    	  c = fgetc(datei_vorlage_ptr);
 
 	    	  //Zeilenbrüche raustrennen
-	    	  if(c == '\r' || c == EOF)
+	    	  if((Flagge_Semikolon == true && c == ';') ||c == '\r' || c == EOF)
 	    	  {
 	    		  continue;
+	    	  }
+	    	  if(c == ';')
+	    	  {
+	    		  Flagge_Semikolon = true;
+	    	  }
+	    	  else
+	    	  {
+	    		  Flagge_Semikolon = false;
 	    	  }
 
 			  //Beginn einer neuen Kategorie
@@ -187,11 +196,18 @@ struct kategorie *liste_einlesen(){
 		  //Nächstes Zeichen auslesen
 		  c = fgetc(datei_vorlage_ptr);
 
-		  //Zeilenbrüche raustrennen
-		  if(c == '\r' || c =='\n' || c == EOF)
-		  {
-			  continue;
-		  }
+    	  if((Flagge_Semikolon == true && c == ';') ||c == '\r' || c == EOF)
+    	  {
+    		  continue;
+    	  }
+    	  if(c == ';')
+    	  {
+    		  Flagge_Semikolon = true;
+    	  }
+    	  else
+    	  {
+    		  Flagge_Semikolon = false;
+    	  }
 
 		  //Einzige Erste Kategorie/Vokabel anlegen
 		  if(alle_kategorien_ptr == NULL){
