@@ -13,9 +13,6 @@ struct kategorie *liste_einlesen();
 struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr);
 int vokabelzahl_feststellen(struct kategorie *k_alle_erste_ptr);
 
-int anzahl_abzufragen = 0;
-int richtung = 0;
-
 struct vokabel{
 		char vokabel_sprache1[256];
 		char vokabel_sprache2[256];
