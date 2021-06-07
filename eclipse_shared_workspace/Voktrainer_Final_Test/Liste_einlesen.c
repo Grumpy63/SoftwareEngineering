@@ -29,8 +29,10 @@ struct kategorie *liste_einlesen(){
 
 
 	bool Flagge_aktuelles_Vokablpaar = false;
-
 	bool Flagge_alleVokabel1_fertig = false;
+
+
+	bool Flagge_erster_Durchlauf = false;
 
 	int array_position_kategorie = 0;
 	int array_position_vokabel = 0;
@@ -51,7 +53,7 @@ struct kategorie *liste_einlesen(){
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	//scanf("%c", &listenname);
-	datei_vorlage_ptr = fopen("C:/Users/David/Desktop/SoftwareEngineering/eclipse_shared_workspace/Voktrainer_Final_Test/Release/Beispiel_Vokabelliste.txt", "r");
+	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt", "r");
 	//datei_counter_ptr = datei_vorlage_ptr;
 	if(datei_vorlage_ptr == NULL)
 	{
@@ -175,60 +177,63 @@ struct kategorie *liste_einlesen(){
 	}//if: kategorien vorhanden zuende
 
 	else{
-		  while(c != EOF)
-	      {
-			  //Nächstes Zeichen auslesen
-	    	  c = fgetc(datei_vorlage_ptr);
+		Flagge_erster_Durchlauf = true;
+		while(c != EOF || Flagge_erster_Durchlauf == true)
+		{
+			Flagge_erster_Durchlauf = false;
 
-	    	  //Zeilenbrüche raustrennen
-	    	  if(c == '\r' || c =='\n' || c == EOF)
-	    	  {
-	    		  continue;
-	    	  }
+		  //Nächstes Zeichen auslesen
+		  c = fgetc(datei_vorlage_ptr);
 
-	    	  //Einzige Erste Kategorie/Vokabel anlegen
-	    	  if(alle_kategorien_ptr == NULL){
-	    		  alle_kategorien_ptr = malloc(sizeof(struct kategorie));
-	    		  strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
+		  //Zeilenbrüche raustrennen
+		  if(c == '\r' || c =='\n' || c == EOF)
+		  {
+			  continue;
+		  }
 
-	    		  alle_kategorien_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
-	    		  alle_vokablen_ende_ptr =  alle_kategorien_ptr->erste_vokabel;
-	    		  Flagge_aktuelles_Vokablpaar = true;
-	    	  }
+		  //Einzige Erste Kategorie/Vokabel anlegen
+		  if(alle_kategorien_ptr == NULL){
+			  alle_kategorien_ptr = malloc(sizeof(struct kategorie));
+			  strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
 
-	    	  //Vokabel 1
-	    	  if(Flagge_alleVokabel1_fertig == false){
+			  alle_kategorien_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
+			  alle_vokablen_ende_ptr =  alle_kategorien_ptr->erste_vokabel;
+			  Flagge_aktuelles_Vokablpaar = true;
+		  }
 
-	    		  if(Flagge_aktuelles_Vokablpaar == false){
-	    			  alle_vokablen_ende_ptr->next_vokabel = malloc(sizeof(struct vokabel));
-	    			  alle_vokablen_ende_ptr = alle_vokablen_ende_ptr->next_vokabel;
-	    			  Flagge_aktuelles_Vokablpaar = true;
-	    		  }
+		  //Vokabel 1
+		  if(Flagge_alleVokabel1_fertig == false){
 
-	    		  if(c == ';'){
-	    			  Flagge_alleVokabel1_fertig = true;
-	    			  continue;
-	    		  }
-	    		  alle_vokablen_ende_ptr->vokabel_sprache1[array_position_vokabel] = c;
-	    		  array_position_vokabel++;
-	    	  }
+			  if(Flagge_aktuelles_Vokablpaar == false){
+				  alle_vokablen_ende_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+				  alle_vokablen_ende_ptr = alle_vokablen_ende_ptr->next_vokabel;
+				  Flagge_aktuelles_Vokablpaar = true;
+			  }
 
-	    	  //Vokabel 2
-	    	  if(Flagge_alleVokabel1_fertig == true){
+			  if(c == ';'){
+				  Flagge_alleVokabel1_fertig = true;
+				  continue;
+			  }
+			  alle_vokablen_ende_ptr->vokabel_sprache1[array_position_vokabel] = c;
+			  array_position_vokabel++;
+		  }
 
-	    		  if(c == ';'){
-	    			  Flagge_alleVokabel1_fertig = false;
-	    			  Flagge_aktuelles_Vokablpaar = false;
-	    			  alle_kategorien_ptr->anzahl_in_kategorie++;
-	    			  continue;
-	    		  }
+		  //Vokabel 2
+		  if(Flagge_alleVokabel1_fertig == true){
 
-	    		  alle_vokablen_ende_ptr->vokabel_sprache2[array_position_vokabel] = c;
-	    		  array_position_vokabel++;
-	    	  }
+			  if(c == ';'){
+				  Flagge_alleVokabel1_fertig = false;
+				  Flagge_aktuelles_Vokablpaar = false;
+				  alle_kategorien_ptr->anzahl_in_kategorie++;
+				  continue;
+			  }
 
-	      }//Ende While EOF fürt alle vok
-		  return(alle_kategorien_ptr);
+			  alle_vokablen_ende_ptr->vokabel_sprache2[array_position_vokabel] = c;
+			  array_position_vokabel++;
+		  }
+
+		}//Ende While EOF fürt alle vok
+		return(alle_kategorien_ptr);
 	}//Ende else für abfrage ob !kategorie
 	      
 
