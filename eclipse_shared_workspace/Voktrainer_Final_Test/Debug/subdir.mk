@@ -5,22 +5,28 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Liste_einlesen.c \
+../Liste_einlesen_alt.c \
 ../Main.c \
 ../kategorie_waehlen.c \
+../richtung.c \
 ../verzeichnis.c \
 ../vokabelzahl_feststellen.c 
 
 OBJS += \
 ./Liste_einlesen.o \
+./Liste_einlesen_alt.o \
 ./Main.o \
 ./kategorie_waehlen.o \
+./richtung.o \
 ./verzeichnis.o \
 ./vokabelzahl_feststellen.o 
 
 C_DEPS += \
 ./Liste_einlesen.d \
+./Liste_einlesen_alt.d \
 ./Main.d \
 ./kategorie_waehlen.d \
+./richtung.d \
 ./verzeichnis.d \
 ./vokabelzahl_feststellen.d 
 
