@@ -12,14 +12,51 @@
 #include "header.h"
 
 int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
-
-	printf("\nDie abzufragende Kategorie \"%s\" enthält %d Vokabeln.\n Wie viele möchten sie maximal abgefragt werden ?\n Maximale Anzahl Vokabeln:\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
-
+	int x = 0;
 	int anzahl = 0;
 
 	setbuf(stdout, NULL);
-	scanf("%d",anzahl);
+	printf("\nDie abzufragende Kategorie \"%s\" enthï¿½lt %d Vokabeln.\n\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
+	printf("Mï¿½chten Sie ï¿½ber:\n");
+	printf("(1) alle Vokabeln abgefragt werden oder\n");
+	printf("(2) nur ï¿½ber eine bestimmte Anzahl abgefragt werden?\n");
+	while(1)
+	{
+		scanf("%d", &x);
+		if(x == 1)
+		{
+			return(abzufragende_kategorie->anzahl_in_kategorie);
+		}
+		else if(x == 2)
+		{
+			while(1)
+			{
+				printf("Wie viele Vokabeln mï¿½chten Sie abgefragt werden?:\n");
+				scanf("%d", &anzahl);
+				if(anzahl <= 0 || anzahl > abzufragende_kategorie->anzahl_in_kategorie)
+				{
+					printf("Die Eingabe ist ungï¿½ltig.\n");
+
+				}
+				else
+				{
+					return(anzahl);
+				}
+			}
+
+		}
+		else{
+			printf("Die Eingabe ist ungï¿½ltig bitte geben Sie Ihre Auswahl erneut ein.\n");
+
+		}
+
+	}
+
+
+
+
+
+
 
 	return anzahl;
 }
-
