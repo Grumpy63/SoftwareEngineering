@@ -13,11 +13,22 @@
 
 int main()
 {
+
+
 	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
 	int korrekte_vokablen = 0;								//counter für Anzahl der Korrekt eingegebenen Vokabeln
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
 	int user_vokabelzahl = 0;							//User gewählte Abzufragende Vokabelzahl
 	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
+
+	int test = 0;
+
+
+	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
+			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
+			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
+			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
+			"Und jetzt viel Spass!\n\n");
 
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
@@ -36,6 +47,10 @@ int main()
 	getchar();
 	int a = 0;
 	scanf("%d", &a);
+
+
+	test = abfrage("hier kommt ein Pointer auf Kategorie rein", 2, 3);
+
 
 	return 0;
 }
