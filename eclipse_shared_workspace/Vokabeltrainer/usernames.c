@@ -14,7 +14,6 @@
 #define SEMIKOLON 59													//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
 
 
-
 struct username *username_list()
 {
 

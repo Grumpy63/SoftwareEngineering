@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "header.h"
+#include "voc_functions.h"
+
 
 struct kategorie *liste_einlesen(){
 
@@ -54,7 +55,7 @@ struct kategorie *liste_einlesen(){
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
 	//scanf("%c", &listenname);
-	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste6.csv", "r");
+	datei_vorlage_ptr = fopen("Beispiel_Vokabelliste.txt", "r");
 	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
 	//C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt
 	//datei_counter_ptr = datei_vorlage_ptr;

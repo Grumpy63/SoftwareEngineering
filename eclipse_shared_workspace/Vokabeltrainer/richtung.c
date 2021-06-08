@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "header.h"
+#include "voc_functions.h"
+
 
 int richtung_waehlen()
 {

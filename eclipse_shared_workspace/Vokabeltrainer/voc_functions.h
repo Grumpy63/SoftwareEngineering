@@ -9,7 +9,7 @@
 #define VOC_FUNCTIONS_H_
 
 
-	//Definitionen für usernames_list()
+	//Definitionen für usernames_list() (Luca&Alex)
 
 	struct username{													//Struct um Nutzernamen zu managen; zur Erstellung von verketteter Liste benötigt
 		char name[256];													//Nutzername mit Begrenzung auf 256 Zeichen
@@ -22,7 +22,7 @@
 
 
 
-	//Definitionen für Abfrage der Vokabeln
+	//Definitionen für Abfrage der Vokabeln (Luca&Alex&Julian)
 
 	struct vokabel{
 		char vokabel_sprache1[256];
@@ -43,6 +43,23 @@
 																													//wie anzahl_abzufragen es befiehlt, und in der Reihenfolge wie der abfrage_modus sagt
 
 	//Ende der Definitionen für Abfrage der Vokabeln
+
+
+
+	//Definition für Verzeichnisauswahl (David&David)
+
+
+	struct kategorie *liste_einlesen();
+	//struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr);			//Deklaration wie in der c
+	int richtung_waehlen();
+	int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie);
+
+	void verzeichnis_auslesen();
+	struct kategorie *liste_einlesen();
+	struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr);			//Deklaration nach der alten header.h
+	int vokabelzahl_feststellen(struct kategorie *k_alle_erste_ptr);
+
+	//Ende der Definition für Abfrage der Vokabeln
 
 
 #endif /* VOC_FUNCTIONS_H_ */

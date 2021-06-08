@@ -9,7 +9,8 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "header.h"
+#include "voc_functions.h"
+
 
 int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 	int x = 0;

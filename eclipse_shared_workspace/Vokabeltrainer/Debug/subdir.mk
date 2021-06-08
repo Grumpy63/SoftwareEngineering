@@ -4,19 +4,31 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../alt_vokabel_abfrage.c \
+../Liste_einlesen.c \
+../kategorie_waehlen.c \
 ../main.c \
-../usernames.c 
+../richtung.c \
+../usernames.c \
+../verzeichnis.c \
+../vokabelzahl_feststellen.c 
 
 OBJS += \
-./alt_vokabel_abfrage.o \
+./Liste_einlesen.o \
+./kategorie_waehlen.o \
 ./main.o \
-./usernames.o 
+./richtung.o \
+./usernames.o \
+./verzeichnis.o \
+./vokabelzahl_feststellen.o 
 
 C_DEPS += \
-./alt_vokabel_abfrage.d \
+./Liste_einlesen.d \
+./kategorie_waehlen.d \
 ./main.d \
-./usernames.d 
+./richtung.d \
+./usernames.d \
+./verzeichnis.d \
+./vokabelzahl_feststellen.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
