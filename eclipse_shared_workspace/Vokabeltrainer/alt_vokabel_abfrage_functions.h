@@ -5,8 +5,8 @@
  *      Author: Luca
  */
 
-#ifndef VOKABEL_ABFRAGE_FUNCTIONS_H_
-#define VOKABEL_ABFRAGE_FUNCTIONS_H_
+#ifndef ALT_VOKABEL_ABFRAGE_FUNCTIONS_H_
+#define ALT_VOKABEL_ABFRAGE_FUNCTIONS_H_
 
 void vokabel_abfrage_s1zus2(struct kategorie *aktuelle_kategorie){
 
@@ -18,4 +18,4 @@ void vokabel_abfrage_s1zus2(struct kategorie *aktuelle_kategorie){
 
 }
 
-#endif /* VOKABEL_ABFRAGE_FUNCTIONS_H_ */
+#endif /* ALT_VOKABEL_ABFRAGE_FUNCTIONS_H_ */

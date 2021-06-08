@@ -38,6 +38,7 @@
 		struct kategorie *next_kategorie;								//Pointer für Verkettung der Kategorien
 			};
 
+
 	int vokabel_abfrage(int abfrage_modus, int anzahl_abzufragen, struct kategorie *aktuelle_kategorie);			//Funktion fragt so viele Vokabeln aus der übergebenen Kategorie ab
 																													//wie anzahl_abzufragen es befiehlt, und in der Reihenfolge wie der abfrage_modus sagt
 

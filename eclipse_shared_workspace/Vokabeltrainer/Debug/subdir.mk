@@ -4,14 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../alt_vokabel_abfrage.c \
 ../main.c \
 ../usernames.c 
 
 OBJS += \
+./alt_vokabel_abfrage.o \
 ./main.o \
 ./usernames.o 
 
 C_DEPS += \
+./alt_vokabel_abfrage.d \
 ./main.d \
 ./usernames.d 
 
