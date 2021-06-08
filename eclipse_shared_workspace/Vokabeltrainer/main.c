@@ -14,6 +14,8 @@
 int main()
 {
 
+	int test = 0;
+
 	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
 
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
@@ -28,6 +30,7 @@ int main()
 	int a = 0;
 	scanf("%d", &a);
 
+	test = abfrage("hier kommt ein Pointer auf Kategorie rein", 2, 3);
 
 	return 0;
 }
