@@ -18,13 +18,20 @@
 		}
 
 
-void abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc, int modus) //Definition der Abfrage-Fkt
+int abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc, int modus) //Definition der Abfrage-Fkt
 {
+	int anzahl_korrekter_voc = 0;
+
 		switch (modus)											//Realisierung der verschiedenen Abfragerichtungen
 		{
-			case 1: break;										//Sprache1 -> Sprache2 in extra Funktionen seperat c files!
-			case 2: break;										//Sprache2 -> Sprache1
-			case 3: break;										//Gemischt per Zufall
+			case 1:anzahl_korrekter_voc = abfrage1(abzufragende_kategorie,number_abzufragende_voc);  //Sprache1 -> Sprache2 in extra Funktionen seperat c files!
+			break;
+			case 2: //Sprache2 -> Sprache1
+			break;
+			case 3: //Gemischt per Zufall
+			break;
 			default: printf("Programminterner Fehler. Bitte starte die Anwendung erneut!");
 		}
+
+		return(anzahl_korrekter_voc);
 }
