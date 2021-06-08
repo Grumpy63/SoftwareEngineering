@@ -9,7 +9,7 @@
 #define VOC_FUNCTIONS_H_
 
 
-	//Definitionen für usernames_list()
+	//Deklarationen für usernames_list()
 
 	struct username{													//Struct um Nutzernamen zu managen; zur Erstellung von verketteter Liste benötigt
 		char name[256];													//Nutzername mit Begrenzung auf 256 Zeichen
@@ -18,7 +18,7 @@
 
 	struct username *username_list();									//Deklaration der Funktion username_list()
 
-	//Ende der Definitionen für usernames_list()
+	//Ende der Deklarationen für usernames_list()
 
 
 #endif /* VOC_FUNCTIONS_H_ */
