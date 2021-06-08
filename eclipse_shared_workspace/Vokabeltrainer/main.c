@@ -16,12 +16,12 @@ int main()
 
 
 	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
-	int korrekte_vokablen = 0;								//counter für Anzahl der Korrekt eingegebenen Vokabeln
+	//int korrekte_vokablen = 0;								//counter für Anzahl der Korrekt eingegebenen Vokabeln
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
-	int user_vokabelzahl = 0;							//User gewählte Abzufragende Vokabelzahl
+	int user_vokabelzahl = 0;								//User gewählte Abzufragende Vokabelzahl
 	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
 
-	int test = 0;
+	int korrekte_voc = 0;
 
 
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
@@ -29,6 +29,9 @@ int main()
 			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
 			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
 			"Und jetzt viel Spass!\n\n");
+
+	int a = 0;
+	scanf("%d", &a);
 
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
@@ -42,15 +45,14 @@ int main()
 	modus = richtung_waehlen();
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
 
-	printf("Ihre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d", modus, user_vokabelzahl);
-
-	getchar();
-	int a = 0;
-	scanf("%d", &a);
+	printf("Ihre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
 
 
-	test = abfrage("hier kommt ein Pointer auf Kategorie rein", 2, 3);
+	korrekte_voc = abfrage(abzufragende_kategorie, 2, 3);
 
+
+	int b = 0;
+	scanf("%d", &b);
 
 	return 0;
 }

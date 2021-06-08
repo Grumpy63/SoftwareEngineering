@@ -60,20 +60,6 @@
 
 	//Definitionen für Abfrage der Vokabeln (Luca&Alex&Julian)
 
-	struct vokabel{
-		char vokabel_sprache1[256];
-		char vokabel_sprache2[256];
-		int flag;														//wurde Vokabel bereits abgefragt?
-		struct vokabel *next_vokabel;									//Pointer für Verkettung der Kategorien
-			};
-
-	struct kategorie{
-		char kategorie_name[256];										//Bezeichnung der Kategorie
-		struct vokabel *erste_vokabel;									//pointer auf das erste Vokabel-Paar in der Kategorie
-		int anzahl_in_kategorie;										//wieviele Vokabeln befinden sich in der Kategorie
-		struct kategorie *next_kategorie;								//Pointer für Verkettung der Kategorien
-			};
-
 
 	int vokabel_abfrage(int abfrage_modus, int anzahl_abzufragen, struct kategorie *aktuelle_kategorie);			//Funktion fragt so viele Vokabeln aus der übergebenen Kategorie ab
 																													//wie anzahl_abzufragen es befiehlt, und in der Reihenfolge wie der abfrage_modus sagt
