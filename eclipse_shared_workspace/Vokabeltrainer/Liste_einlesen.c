@@ -9,15 +9,16 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 #include <stdbool.h>
-#include "voc_functions.h"
-
+#include "header.h"
 
 struct kategorie *liste_einlesen(){
 
 	FILE *datei_vorlage_ptr;
 
 	char c;
+	char listenname;
 
 	bool Flagge_Neue_Kategorie = false;
 	bool Flagge_Kategorie_mind = false;
@@ -54,9 +55,10 @@ struct kategorie *liste_einlesen(){
 	do{
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
-	//scanf("%c", &listenname);
-	datei_vorlage_ptr = fopen("Beispiel_Vokabelliste.txt", "r");
-	//S:\\Hochschule\\GitHub\\02062021\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt
+	//listenname = getchar();
+	datei_vorlage_ptr = fopen("C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt", "r");
+	//C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt
+		//C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Usernames.txt
 	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
 	//C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt
 	//datei_counter_ptr = datei_vorlage_ptr;
@@ -113,12 +115,15 @@ struct kategorie *liste_einlesen(){
 				  if(erste_kategorie_ptr == NULL){
 					  erste_kategorie_ptr = malloc(sizeof(struct kategorie));
 					  ende_kategorie_ptr = erste_kategorie_ptr;
+
 				  }
 				  else{
 					  ende_kategorie_ptr->next_kategorie = malloc(sizeof(struct kategorie));
 					  ende_kategorie_ptr = ende_kategorie_ptr->next_kategorie;
+
 				  }
 
+				  ende_kategorie_ptr->erste_vokabel = NULL;
 				  continue;
 			  }
 
@@ -146,11 +151,16 @@ struct kategorie *liste_einlesen(){
 				  if(ende_kategorie_ptr->erste_vokabel == NULL){
 					  ende_kategorie_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
 					  ende_vokabel_ptr = ende_kategorie_ptr->erste_vokabel;
+
 				  }
 				  else{
 					  ende_vokabel_ptr->next_vokabel = malloc(sizeof(struct vokabel));
 					  ende_vokabel_ptr = ende_vokabel_ptr->next_vokabel;
+
 				  }
+
+				  ende_vokabel_ptr->flag = NULL;
+
 				  ende_kategorie_ptr->anzahl_in_kategorie++;
 				  Flagge_Vokabelpaar_beschreibbar = true;
 			  }
@@ -283,6 +293,8 @@ struct kategorie *liste_einlesen(){
 		}
 
 	}//Ende gesamtzkategorie erschaffen
+
+	fclose(datei_vorlage_ptr);
 
 	return(alle_kategorien_ptr);
 }//Ende Funktion liste einlesen
