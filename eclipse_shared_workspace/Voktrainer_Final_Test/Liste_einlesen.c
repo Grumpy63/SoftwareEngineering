@@ -53,7 +53,7 @@ struct kategorie *liste_einlesen(){
 	struct vokabel * vokabel_laeufer_ptr = NULL;
 	struct kategorie * kategorie_laeufer_ptr = NULL;
 	struct entitiy_name{
-		char name[NAME_MAX + 1];
+		char name[256];
 		struct entitiy_name *next;
 	};
 	struct entitiy_name *erste_entity_name_ptr = NULL;
@@ -107,12 +107,12 @@ struct kategorie *liste_einlesen(){
         	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden./n");	//Ausgabe einer Informationsnachricht für den Nutzer
         }																					//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
     }
-
+    printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll:\n");
 	scanf("%d", &listenname);
-	Aufzaehlung = 0;
+	Aufzaehlung = 1;
 	entity_name_ptr = erste_entity_name_ptr;
 
-	while(listenname > Aufzaehlung)
+	while(listenname != Aufzaehlung)
 	{
 		entity_name_ptr = entity_name_ptr->next;
 		Aufzaehlung++;
@@ -125,6 +125,7 @@ struct kategorie *liste_einlesen(){
 	if(datei_vorlage_ptr == NULL)
 	{
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
+		printf("Bitte geben Sie eine neue Auswahl ein:\n");
 	}
 	}while(datei_vorlage_ptr == NULL);
 
@@ -181,7 +182,7 @@ struct kategorie *liste_einlesen(){
 					  ende_kategorie_ptr->next_kategorie = malloc(sizeof(struct kategorie));
 					  ende_kategorie_ptr = ende_kategorie_ptr->next_kategorie;
 				  }
-
+				  ende_kategorie_ptr->erste_vokabel = NULL;
 				  continue;
 			  }
 
@@ -214,6 +215,8 @@ struct kategorie *liste_einlesen(){
 					  ende_vokabel_ptr->next_vokabel = malloc(sizeof(struct vokabel));
 					  ende_vokabel_ptr = ende_vokabel_ptr->next_vokabel;
 				  }
+				  ende_vokabel_ptr->flag = 0;
+
 				  ende_kategorie_ptr->anzahl_in_kategorie++;
 				  Flagge_Vokabelpaar_beschreibbar = true;
 			  }
@@ -347,6 +350,7 @@ struct kategorie *liste_einlesen(){
 
 	}//Ende gesamtzkategorie erschaffen
 
+	fclose(datei_vorlage_ptr);
 	return(alle_kategorien_ptr);
 }//Ende Funktion liste einlesen
 
