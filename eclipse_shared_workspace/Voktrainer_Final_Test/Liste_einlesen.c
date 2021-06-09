@@ -60,30 +60,30 @@ struct kategorie *liste_einlesen(){
 	struct entitiy_name *ende_entity_name_ptr = NULL;
 	struct entitiy_name *entity_name_ptr = NULL;
 
+	char needle[] = ".txt";																					//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
+		char needle2[] = "Usernames";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
+		char needle3[] = "Highscore";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
+	    char needle4[] = ".csv";
+		int Aufzaehlung = 1;																				//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
+	    bool flag = false;																					//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
+	    DIR *dir;																							//DIR pointer zum Auslesen des Verzeichnises
+	    struct dirent * entity;
 
+	//Ausgeben der möglichen Vokabellisten
 	do{
-	setbuf(stdout, NULL);
-	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
-	char needle[] = ".txt";																				//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
-	char needle2[] = "Usernames";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
-	char needle3[] = "Highscore";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
-    char needle4[] = ".csv";
-	int Aufzaehlung = 1;																				//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
-    bool flag = false;																					//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
-    DIR *dir;																							//DIR pointer zum Auslesen des Verzeichnises
-    struct dirent * entity;																				//Ein pointer entity vom Datentyp struct dirent
-    dir = opendir(".");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
-    if (dir) {																							//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
-        while (0 != (entity = readdir(dir))) {															//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
-                if(strcmp(entity->d_name, ".") == 0 ||													//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
-                   strcmp(entity->d_name, "..") == 0){													//
-                    continue;																			//
-                    }																					//
+	setbuf(stdout, NULL);																					//Ein pointer entity vom Datentyp struct dirent
+    dir = opendir(".");																						//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
+    if (dir) {																								//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
+        while (0 != (entity = readdir(dir))) {																//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
+                if(strcmp(entity->d_name, ".") == 0 ||														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
+                   strcmp(entity->d_name, "..") == 0){														//
+                    continue;																				//
+                    }																						//
 
                 if(((strstr(entity->d_name, needle) != 0) || strstr(entity->d_name, needle4) != 0)&&												//If-Verzweiung, wenn der Dateiname ein .txt enthält
-                   (strstr(entity->d_name, needle2) == 0) &&											//und nicht den String Usernames enthält, da dies keine Vokabelliste
-				   (strstr(entity->d_name, needle3) == 0)){												//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste
-                    printf("(%d) %s\n", Aufzaehlung, entity->d_name);									//Printf Anweisung zum Ausgeben des Aufzählungspunkts mit dem Dateinamen
+                   (strstr(entity->d_name, needle2) == 0) &&												//und nicht den String Usernames enthält, da dies keine Vokabelliste
+				   (strstr(entity->d_name, needle3) == 0)){													//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste
+                    printf("(%d) %s\n", Aufzaehlung, entity->d_name);										//Printf Anweisung zum Ausgeben des Aufzählungspunkts mit dem Dateinamen
 
                     if(Flagge_Entity == false)
                     {
@@ -98,17 +98,34 @@ struct kategorie *liste_einlesen(){
                     	strcpy(ende_entity_name_ptr->next->name, entity->d_name);
                     	ende_entity_name_ptr = ende_entity_name_ptr->next;
                     }
-                    Aufzaehlung ++;																		//Variable Aufzaehlung um eins inkrementieren
-                    flag = true;																		//Wenn mind. eine Datei gefunden und ausgegeben wurde, wird die flag gesetzt
+                    Aufzaehlung ++;																			//Variable Aufzaehlung um eins inkrementieren
+                    flag = true;																			//Wenn mind. eine Datei gefunden und ausgegeben wurde, wird die flag gesetzt
 
                 }
         }
-        if(flag == false){																				//Flag überprüfen, für den Fall, dass keine Datei gefunden wurde
-        	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden./n");	//Ausgabe einer Informationsnachricht für den Nutzer
-        }																					//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
+        if(flag == false){																					//Flag überprüfen, für den Fall, dass keine Datei gefunden wurde
+        	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden./n");		//Ausgabe einer Informationsnachricht für den Nutzer
+        }																									//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
     }
+    //Abfrage nach der zu öffnenden Datei
+
     printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll:\n");
-	scanf("%d", &listenname);
+    do
+    {
+    	scanf("%d", &listenname);
+    	if(listenname > Aufzaehlung || listenname <= 0)
+    	    {
+    	    	printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");
+    	    	scanf("%d", &listenname);
+    	    	continue;
+    	    }
+    	else
+    	{
+    		break;
+    	}
+    }while(listenname > Aufzaehlung || listenname <= 0);
+
+
 	Aufzaehlung = 1;
 	entity_name_ptr = erste_entity_name_ptr;
 
@@ -119,9 +136,7 @@ struct kategorie *liste_einlesen(){
 		continue;
 	}
 	datei_vorlage_ptr = fopen(entity_name_ptr->name, "r");
-	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
-	//C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt
-	//datei_counter_ptr = datei_vorlage_ptr;
+
 	if(datei_vorlage_ptr == NULL)
 	{
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
@@ -351,6 +366,7 @@ struct kategorie *liste_einlesen(){
 	}//Ende gesamtzkategorie erschaffen
 
 	fclose(datei_vorlage_ptr);
+	//closedir(dir);
 	return(alle_kategorien_ptr);
 }//Ende Funktion liste einlesen
 
