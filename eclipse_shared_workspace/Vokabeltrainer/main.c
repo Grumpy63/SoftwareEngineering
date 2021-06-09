@@ -36,6 +36,11 @@ int main()
 
 	printf("Willkommen in der Main %s\n", aktueller_nutzer->name);
 
+	//fclose(datei_users_ptr);
+
+	printf("TEST FCLSOE");
+	int b = 0;
+	scanf("%d", &b);
 
 	//verzeichnis_auslesen();
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
@@ -47,9 +52,9 @@ int main()
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
 
+	printf("\n\nAnzahl Korrekter Eingaben: %d", korrekte_voc);
 
-	int b = 0;
-	scanf("%d", &b);
+
 
 	return 0;
 }

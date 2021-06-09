@@ -18,7 +18,7 @@ struct username *username_list()
 {
 
 
-	FILE *datei_users_ptr = NULL;										//FILE pointer zum öffnen der Usernames.txt Datei
+	FILE* datei_users_ptr = NULL;										//FILE* pointer zum öffnen der Usernames.txt Datei
 
 	char dummy_zeichen = ' ';											//Zum einlesen von Leerzeichen
 	int c = 0;															//Char Platzhalter zum auslesen der Datei
@@ -51,6 +51,7 @@ struct username *username_list()
 			{
 				scanf("%c", &dummy_zeichen);
 			}
+
 
 			fprintf(datei_users_ptr, entered_user_ptr->name);					//Eingegebenen Nutzernamen in die Datei Usernames.txt schreiben
 			fprintf(datei_users_ptr, ";");										//Anhängen des Semikolons in Datei Usernames.txt für Konformität
@@ -142,6 +143,6 @@ struct username *username_list()
 		}
 
 
-
+	fclose(datei_users_ptr);
 	return(entered_user_ptr);
 }

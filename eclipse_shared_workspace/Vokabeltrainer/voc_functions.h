@@ -15,6 +15,8 @@
 	//Definitionen für usernames_list() (Luca&Alex)
 
 
+	//FILE *datei_users_ptr;
+
 	struct username
 	{													//Struct um Nutzernamen zu managen; zur Erstellung von verketteter Liste benötigt
 		char name[256];													//Nutzername mit Begrenzung auf 256 Zeichen
