@@ -334,6 +334,7 @@ struct kategorie *liste_einlesen(){
 		  }
 
 		}//Ende While EOF fürt alle vok
+		fclose(datei_vorlage_ptr);
 		return(alle_kategorien_ptr);
 	}//Ende else für abfrage ob !kategorie
 
