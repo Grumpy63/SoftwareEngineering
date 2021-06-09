@@ -46,7 +46,7 @@ int main()
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
 	modus = richtung_waehlen();
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
-
+	printf("%s", abzufragende_kategorie->erste_vokabel->next_vokabel->vokabel_sprache1);
 	printf("Ihre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
 
 
