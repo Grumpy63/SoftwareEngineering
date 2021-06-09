@@ -13,6 +13,8 @@
 #include <stdbool.h>
 #include "voc_functions.h"
 
+void cpy_vokabel(struct vokabel * copy,struct vokabel * original);
+
 struct kategorie *liste_einlesen(){
 
 	FILE *datei_vorlage_ptr;
@@ -50,8 +52,10 @@ struct kategorie *liste_einlesen(){
 	struct kategorie * ende_kategorie_ptr = NULL;
 	struct vokabel * ende_vokabel_ptr = NULL;
 
-	struct vokabel * vokabel_laeufer_ptr = NULL;
+	struct vokabel * vokabel_cpy_laeufer_ptr = NULL;
 	struct kategorie * kategorie_laeufer_ptr = NULL;
+	struct vokabel * vokabel_org_laeufer_ptr = NULL;
+
 	struct entitiy_name{
 		char name[256];
 		struct entitiy_name *next;
@@ -59,6 +63,7 @@ struct kategorie *liste_einlesen(){
 	struct entitiy_name *erste_entity_name_ptr = NULL;
 	struct entitiy_name *ende_entity_name_ptr = NULL;
 	struct entitiy_name *entity_name_ptr = NULL;
+
 
 	char needle[] = ".txt";																					//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
 		char needle2[] = "Usernames";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
@@ -143,6 +148,7 @@ struct kategorie *liste_einlesen(){
 		printf("Bitte geben Sie eine neue Auswahl ein:\n");
 	}
 	}while(datei_vorlage_ptr == NULL);
+
 
 
 
@@ -340,30 +346,46 @@ struct kategorie *liste_einlesen(){
 
 
 	//Eine Gesamt-Kategorie erschaffen.
-	if(true){
-		alle_kategorien_ptr = malloc(sizeof(struct kategorie));
-		strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
+		if(true){
+			alle_kategorien_ptr = malloc(sizeof(struct kategorie));
+			strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
 
-		alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
-		alle_kategorien_ptr->erste_vokabel = erste_kategorie_ptr->erste_vokabel;
-		alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
+			alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
+			alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
 
-		kategorie_laeufer_ptr = erste_kategorie_ptr;
-		vokabel_laeufer_ptr = alle_kategorien_ptr->erste_vokabel;
+			kategorie_laeufer_ptr = erste_kategorie_ptr;
 
-		while(kategorie_laeufer_ptr->next_kategorie != NULL){
+			vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;
+			vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));
 
-			kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+			cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
 
-			while(vokabel_laeufer_ptr->next_vokabel != NULL){
-				vokabel_laeufer_ptr = vokabel_laeufer_ptr->next_vokabel;
+			alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;
+
+			while(1){
+
+				while(vokabel_org_laeufer_ptr->next_vokabel != NULL){
+					vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+					vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;
+					vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;
+
+
+					cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+				}
+
+				kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+				if(kategorie_laeufer_ptr == NULL)
+				{
+					break;
+				}
+				vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;
+				vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+				vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;
+				cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+				alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
 			}
 
-			vokabel_laeufer_ptr->next_vokabel = kategorie_laeufer_ptr->erste_vokabel;
-			alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
-		}
-
-	}//Ende gesamtzkategorie erschaffen
+		}//Ende gesamtzkategorie erschaffen
 
 	fclose(datei_vorlage_ptr);
 	//closedir(dir);
@@ -371,5 +393,11 @@ struct kategorie *liste_einlesen(){
 }//Ende Funktion liste einlesen
 
 
+void cpy_vokabel(struct vokabel * copy,struct vokabel * original){
 
+	strcpy(copy->vokabel_sprache1,original->vokabel_sprache1);
+	strcpy(copy->vokabel_sprache2,original->vokabel_sprache2);
+	copy->flag = original->flag;
+
+}
 
