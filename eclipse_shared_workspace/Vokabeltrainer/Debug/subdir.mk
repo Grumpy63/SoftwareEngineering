@@ -13,7 +13,6 @@ C_SRCS += \
 ../main.c \
 ../richtung.c \
 ../usernames.c \
-../verzeichnis.c \
 ../vokabelzahl_feststellen.c 
 
 OBJS += \
@@ -26,7 +25,6 @@ OBJS += \
 ./main.o \
 ./richtung.o \
 ./usernames.o \
-./verzeichnis.o \
 ./vokabelzahl_feststellen.o 
 
 C_DEPS += \
@@ -39,7 +37,6 @@ C_DEPS += \
 ./main.d \
 ./richtung.d \
 ./usernames.d \
-./verzeichnis.d \
 ./vokabelzahl_feststellen.d 
 
 

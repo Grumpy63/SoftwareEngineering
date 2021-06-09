@@ -42,7 +42,7 @@ int main()
 	int b = 0;
 	scanf("%d", &b);
 
-	//verzeichnis_auslesen();
+
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
 	modus = richtung_waehlen();
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
