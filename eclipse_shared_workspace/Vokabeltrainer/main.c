@@ -16,7 +16,6 @@ int main()
 
 
 	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
-	//int korrekte_vokablen = 0;								//counter für Anzahl der Korrekt eingegebenen Vokabeln
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
 	int user_vokabelzahl = 0;								//User gewählte Abzufragende Vokabelzahl
 	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
@@ -36,12 +35,6 @@ int main()
 
 	printf("Willkommen in der Main %s\n", aktueller_nutzer->name);
 
-	//fclose(datei_users_ptr);
-
-	//printf("TEST FCLSOE");
-	//int b = 0;
-	//scanf("%d", &b);
-
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
 	modus = richtung_waehlen();
@@ -54,8 +47,13 @@ int main()
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
 
-	printf("\n\nAnzahl Korrekter Eingaben: %d", korrekte_voc);
 
+	user_ergebnis(korrekte_voc, user_vokabelzahl);
+
+
+
+	int b = 0;
+	scanf("%d", &b);
 
 
 	return 0;

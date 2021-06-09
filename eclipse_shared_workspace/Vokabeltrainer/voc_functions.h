@@ -86,4 +86,13 @@
 	//Ende der Definition für Abfrage der Vokabeln
 
 
+
+	//Definition für highscores
+
+	int user_ergebnis(int korrekte_voc, int user_vokabelzahl);
+	int highscore_list(struct username *aktueller_nutzer);
+
+	//Ende der Definition für highscores
+
+
 #endif /* VOC_FUNCTIONS_H_ */
