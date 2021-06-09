@@ -13,6 +13,8 @@
 #include <stdbool.h>
 #include "header.h"
 
+void cpy_vokabel(struct vokabel * copy,struct vokabel * original);
+
 struct kategorie *liste_einlesen(){
 
 	FILE *datei_vorlage_ptr;
@@ -50,8 +52,10 @@ struct kategorie *liste_einlesen(){
 	struct kategorie * ende_kategorie_ptr = NULL;
 	struct vokabel * ende_vokabel_ptr = NULL;
 
-	struct vokabel * vokabel_laeufer_ptr = NULL;
+	struct vokabel * vokabel_cpy_laeufer_ptr = NULL;
 	struct kategorie * kategorie_laeufer_ptr = NULL;
+	struct vokabel * vokabel_org_laeufer_ptr = NULL;
+
 	struct entitiy_name{
 		char name[256];
 		struct entitiy_name *next;
@@ -70,7 +74,7 @@ struct kategorie *liste_einlesen(){
 	    struct dirent * entity;
 
 	//Ausgeben der möglichen Vokabellisten
-	do{
+	/*do{
 	setbuf(stdout, NULL);																					//Ein pointer entity vom Datentyp struct dirent
     dir = opendir(".");																						//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
     if (dir) {																								//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
@@ -142,8 +146,8 @@ struct kategorie *liste_einlesen(){
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
 		printf("Bitte geben Sie eine neue Auswahl ein:\n");
 	}
-	}while(datei_vorlage_ptr == NULL);
-
+	}while(datei_vorlage_ptr == NULL);*/
+	datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt", "r");
 
 
 
@@ -346,21 +350,30 @@ struct kategorie *liste_einlesen(){
 		strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
 
 		alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
-		alle_kategorien_ptr->erste_vokabel = erste_kategorie_ptr->erste_vokabel;
 		alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
 
 		kategorie_laeufer_ptr = erste_kategorie_ptr;
-		vokabel_laeufer_ptr = alle_kategorien_ptr->erste_vokabel;
+
+		vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;
+		vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));
+
+		cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+
+		alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;
 
 		while(kategorie_laeufer_ptr->next_kategorie != NULL){
 
-			kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+			while(vokabel_org_laeufer_ptr->next_vokabel != NULL){
+				vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+				vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;
+				vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;
 
-			while(vokabel_laeufer_ptr->next_vokabel != NULL){
-				vokabel_laeufer_ptr = vokabel_laeufer_ptr->next_vokabel;
+
+				cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
 			}
 
-			vokabel_laeufer_ptr->next_vokabel = kategorie_laeufer_ptr->erste_vokabel;
+			kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+			vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;
 			alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
 		}
 
@@ -372,5 +385,12 @@ struct kategorie *liste_einlesen(){
 }//Ende Funktion liste einlesen
 
 
+void cpy_vokabel(struct vokabel * copy,struct vokabel * original){
+
+	strcpy(copy->vokabel_sprache1,original->vokabel_sprache1);
+	strcpy(copy->vokabel_sprache2,original->vokabel_sprache2);
+	copy->flag = original->flag;
+
+}
 
 
