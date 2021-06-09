@@ -345,39 +345,46 @@ struct kategorie *liste_einlesen(){
 
 
 	//Eine Gesamt-Kategorie erschaffen.
-	if(true){
-		alle_kategorien_ptr = malloc(sizeof(struct kategorie));
-		strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
+		if(true){
+			alle_kategorien_ptr = malloc(sizeof(struct kategorie));
+			strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");
 
-		alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
-		alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
+			alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;
+			alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;
 
-		kategorie_laeufer_ptr = erste_kategorie_ptr;
+			kategorie_laeufer_ptr = erste_kategorie_ptr;
 
-		vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;
-		vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));
+			vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;
+			vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));
 
-		cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+			cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
 
-		alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;
+			alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;
 
-		while(kategorie_laeufer_ptr->next_kategorie != NULL){
+			while(1){
 
-			while(vokabel_org_laeufer_ptr->next_vokabel != NULL){
+				while(vokabel_org_laeufer_ptr->next_vokabel != NULL){
+					vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));
+					vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;
+					vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;
+
+
+					cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+				}
+
+				kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
+				if(kategorie_laeufer_ptr == NULL)
+				{
+					break;
+				}
+				vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;
 				vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));
 				vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;
-				vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;
-
-
 				cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);
+				alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
 			}
 
-			kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;
-			vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;
-			alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;
-		}
-
-	}//Ende gesamtzkategorie erschaffen
+		}//Ende gesamtzkategorie erschaffen
 
 	fclose(datei_vorlage_ptr);
 	//closedir(dir);
