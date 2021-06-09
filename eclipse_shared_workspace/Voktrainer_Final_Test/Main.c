@@ -5,13 +5,16 @@
  *      Author: David
  */
 #include <stdio.h>
-#include <stdlib.h>
 #include "header.h"
+#include <windows.h>
+
 
 int richtung;
 
 int main(){
 
+	SetConsoleOutputCP (1252);
+	SetConsoleCP (1252);
 	struct kategorie * abzufragende_kategorie = NULL;
 	int maximale_vokabelzahl = 0;
 

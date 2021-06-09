@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <dirent.h>
+#include <windows.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "header.h"

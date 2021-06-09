@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <dirent.h>
+#include <windows.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "header.h"
@@ -23,11 +24,11 @@ void verzeichnis_auslesen(){																			//Definition der Funktion verzeic
     DIR *dir;																							//DIR pointer zum Auslesen des Verzeichnises
     struct dirent * entity;																				//Ein pointer entity vom Datentyp struct dirent
 
-    dir = opendir("C:/Users/David/Desktop/SoftwareEngineering/eclipse_shared_workspace/Voktrainer_Final_Test/Release/");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
+    dir = opendir(".");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
     if (dir) {																							//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
         while (0 != (entity = readdir(dir))) {															//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
-                if(strcmp(entity->d_name, ".") == 0 ||												//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
-                   strcmp(entity->d_name, "..") == 0){												//
+                if(strcmp(entity->d_name, ".") == 0 ||													//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
+                   strcmp(entity->d_name, "..") == 0){													//
                     continue;																			//
                     }																					//
 

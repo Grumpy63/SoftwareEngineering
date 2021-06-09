@@ -9,6 +9,7 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "header.h"
 
 struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
