@@ -18,9 +18,9 @@ struct username *username_list()
 {
 
 
-	FILE *datei_users_ptr;												//FILE pointer zum öffnen der Usernames.txt Datei
+	FILE *datei_users_ptr = NULL;										//FILE pointer zum öffnen der Usernames.txt Datei
 
-	char dummy_zeichen = ' ';										//Zum einlesen von Leerzeichen
+	char dummy_zeichen = ' ';											//Zum einlesen von Leerzeichen
 	int c = 0;															//Char Platzhalter zum auslesen der Datei
 	int u = 0;															//Variable benutzt in Erstellung User verkettete Liste
 	int t = 0;															//Variable für Vergleich der Nutzernamen (Merker: ist Name bereits bekannt?)
@@ -38,7 +38,7 @@ struct username *username_list()
 			datei_users_ptr = fopen("Usernames.txt", "w+");						//Wenn Usernames.txt Datei also nicht existiert, erstelle sie
 			if(datei_users_ptr != 0)
 			{
-				printf("Datei konnte DEFINITIV erstellt werden");
+				printf("Datei konnte DEFINITIV erstellt werden\n");
 			}
 			printf("Usernames.txt wurde erstellt.\n");
 			printf("Noch keine Nutzer bekannt! \nBitte einen neuen Nutzernamen eingeben: ");
@@ -56,7 +56,8 @@ struct username *username_list()
 			fprintf(datei_users_ptr, ";");										//Anhängen des Semikolons in Datei Usernames.txt für Konformität
 			printf("Nutzer erfolgreich angelegt!\n");
 			printf("Ende der Erstellung von Usertext.txt\n");
-			return(entered_user_ptr);															//return 1 für neuer Nutzer erstellt
+			fclose(datei_users_ptr);
+			return(entered_user_ptr);											//return 1 für neuer Nutzer erstellt
 		}
 		else																	//Wenn Datei existiert (und entsprechend schon ein User bekannt ist); alle bekannten User auflisten
 		{
@@ -139,6 +140,7 @@ struct username *username_list()
 			fprintf(datei_users_ptr, ";");												//Semikolon wird angehängt
 			printf("Neuer Nutzer wurde erfolgreich angelegt.\n");
 		}
+
 
 
 	return(entered_user_ptr);

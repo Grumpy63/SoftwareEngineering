@@ -30,12 +30,9 @@ int main()
 			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
 			"Und jetzt viel Spass!\n\n");
 
-//	int a = 0;
-//	scanf("%d", &a);
 
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
-
 
 	printf("Willkommen in der Main %s\n", aktueller_nutzer->name);
 
