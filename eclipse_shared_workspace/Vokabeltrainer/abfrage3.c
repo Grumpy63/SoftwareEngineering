@@ -13,13 +13,18 @@
 int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc)
 {
 	int anzahl_korrekter_voc = 0;
-	int upper_limit = (abzufragende_kategorie->anzahl_in_kategorie) -1;		//Upper_limit zur Erstellung der Zufallszahl
 	struct vokabel* voc_ptr = NULL; 										//Hilfsptr auf aktuelle Vokabel
 	int zufall_voc = 0;														//Randomzahl für Vokabelabfragenreihenfolge
 	int zufall_sprache = 0;													//Zufalls Zahl für die zufällige Sprachreihenfolge
 	char dummy_zeichen = ' ';												//Dummy zum Leerzeichen einlesen
 	char eingabe[256];														//Platzhalter für User Vokabeleingabe
-	char *eingabe_lwr = eingabe;													//Pointer auf User Vokabeleingabe in all lower cases
+
+
+	scanf("%c", &dummy_zeichen);											//Leeren des Puffers
+				if(dummy_zeichen == '\r')									//auch auf anderen OS (haben evtl mehr Zeichen)
+						{
+							scanf("%c", &dummy_zeichen);
+						}
 
 
 		for (int i=0; i < number_abzufragende_voc; i++)						//Schleife für die Abfragezyklen, i ist Laufvariable
@@ -27,11 +32,11 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 				reroll:
 				srand(time(NULL));											//Generieren einer Zufallszahl von int in Bereich 0 bis Anzahl in Kategorie minus 1
-				zufall_voc = irand(0, upper_limit);
+				zufall_voc = irand(0, abzufragende_kategorie->anzahl_in_kategorie);
 
 				voc_ptr = abzufragende_kategorie->erste_vokabel;			//Hilfszeiger auf Beginn der abzufragenden Vokabelliste
 
-				for(int x = 0; x <= zufall_voc; x++) 							//Zeiger jeweils Vielfaches der Zufallszahl Weitersetzen auf die nächsten Listenelemente
+				for(int x = 0; x < (zufall_voc-1); x++) 							//Zeiger jeweils Vielfaches der Zufallszahl Weitersetzen auf die nächsten Listenelemente
 				{
 					voc_ptr = voc_ptr->next_vokabel;
 				}
@@ -55,22 +60,22 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 				{
 				case 0:
 
-					printf("Bitte geben sie die Übersetzung von %s ein: ", voc_ptr->vokabel_sprache1);  	//Aufforderung zur Eingabe
+					printf("\nBitte geben sie die Übersetzung von %s ein: ", voc_ptr->vokabel_sprache1);  	//Aufforderung zur Eingabe
 					scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 					scanf("%c", &dummy_zeichen);															//Leeren des Puffers
 						if(dummy_zeichen == '\r')															//auch auf anderen OS (haben evtl mehr Zeichen)
 								{
 									scanf("%c", &dummy_zeichen);
 								}
-					eingabe_lwr = strlwr(eingabe_lwr);
-					if(strcmp(eingabe_lwr, voc_ptr->vokabel_sprache2) == 0)  								//Vergleich der beiden Strings.
+					strlwr(eingabe);
+					if(strcmp(eingabe, voc_ptr->vokabel_sprache2) == 0)  								//Vergleich der beiden Strings.
 						{
 							printf("Ihre Eingabe war richtig!\n");											//Ausgabe eines Feedbacks
 							anzahl_korrekter_voc++;															// Counter für richtige Vokabeln wird hochgesetzt
 						}
 					else
 						{
-							printf("Leider falsch! Korrekte wäre gewesen: %s", voc_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
+							printf("Leider falsch! Korrekte wäre gewesen: %s\n", voc_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
 						}
 
 					voc_ptr = NULL;	//Hilfszeiger wird wieder geerdet
@@ -80,14 +85,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 				case 1:
 
-					printf("Bitte geben sie die Übersetzung von %s ein:",voc_ptr->vokabel_sprache2);  // Aufforderung zur Eingabe
+					printf("\nBitte geben sie die Übersetzung von %s ein: ",voc_ptr->vokabel_sprache2);  // Aufforderung zur Eingabe
 					scanf("%[^\r\n]", eingabe);							//Es können auch Leerzeichen eingegeben werden
 					scanf("%c", &dummy_zeichen);										//Leeren des Puffers
 						if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
 								{
 									scanf("%c", &dummy_zeichen);
 								}
-					eingabe_lwr = strlwr(eingabe);																	//Eingabe ist nun all lower cases
+					strlwr(eingabe);																	//Eingabe ist nun all lower cases
 					if(strcmp(eingabe, voc_ptr->vokabel_sprache1) == 0)  //Vergleich der beiden Strings.
 						{
 							printf("Ihre Eingabe war richtig!\n");			//Ausgabe eines Feedbacks

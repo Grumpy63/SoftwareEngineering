@@ -30,8 +30,8 @@ int main()
 			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
 			"Und jetzt viel Spass!\n\n");
 
-	int a = 0;
-	scanf("%d", &a);
+//	int a = 0;
+//	scanf("%d", &a);
 
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
@@ -48,7 +48,7 @@ int main()
 	printf("Ihre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
 
 
-	korrekte_voc = abfrage(abzufragende_kategorie, 2, 3);
+	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
 
 
 	int b = 0;

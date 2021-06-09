@@ -36,6 +36,10 @@ struct username *username_list()
 		if (datei_users_ptr == NULL)											//Wenn Versuch fehlschlägt
 		{
 			datei_users_ptr = fopen("Usernames.txt", "w+");						//Wenn Usernames.txt Datei also nicht existiert, erstelle sie
+			if(datei_users_ptr != 0)
+			{
+				printf("Datei konnte DEFINITIV erstellt werden");
+			}
 			printf("Usernames.txt wurde erstellt.\n");
 			printf("Noch keine Nutzer bekannt! \nBitte einen neuen Nutzernamen eingeben: ");
 
