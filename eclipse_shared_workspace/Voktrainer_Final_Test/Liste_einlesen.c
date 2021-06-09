@@ -17,8 +17,8 @@ struct kategorie *liste_einlesen(){
 
 	FILE *datei_vorlage_ptr;
 
-	char c;
-	char listenname;
+	char c = ' ';
+	int listenname = 0;
 
 	bool Flagge_Neue_Kategorie = false;
 	bool Flagge_Kategorie_mind = false;
@@ -37,6 +37,8 @@ struct kategorie *liste_einlesen(){
 	bool Flagge_erster_Durchlauf = false;
 	bool Flagge_Semikolon = false;
 
+	bool Flagge_Entity = false;
+
 	int array_position_kategorie = 0;
 	int array_position_vokabel = 0;
 
@@ -50,15 +52,73 @@ struct kategorie *liste_einlesen(){
 
 	struct vokabel * vokabel_laeufer_ptr = NULL;
 	struct kategorie * kategorie_laeufer_ptr = NULL;
+	struct entitiy_name{
+		char name[NAME_MAX + 1];
+		struct entitiy_name *next;
+	};
+	struct entitiy_name *erste_entity_name_ptr = NULL;
+	struct entitiy_name *ende_entity_name_ptr = NULL;
+	struct entitiy_name *entity_name_ptr = NULL;
 
 
 	do{
 	setbuf(stdout, NULL);
 	//printf("Bitte den Namen der Vokabelliste eingeben, die eingelesen werden soll. \n");
-	//listenname = getchar();
-	datei_vorlage_ptr = fopen("C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt", "r");
-	//C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt
-		//C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Usernames.txt
+	char needle[] = ".txt";																				//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
+	char needle2[] = "Usernames";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
+	char needle3[] = "Highscore";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
+    char needle4[] = ".csv";
+	int Aufzaehlung = 1;																				//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
+    bool flag = false;																					//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
+    DIR *dir;																							//DIR pointer zum Auslesen des Verzeichnises
+    struct dirent * entity;																				//Ein pointer entity vom Datentyp struct dirent
+    dir = opendir(".");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
+    if (dir) {																							//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
+        while (0 != (entity = readdir(dir))) {															//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
+                if(strcmp(entity->d_name, ".") == 0 ||													//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
+                   strcmp(entity->d_name, "..") == 0){													//
+                    continue;																			//
+                    }																					//
+
+                if(((strstr(entity->d_name, needle) != 0) || strstr(entity->d_name, needle4) != 0)&&												//If-Verzweiung, wenn der Dateiname ein .txt enthält
+                   (strstr(entity->d_name, needle2) == 0) &&											//und nicht den String Usernames enthält, da dies keine Vokabelliste
+				   (strstr(entity->d_name, needle3) == 0)){												//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste
+                    printf("(%d) %s\n", Aufzaehlung, entity->d_name);									//Printf Anweisung zum Ausgeben des Aufzählungspunkts mit dem Dateinamen
+
+                    if(Flagge_Entity == false)
+                    {
+                    	erste_entity_name_ptr = malloc(sizeof(struct entitiy_name));
+                    	ende_entity_name_ptr = erste_entity_name_ptr;
+                    	strcpy(erste_entity_name_ptr->name, entity->d_name);
+                    	Flagge_Entity = true;
+                    }
+                    else
+                    {
+                    	ende_entity_name_ptr->next = malloc(sizeof(struct entitiy_name));
+                    	strcpy(ende_entity_name_ptr->next->name, entity->d_name);
+                    	ende_entity_name_ptr = ende_entity_name_ptr->next;
+                    }
+                    Aufzaehlung ++;																		//Variable Aufzaehlung um eins inkrementieren
+                    flag = true;																		//Wenn mind. eine Datei gefunden und ausgegeben wurde, wird die flag gesetzt
+
+                }
+        }
+        if(flag == false){																				//Flag überprüfen, für den Fall, dass keine Datei gefunden wurde
+        	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden./n");	//Ausgabe einer Informationsnachricht für den Nutzer
+        }																					//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
+    }
+
+	scanf("%d", &listenname);
+	Aufzaehlung = 0;
+	entity_name_ptr = erste_entity_name_ptr;
+
+	while(listenname > Aufzaehlung)
+	{
+		entity_name_ptr = entity_name_ptr->next;
+		Aufzaehlung++;
+		continue;
+	}
+	datei_vorlage_ptr = fopen(entity_name_ptr->name, "r");
 	//C:\\Users\\DDevi\\Google Drive\\eclipse-workspace\\Voktrainer_Final_Test\\Debug\\Liste5.txt
 	//C:\\Users\\David\\Desktop\\SoftwareEngineering\\eclipse_shared_workspace\\Voktrainer_Final_Test\\Debug\\Beispiel_Vokabelliste.txt
 	//datei_counter_ptr = datei_vorlage_ptr;
@@ -67,6 +127,7 @@ struct kategorie *liste_einlesen(){
 		printf("Die Datei konnte leider nicht geöffnet werden.\n");
 	}
 	}while(datei_vorlage_ptr == NULL);
+
 
 
 
@@ -115,15 +176,12 @@ struct kategorie *liste_einlesen(){
 				  if(erste_kategorie_ptr == NULL){
 					  erste_kategorie_ptr = malloc(sizeof(struct kategorie));
 					  ende_kategorie_ptr = erste_kategorie_ptr;
-
 				  }
 				  else{
 					  ende_kategorie_ptr->next_kategorie = malloc(sizeof(struct kategorie));
 					  ende_kategorie_ptr = ende_kategorie_ptr->next_kategorie;
-
 				  }
 
-				  ende_kategorie_ptr->erste_vokabel = NULL;
 				  continue;
 			  }
 
@@ -151,16 +209,11 @@ struct kategorie *liste_einlesen(){
 				  if(ende_kategorie_ptr->erste_vokabel == NULL){
 					  ende_kategorie_ptr->erste_vokabel = malloc(sizeof(struct vokabel));
 					  ende_vokabel_ptr = ende_kategorie_ptr->erste_vokabel;
-
 				  }
 				  else{
 					  ende_vokabel_ptr->next_vokabel = malloc(sizeof(struct vokabel));
 					  ende_vokabel_ptr = ende_vokabel_ptr->next_vokabel;
-
 				  }
-
-				  ende_vokabel_ptr->flag = NULL;
-
 				  ende_kategorie_ptr->anzahl_in_kategorie++;
 				  Flagge_Vokabelpaar_beschreibbar = true;
 			  }
@@ -293,8 +346,6 @@ struct kategorie *liste_einlesen(){
 		}
 
 	}//Ende gesamtzkategorie erschaffen
-
-	fclose(datei_vorlage_ptr);
 
 	return(alle_kategorien_ptr);
 }//Ende Funktion liste einlesen
