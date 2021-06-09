@@ -54,10 +54,5 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 	}
 
 
-
-
-
-
-
 	return anzahl;
 }

@@ -18,7 +18,6 @@ int main(){
 	struct kategorie * abzufragende_kategorie = NULL;
 	int maximale_vokabelzahl = 0;
 
-	//verzeichnis_auslesen();
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
 	richtung = richtung_waehlen();
 	maximale_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
