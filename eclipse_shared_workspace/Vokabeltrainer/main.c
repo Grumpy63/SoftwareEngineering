@@ -38,9 +38,9 @@ int main()
 
 	//fclose(datei_users_ptr);
 
-	printf("TEST FCLSOE");
-	int b = 0;
-	scanf("%d", &b);
+	//printf("TEST FCLSOE");
+	//int b = 0;
+	//scanf("%d", &b);
 
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
