@@ -25,6 +25,7 @@ int richtung_waehlen()
 	while(1)
 	{
 		scanf("%d", &richtung);
+		fflush(stdin);
 		if(richtung < 1 || richtung > 3)
 		{
 			printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");
