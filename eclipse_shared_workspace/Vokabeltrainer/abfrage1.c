@@ -62,8 +62,8 @@ scanf("%c", &dummy_zeichen);										//Leeren des Puffers
 					{
 						scanf("%c", &dummy_zeichen);
 					}
-		strlwr(eingabe);
-		if(strcmp(eingabe, help_ptr->vokabel_sprache2) == 0)  //Vergleich der beiden Strings. Groß/Kleinschreibung spielt noch eine Rolle!!!!
+		strlwr(eingabe);										// Umwandlung lower String; Groß- Kleinschreibung egal!
+		if(strcmp(eingabe, help_ptr->vokabel_sprache2) == 0)  //Vergleich der beiden Strings.
 			{
 				printf("Ihre Eingabe war richtig!\n");			//Ausgabe eines Feedbacks
 				anzahl_korrekter_voc++;							// Counter für richtige Vokabeln wird hochgesetzt

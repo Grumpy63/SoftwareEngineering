@@ -28,7 +28,7 @@ int abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_vo
 		{
 			case 1: anzahl_korrekter_voc = abfrage1(abzufragende_kategorie,number_abzufragende_voc);  //Sprache1 -> Sprache2 in extra Funktionen seperat c files!
 			break;
-			case 2: //Sprache2 -> Sprache1
+			case 2: anzahl_korrekter_voc = abfrage2(abzufragende_kategorie,number_abzufragende_voc);	//Sprache2 -> Sprache1
 			break;
 			case 3: anzahl_korrekter_voc = abfrage3(abzufragende_kategorie,number_abzufragende_voc);		//Gemischt per Zufall
 			break;
