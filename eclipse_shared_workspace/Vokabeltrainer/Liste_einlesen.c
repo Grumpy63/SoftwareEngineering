@@ -60,19 +60,20 @@ struct kategorie *liste_einlesen(){
 		char name[256];
 		struct entitiy_name *next;
 	};
+
 	struct entitiy_name *erste_entity_name_ptr = NULL;
 	struct entitiy_name *ende_entity_name_ptr = NULL;
 	struct entitiy_name *entity_name_ptr = NULL;
 
 
 	char needle[] = ".txt";																					//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
-		char needle2[] = "Usernames";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
-		char needle3[] = "Highscore";																		//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
-	    char needle4[] = ".csv";
-		int Aufzaehlung = 1;																				//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
-	    bool flag = false;																					//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
-	    DIR *dir;																							//DIR pointer zum Auslesen des Verzeichnises
-	    struct dirent * entity;
+	char needle2[] = "Usernames";																			//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
+	char needle3[] = "Highscore";																			//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
+	char needle4[] = ".csv";
+	int Aufzaehlung = 1;																					//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
+	bool flag = false;																						//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
+	DIR *dir;																								//DIR pointer zum Auslesen des Verzeichnises
+	struct dirent * entity;
 
 	//Ausgeben der möglichen Vokabellisten
 	do{
@@ -81,27 +82,27 @@ struct kategorie *liste_einlesen(){
     if (dir) {																								//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
         while (0 != (entity = readdir(dir))) {																//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
                 if(strcmp(entity->d_name, ".") == 0 ||														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
-                   strcmp(entity->d_name, "..") == 0){														//
+                   strcmp(entity->d_name, "..") == 0){														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
                     continue;																				//
                     }																						//
 
-                if(((strstr(entity->d_name, needle) != 0) || strstr(entity->d_name, needle4) != 0)&&												//If-Verzweiung, wenn der Dateiname ein .txt enthält
-                   (strstr(entity->d_name, needle2) == 0) &&												//und nicht den String Usernames enthält, da dies keine Vokabelliste
-				   (strstr(entity->d_name, needle3) == 0)){													//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste
+                if(((strstr(entity->d_name, needle) != 0) || strstr(entity->d_name, needle4) != 0)&&		//If-Verzweiung, wenn der Dateiname ein .txt ocer .csv enthält
+                   (strstr(entity->d_name, needle2) == 0) &&												//und nicht den String Usernames enthält, da dies keine Vokabelliste ist
+				   (strstr(entity->d_name, needle3) == 0)){													//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste ist
                     printf("(%d) %s\n", Aufzaehlung, entity->d_name);										//Printf Anweisung zum Ausgeben des Aufzählungspunkts mit dem Dateinamen
 
-                    if(Flagge_Entity == false)
+                    if(Flagge_Entity == false)																//If-Verzweigung zum Überprüfen ob eine struct entity_name besteht
                     {
-                    	erste_entity_name_ptr = malloc(sizeof(struct entitiy_name));
-                    	ende_entity_name_ptr = erste_entity_name_ptr;
-                    	strcpy(erste_entity_name_ptr->name, entity->d_name);
-                    	Flagge_Entity = true;
+                    	erste_entity_name_ptr = malloc(sizeof(struct entitiy_name));						//Allokieren einer ersten Struct enitiy_name auf den Pointer erste_entity_name_ptr
+                    	ende_entity_name_ptr = erste_entity_name_ptr;										//ende_entity_name_ptr wird auf erste_entity_name_ptr gesetzt
+                    	strcpy(erste_entity_name_ptr->name, entity->d_name);								//Der Name der ersten Datei wird in erste_entity_name_ptr->name geschrieben
+                    	Flagge_Entity = true;																//Die Flagge_Entity wird gesetzt
                     }
-                    else
+                    else																					//Else-Verzweigung
                     {
-                    	ende_entity_name_ptr->next = malloc(sizeof(struct entitiy_name));
-                    	strcpy(ende_entity_name_ptr->next->name, entity->d_name);
-                    	ende_entity_name_ptr = ende_entity_name_ptr->next;
+                    	ende_entity_name_ptr->next = malloc(sizeof(struct entitiy_name));					//Allokieren einer neuen Struct entity_name auf den next Pointer der vorherigen Struct
+                    	strcpy(ende_entity_name_ptr->next->name, entity->d_name);							//Der Name der nächsten Datei wird in die neu erstellte Struct geschrieben
+                    	ende_entity_name_ptr = ende_entity_name_ptr->next;									//Der ende_entity_name_ptr wird auf den next Pointer der letzten Struct gesetzt
                     }
                     Aufzaehlung ++;																			//Variable Aufzaehlung um eins inkrementieren
                     flag = true;																			//Wenn mind. eine Datei gefunden und ausgegeben wurde, wird die flag gesetzt
@@ -114,21 +115,21 @@ struct kategorie *liste_einlesen(){
     }
     //Abfrage nach der zu öffnenden Datei
 
-    printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll:\n");
+    printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
     do
     {
-    	scanf("%d", &listenname);
-    	if(listenname > Aufzaehlung || listenname <= 0)
+    	scanf("%d", &listenname);																			//
+    	if(listenname > Aufzaehlung || listenname <= 0)														//
     	    {
-    	    	printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");
-    	    	scanf("%d", &listenname);
+    	    	printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");				//Ausgabe einer Informationsnachricht für den Nutzer
+    	    	scanf("%d", &listenname);																	//
     	    	continue;
     	    }
     	else
     	{
     		break;
     	}
-    }while(listenname > Aufzaehlung || listenname <= 0);
+    }while(listenname > Aufzaehlung || listenname <= 0);													//
 
 
 	Aufzaehlung = 1;
@@ -144,8 +145,8 @@ struct kategorie *liste_einlesen(){
 
 	if(datei_vorlage_ptr == NULL)
 	{
-		printf("Die Datei konnte leider nicht geöffnet werden.\n");
-		printf("Bitte geben Sie eine neue Auswahl ein:\n");
+		printf("Die Datei konnte leider nicht geöffnet werden.\n");											//Ausgabe einer Informationsnachricht für den Nutzer
+		printf("Bitte geben Sie eine neue Auswahl ein:\n");													//Ausgabe einer Informationsnachricht für den Nutzer
 	}
 	}while(datei_vorlage_ptr == NULL);
 
