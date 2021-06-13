@@ -14,6 +14,8 @@
 int main()
 {
 
+	struct vokabel * sprache = NULL;
+	sprache = malloc(sizeof(struct vokabel));
 
 	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
@@ -36,8 +38,11 @@ int main()
 	printf("Willkommen in der Main %s\n", aktueller_nutzer->name);
 
 
-	abzufragende_kategorie = kategorie_waehlen(liste_einlesen());
-	modus = richtung_waehlen();
+	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));
+	//printf("Sp1:%s\n",sprache->vokabel_sprache1);
+	//printf("Sp2:%s\n",sprache->vokabel_sprache2);
+
+	modus = richtung_waehlen(sprache);
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
 
 	//printf("Kritische Vokabel: %s\n", abzufragende_kategorie->erste_vokabel->next_vokabel->vokabel_sprache1);

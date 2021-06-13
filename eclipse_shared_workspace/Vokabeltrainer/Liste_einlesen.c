@@ -19,12 +19,13 @@ void cpy_vokabel(struct vokabel * copy,struct vokabel * original);
 
 /*	1. In der Funktion wird die verwendete Vokabelliste/datei vom User ausgewählt
  * 	2. Das ausgewählte file wird auf Kategorienmarker überprüft, also ob es eine thematische Unterteilung der Vokabeln gibt
- * 	3. Entsprechend dieses Ergebnisses wird das Dokument char für char ausgelesen und in dynamischen listen abgesspeichert
- * 		3.1 Exsistieren Kategorien wird eine Kategorienliste erstellt, jede Kategorie enthält ihre entssprechenden Vokabelpaare als Listen
- * 		3.2 Gibt es keine Kategorien wird direkt eine Gesamt-Kategorie, mit allen Vokabeln erstellt und zurückgegeben
- * 	4. Sollte Fall 3.1 aussgeführt worden sein, wird die Kategorienliste an eine Gesamt-Kategorie angefügt, welche alle vokabel enthält.
+ * 	3. Die Sprache am Kopfende der Datei wird ausgelesen und in der vokabelstruktur "sprache" gespeichert, welche der Funktion übergeben wurde
+ * 	4. Entsprechend dieses Ergebnisses wird das Dokument char für char ausgelesen und in dynamischen listen abgesspeichert
+ * 		4.1 Exsistieren Kategorien wird eine Kategorienliste erstellt, jede Kategorie enthält ihre entssprechenden Vokabelpaare als Listen
+ * 		4.2 Gibt es keine Kategorien wird direkt eine Gesamt-Kategorie, mit allen Vokabeln erstellt und zurückgegeben
+ * 	5. Sollte Fall 3.1 aussgeführt worden sein, wird die Kategorienliste an eine Gesamt-Kategorie angefügt, welche alle vokabel enthält.
  */
-struct kategorie *liste_einlesen(){
+struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	FILE *datei_vorlage_ptr;																				//
 
@@ -34,6 +35,10 @@ struct kategorie *liste_einlesen(){
 	bool Flagge_Neue_Kategorie = false;																		//
 	bool Flagge_Kategorie_mind = false;																		//
 
+	bool Flagge_Sprache1_begonnen = false;
+	bool Flagge_Sprache1_zuende = false;
+	bool Flagge_Sprache2_begonnen = false;
+	
 	bool Flagge_Vokabelpaar_beschreibbar = false;															//
 	bool Flagge_Kategorie_befuellbar = false;																//
 
@@ -78,6 +83,7 @@ struct kategorie *liste_einlesen(){
 	bool flag = false;																						//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
 	DIR *dir;																								//DIR pointer zum Auslesen des Verzeichnises
 	struct dirent * entity;
+
 
 	//Ausgeben der möglichen Vokabellisten
 	do{
@@ -156,6 +162,8 @@ struct kategorie *liste_einlesen(){
 
 
 
+	//datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt", "r");
+
 	//Überprüfen des Files auf mindestens eine Kategorie
 
 	while(c != EOF)																							//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
@@ -173,6 +181,45 @@ struct kategorie *liste_einlesen(){
 
 	fseek(datei_vorlage_ptr, 0, SEEK_SET);																	//Die Funktion fseek() setzt den Pointer datei_vorlage_ptr zurück auf den Anfang des Files
 
+
+	//Die Sprachen in denen abgefragt wird, werden ausgelesen
+	while(c != EOF)																							//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
+	{
+		c = fgetc(datei_vorlage_ptr);																		//Mit der Funktion fgetc() wird ein Zeichen aus dem File ausgelesen und in die Variable c geschrieben
+
+		if(c == ';' || c == '\r' || c == '\n'){																//Zeichen die das Ende eines Wortes, oder den Platz dazwischen signalisieren werden abgefangen
+			if(Flagge_Sprache1_begonnen == false){															//If abfrage filtert alle Zeichen vor dem ersten Wort heraus
+				continue;
+			}
+			if(Flagge_Sprache1_begonnen == true && Flagge_Sprache2_begonnen == false){						//Das erste Formatierungszeichen nach dem Beginn des ersten Wortes signalisiert dessen Ende
+				Flagge_Sprache1_zuende = true;																//Mit dieser Flagge wird der Zugang zu Sprache1 verschlossen und der zu Sprache2 geöffnet
+				array_position_vokabel = 0;																	//Zähl Variable muss zurück auf 0 gesetzt werden für Sprache 2
+				continue;
+			}
+			if(Flagge_Sprache2_begonnen == true){															//Das erste Formatierungszeichen nach dem Beginn des zweiten Wortes signalisiert dessen Ende
+				array_position_vokabel = 0;																	//Auch hier muss die Zählvariable zurückgesetz werden, da diese später weiter verwendet wird
+				break;																						//Beide Sprachen wurden eingelesen. Die Schleife wird verlassen.
+			}
+
+		}																									//Ende des Formatierungszeichen-Filters
+		if(Flagge_Sprache1_zuende == false){																//Einlesen von Sprache1 beginnt, falls nicht schon geschehen
+			Flagge_Sprache1_begonnen = true;																//Das Einlesen von Sprache1 beginnt, das nächste Formatierungszeichen wird es wieder beenden
+			sprache->vokabel_sprache1[array_position_vokabel] = c;											//Das momentane Zeichen aus dem Dokument wird an das Wort Sprache1 angehängt
+			array_position_vokabel++;																		//Somit muss die Zählvariable weiter gesetzt werden
+			continue;
+		}																									//Ende des Einlesens von Sprache1
+		if(Flagge_Sprache1_zuende == true){																	//Einlesen von Sprache2 beginnt
+			Flagge_Sprache2_begonnen = true;																//Das Einlesen von Sprache2 beginnt, das nächste Formatierungszeichen wird es wieder beenden und die Schleife wird verlassen
+			sprache->vokabel_sprache2[array_position_vokabel] = c;											//Das momentane Zeichen aus dem Dokument wird an das Wort Sprache2 angehängt
+			array_position_vokabel++;																		//Somit muss die Zählvariable weiter gesetzt werden
+			continue;
+		}
+
+	}
+
+	fseek(datei_vorlage_ptr, 0, SEEK_SET);																	//Die Funktion fseek() setzt den Pointer datei_vorlage_ptr zurück auf den Anfang des Files
+
+	
 	if(Flagge_Kategorie_mind == true){																		//Die If-Abfrage überprüft ob die Variable Flagge_Kategorie_mind auf true steht
 
 		  while(c != EOF)																					//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
