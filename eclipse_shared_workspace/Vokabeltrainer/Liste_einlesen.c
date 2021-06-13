@@ -86,6 +86,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 
 	//Ausgeben der möglichen Vokabellisten
+	printf("Es wird in demselben Ordner, in welchem dieses Programm liegt, nach Vokabellisten gesucht:\n");	//Ausgabe die den Nutzer über die Suche nach Vokabellisten informiert
 	do{
 	setbuf(stdout, NULL);																					//Ein pointer entity vom Datentyp struct dirent
     dir = opendir(".");																						//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
@@ -120,7 +121,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
                 }
         }
         if(flag == false){																					//Flag überprüfen, für den Fall, dass keine Datei gefunden wurde
-        	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden./n");		//Ausgabe einer Informationsnachricht für den Nutzer
+        	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden.\n");		//Ausgabe einer Informationsnachricht für den Nutzer
         }																									//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
     }
     //Abfrage nach der zu öffnenden Datei
