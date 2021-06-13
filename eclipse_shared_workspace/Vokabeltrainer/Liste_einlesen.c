@@ -15,6 +15,15 @@
 
 void cpy_vokabel(struct vokabel * copy,struct vokabel * original);
 
+
+
+/*	1. In der Funktion wird die verwendete Vokabelliste/datei vom User ausgewählt
+ * 	2. Das ausgewählte file wird auf Kategorienmarker überprüft, also ob es eine thematische Unterteilung der Vokabeln gibt
+ * 	3. Entsprechend dieses Ergebnisses wird das Dokument char für char ausgelesen und in dynamischen listen abgesspeichert
+ * 		3.1 Exsistieren Kategorien wird eine Kategorienliste erstellt, jede Kategorie enthält ihre entssprechenden Vokabelpaare als Listen
+ * 		3.2 Gibt es keine Kategorien wird direkt eine Gesamt-Kategorie, mit allen Vokabeln erstellt und zurückgegeben
+ * 	4. Sollte Fall 3.1 aussgeführt worden sein, wird die Kategorienliste an eine Gesamt-Kategorie angefügt, welche alle vokabel enthält.
+ */
 struct kategorie *liste_einlesen(){
 
 	FILE *datei_vorlage_ptr;																				//
@@ -332,64 +341,72 @@ struct kategorie *liste_einlesen(){
 		  }
 
 		}//Ende While EOF fürt alle vok
+		fclose(datei_vorlage_ptr);
 		return(alle_kategorien_ptr);																		//Der Pointer alle_kategorien_ptr wird von der Funktion zurück gegeben
 	}//Ende else für abfrage ob !kategorie
 
 
 
-	//Eine Gesamt-Kategorie erschaffen.
+	/*	Eine Gesamt-Kategorie wird erschaffen.
+	 * 	Diese enhält alle Vokabeln des Dokuments.
+	 * 	Diese Kategorie wird vor der ersten in die Kategorieliste eingefügt
+	 */
 		if(true){																							//If-Abfrage
 			alle_kategorien_ptr = malloc(sizeof(struct kategorie));											//Auf den Pointer alle_kategorien_ptr wird die erste struct kategorie allokiert
 			strcpy(alle_kategorien_ptr->kategorie_name,"Alle Vokabeln");									//Mit der Funktion strcpy() wird der String "Alle Vokabeln" über den Pointer alle_kategorien_ptr in die Variable kategorie_name kopiert
 
-			alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;										//
-			alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;			//
+			alle_kategorien_ptr->next_kategorie = erste_kategorie_ptr;										//Die restlichen Kategorien werden an die Gesamtkategorie geheftet
+			alle_kategorien_ptr->anzahl_in_kategorie = erste_kategorie_ptr->anzahl_in_kategorie;			//Anzahl der Vokabeln in der Gesamtkategorie wird im Vorrais auf die der ersten Kategorie erhöht
 
-			kategorie_laeufer_ptr = erste_kategorie_ptr;													//
+			kategorie_laeufer_ptr = erste_kategorie_ptr;													//Ein Hilfsszeiger um durch die Kategorien zu laufen
 
-			vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;									//
-			vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));										//
+			vokabel_org_laeufer_ptr = erste_kategorie_ptr->erste_vokabel;									//Ein Hilfszeiger um durch die orginalen Vokabellisten der einzelnen Kategorien zu laufen
+			vokabel_cpy_laeufer_ptr = malloc(sizeof(struct vokabel));										//Ein Hilfszeiger um die Vokabeln an das Ende der Gesamtkategorienvokabelliste anzufügen
 
-			cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);									//
+			cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);									//Aufruf der Funktion, welche die Vokabeln von der Einzel- zu der Gesamtkategorie kopiert
 
-			alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;									//
+			alle_kategorien_ptr->erste_vokabel = vokabel_cpy_laeufer_ptr;									//Kopie der ersten Vokabelliste wird an die Gesamtkategorie geheftet
 
-			while(1){																						//
+			while(1){																						//Nachdem ein Startpunkt mit der Kopie der ersten Vokabelliste vorhanden ist, können weitere Kopiervorgänge nun identisch ablaufen -> Schleife
 
-				while(vokabel_org_laeufer_ptr->next_vokabel != NULL){										//
-					vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));					//
-					vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;						//
-					vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;						//
+				while(vokabel_org_laeufer_ptr->next_vokabel != NULL){										//Läuft bis das Ende der Orginal-Vokabelliste erreicht ist
+					vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));					//Speicher für eine neue Vokabel an der Gesamtliste reservieren
+					vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;						//Zeiger auf neuen Speicher setzen
+					vokabel_org_laeufer_ptr = vokabel_org_laeufer_ptr->next_vokabel;						//Nächste Vokabel in Orginalliste auswählen
 
 
-					cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);							//
+					cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);							//Kopie von Orginal auf Kopie
 				}
 
-				kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;								//
-				if(kategorie_laeufer_ptr == NULL)															//
+				kategorie_laeufer_ptr = kategorie_laeufer_ptr->next_kategorie;								//Nächste Kategorie auswählen
+				if(kategorie_laeufer_ptr == NULL)															//Beenden des Kopiervorgangs falls Ende der Kategorienliste erreicht
 				{
-					break;																					//
+					break;																					//joa
 				}
-				vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;								//
-				vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));						//
-				vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;							//
-				cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);								//
-				alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;		//
+				vokabel_org_laeufer_ptr = kategorie_laeufer_ptr->erste_vokabel;								//Vokabelliste der neuen Kategorie auswählen
+				vokabel_cpy_laeufer_ptr->next_vokabel = malloc(sizeof(struct vokabel));						//Speicherplatz für die erste Vokabelkopie aus der neuen Kategorie reservieren
+				vokabel_cpy_laeufer_ptr = vokabel_cpy_laeufer_ptr->next_vokabel;							//Zeiger auf neuen Speicher setzen
+				cpy_vokabel(vokabel_cpy_laeufer_ptr,vokabel_org_laeufer_ptr);								//Erste Vokabel der neuen Kategorie in Gesamtvokabelliste kopieren. Dies geschieht am Ende der while, da die erste Vokabel der Gesamtliste vor der Schleife kopiert werden musste
+				alle_kategorien_ptr->anzahl_in_kategorie += kategorie_laeufer_ptr->anzahl_in_kategorie;		//Anzahl der Vokabeln in der Gesamtliste wird im Vorraus um die der neuen Kategorie erhöht
 			}
 
 		}//Ende Gesamtzkategorie erschaffen
 
-	fclose(datei_vorlage_ptr);																				//
+	fclose(datei_vorlage_ptr);																				//schließen des datenstreams aus der Vokabeldatei
 	//closedir(dir);
-	return(alle_kategorien_ptr);																			//
+	return(alle_kategorien_ptr);																			//Rückgabe der Gesamtkategorieliste
 }//Ende Funktion liste einlesen
 
 
-void cpy_vokabel(struct vokabel * copy,struct vokabel * original){											//
 
-	strcpy(copy->vokabel_sprache1,original->vokabel_sprache1);												//
-	strcpy(copy->vokabel_sprache2,original->vokabel_sprache2);												//
-	copy->flag = original->flag;																			//
+/*
+ *	Funktion kopiert den Inhalt des zweiten Inputzeigers in den Ersten
+ */
+void cpy_vokabel(struct vokabel * copy,struct vokabel * original){											//Erhält die Orginalvokabelstruktur und den Kopiespeicherplatz
+
+	strcpy(copy->vokabel_sprache1,original->vokabel_sprache1);												//Vokabel in Sprache1 kopieren
+	strcpy(copy->vokabel_sprache2,original->vokabel_sprache2);												//Vokabel in Sprache2 kopieren
+	copy->flag = original->flag;																			//Flag(ob abgefragt) kopieren. Eigentlich unnötig, ab so ist sicher, dass die neue Flag auch geerdet ist
 
 }
 
