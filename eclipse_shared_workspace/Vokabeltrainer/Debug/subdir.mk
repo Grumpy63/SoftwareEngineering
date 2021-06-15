@@ -7,7 +7,7 @@ C_SRCS += \
 ../Liste_einlesen.c \
 ../abfrage.c \
 ../abfrage1.c \
-../abfrage2new.c \
+../abfrage2.c \
 ../abfrage3.c \
 ../highscorce.c \
 ../kategorie_waehlen.c \
@@ -20,7 +20,7 @@ OBJS += \
 ./Liste_einlesen.o \
 ./abfrage.o \
 ./abfrage1.o \
-./abfrage2new.o \
+./abfrage2.o \
 ./abfrage3.o \
 ./highscorce.o \
 ./kategorie_waehlen.o \
@@ -33,7 +33,7 @@ C_DEPS += \
 ./Liste_einlesen.d \
 ./abfrage.d \
 ./abfrage1.d \
-./abfrage2new.d \
+./abfrage2.d \
 ./abfrage3.d \
 ./highscorce.d \
 ./kategorie_waehlen.d \
