@@ -9,7 +9,7 @@ C_SRCS += \
 ../abfrage1.c \
 ../abfrage2.c \
 ../abfrage3.c \
-../highscorce.c \
+../highscore.c \
 ../kategorie_waehlen.c \
 ../main.c \
 ../richtung.c \
@@ -22,7 +22,7 @@ OBJS += \
 ./abfrage1.o \
 ./abfrage2.o \
 ./abfrage3.o \
-./highscorce.o \
+./highscore.o \
 ./kategorie_waehlen.o \
 ./main.o \
 ./richtung.o \
@@ -35,7 +35,7 @@ C_DEPS += \
 ./abfrage1.d \
 ./abfrage2.d \
 ./abfrage3.d \
-./highscorce.d \
+./highscore.d \
 ./kategorie_waehlen.d \
 ./main.d \
 ./richtung.d \
@@ -44,10 +44,10 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c subdir.mk
+%.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cygwin C Compiler'
-	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

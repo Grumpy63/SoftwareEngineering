@@ -91,8 +91,18 @@
 
 	//Definition für highscores
 
+
+	struct user_and_score
+	{
+		char username[256];
+		float score;
+		struct user_and_score *next;
+	};
+
 	int user_ergebnis(int korrekte_voc, int user_vokabelzahl);
-	int highscore_list(struct username *aktueller_nutzer);
+	int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user_vokabelzahl);
+	int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste);
+
 
 	//Ende der Definition für highscores
 

@@ -55,7 +55,7 @@ int main()
 
 	user_ergebnis(korrekte_voc, user_vokabelzahl);
 
-
+	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);
 
 	int b = 0;
 	scanf("%d", &b);
