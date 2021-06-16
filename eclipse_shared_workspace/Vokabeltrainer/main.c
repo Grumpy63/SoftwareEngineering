@@ -35,19 +35,16 @@ int main()
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
-	printf("Willkommen in der Main %s\n\n", aktueller_nutzer->name);
-
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));
-	//printf("Sp1:%s\n",sprache->vokabel_sprache1);
-	//printf("Sp2:%s\n",sprache->vokabel_sprache2);
+
 
 	modus = richtung_waehlen(sprache);
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
 
 	//printf("Kritische Vokabel: %s\n", abzufragende_kategorie->erste_vokabel->next_vokabel->vokabel_sprache1);
 
-	printf("\nIhre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
+	//printf("\nIhre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
 
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);

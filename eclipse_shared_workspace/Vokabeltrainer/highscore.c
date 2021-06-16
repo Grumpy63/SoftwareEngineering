@@ -73,14 +73,14 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		ptr_scorekette->score = prozentual;											//sowie seine Punktzahl
 
 		ptr_cursor_scorekette = malloc(sizeof(struct user_and_score));				//Erstellung des zweiten Listenelements
-		strcpy(ptr_cursor_scorekette->username, "-not yet used-");					//Aktueller Benutzer wird eingetragen
+		strcpy(ptr_cursor_scorekette->username, "-unbelegt-");					//Aktueller Benutzer wird eingetragen
 		ptr_cursor_scorekette->score = 0.0;
 
 		ptr_scorekette->next = ptr_cursor_scorekette;								//Verknüpfung des ersten mit dem zweiten Element
 		ptr_scorekette = ptr_cursor_scorekette;										//ptr_scorekette zeigt nun auf 2. Element
 
 		ptr_cursor_scorekette = malloc(sizeof(struct user_and_score));				//Erstellung des dritten Listenelements
-		strcpy(ptr_cursor_scorekette->username, "-not yet used-");		     		//3. Benutzer wird eingetragen
+		strcpy(ptr_cursor_scorekette->username, "-unbelegt-");		     		//3. Benutzer wird eingetragen
 		ptr_cursor_scorekette->score = 0.0;
 
 		ptr_scorekette->next = ptr_cursor_scorekette;								//Verknüpfung des zweiten mit dem dritten Element
@@ -218,7 +218,7 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste)
 {
 
-	printf("\nAusgabe der Highscorelist:\n");
+	printf("\nDie aktuelle TOP 3 der Highscoreliste:\n");
 
 	for(int i=1; i<=3; i++)
 	{

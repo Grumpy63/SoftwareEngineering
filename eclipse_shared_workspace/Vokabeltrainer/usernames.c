@@ -48,9 +48,10 @@ struct username *username_list()
 
 
 			datei_users_ptr = fopen("Usernames.txt", "w+");						//Wenn Usernames.txt Datei also nicht existiert, erstelle sie
-						if(datei_users_ptr != 0)								//aber erst nachdem ein User eingegeben wurde
+						if(datei_users_ptr == NULL)								//aber erst nachdem ein User eingegeben wurde
 						{
-							printf("Datei Usernames.txt konnte erstellt werden\n");
+							printf("Datei Usernames.txt konnte NICHT erstellt werden!\n");
+							return 0;
 						}
 
 			fprintf(datei_users_ptr, entered_user_ptr->name);					//Eingegebenen Nutzernamen in die Datei Usernames.txt schreiben
@@ -61,7 +62,7 @@ struct username *username_list()
 		}
 		else																	//Wenn Datei existiert (und entsprechend schon ein User bekannt ist); alle bekannten User auflisten
 		{
-			printf("Bitte einen der folgenden Nutzer auswaehlen, oder einen neuen Nutzernamen anlegen: \n");
+			printf("Bitte einen der folgenden Nutzer auswaehlen, oder einen neuen Nutzernamen anlegen:\n");
 
 
 			user_ptr = malloc(sizeof(struct username));							//erstmaliges anlegen eines user-platzes auf der Liste (mindestens ein User existiert wenn Datei Usernames.txt existiert)
@@ -107,7 +108,7 @@ struct username *username_list()
 		}
 
 
-		printf("\nBitte einen Nutzernamen auswaehlen, oder einen neuen Namen eingeben: ");			//Aufforderung einen Namen festzulegen
+		printf("Bitte einen Nutzernamen auswaehlen, oder einen neuen Namen durch Eingabe anlegen: ");			//Aufforderung einen Namen festzulegen
 
 		entered_user_ptr = malloc(sizeof(struct username));											//Festlegen des Pointers für den aktuell gewählten User
 

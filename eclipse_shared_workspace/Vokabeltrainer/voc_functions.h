@@ -92,16 +92,16 @@
 	//Definition für highscores
 
 
-	struct user_and_score
+	struct user_and_score																						//struct für das handling der highscores
 	{
 		char username[256];
 		float score;
 		struct user_and_score *next;
 	};
 
-	int user_ergebnis(int korrekte_voc, int user_vokabelzahl);
-	int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user_vokabelzahl);
-	int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste);
+	int user_ergebnis(int korrekte_voc, int user_vokabelzahl);													//Gibt das aktuelle Ergebnis des Nutzers aus
+	int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user_vokabelzahl);				//Sortiert das aktuelle Ergebnis des Nutzers in die bestehenden scores ein und schreibt sie in die Highscorelist.txt
+	int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste);												//Gibt verkettete Liste von user&score auf dem Bildschirm aus (wird in fkt highscore_list aufgerufen)
 
 
 	//Ende der Definition für highscores
