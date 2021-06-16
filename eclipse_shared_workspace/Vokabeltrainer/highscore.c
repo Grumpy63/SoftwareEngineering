@@ -112,50 +112,27 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 	else
 	{
 		printf("Highscorelist.txt wird ausgelesen\n");
+
 		//Gesamte Liste als Verkettung abschreiben
 
-
-		/*
-		while(	(c = fgetc(datei_highscore_ptr) ) != EOF)										//Schleife für das auflisten aller Usernames, solange nicht end of file erreicht
-		{
-			if( c != SEMIKOLON )																//Wenn KEIN Semikolon kommt
-			{
-				ptr_cursor_scorekette->username[u] = c;											//Buchstabe einlesen
-				u++;																			//Nächste Stelle im Namensarray belegen
-			}
-			else																				//Wenn Strichpunkt: Score einlesen
-			{
-				while((c = fscanf(datei_highscore_ptr,"%f", &f) ) != SEMIKOLON)
-				{
-					ptr_cursor_scorekette->score = f;
-				}
-
-			u = 0;
-			ptr_scorekette = ptr_cursor_scorekette;
-			ptr_cursor_scorekette = malloc(sizeof(struct user_and_score));
-			ptr_scorekette->next = ptr_cursor_scorekette;
-
-			}
-		}
-*/
-
-
-
-		ptr_list1 = malloc(sizeof(struct user_and_score));
+		ptr_list1 = malloc(sizeof(struct user_and_score));							//Hilfspointer für jeden Platz auf der Highscorelist eigenen Pointer
 		ptr_list2 = malloc(sizeof(struct user_and_score));
 		ptr_list3 = malloc(sizeof(struct user_and_score));
-		char name1[256];
-		char name2[256];
-		char name3[256];
 
-		//Hier weiterarbeiten
-		fscanf(datei_highscore_ptr,"%s;%f;%s;%f;%s;%f;",
-			   name1, ptr_list1->score, name2, ptr_list2->score, name3, ptr_list3->score);
+		float fscore1 = 0;															//hilfsvariablen zum auslesen der Scores aus der Datei
+		float fscore2 = 0;
+		float fscore3 = 0;
 
-		ptr_anfang_scorekette = ptr_list1;
-		ptr_anfang_scorekette->next = ptr_list2;
+		fscanf(datei_highscore_ptr,"%[^';'];%f;%[^';'];%f;%[^';'];%f;", ptr_list1->username, &fscore1, ptr_list2->username, &fscore2, ptr_list3->username, &fscore3);		//Standardisiertes Auslesen, strings werden gelesen bis Semikolon;
+
+		ptr_list1->score = fscore1;													//Übertragen der Hilfsvars in korrekte structs
+		ptr_list2->score = fscore2;
+		ptr_list3->score = fscore3;
+
+		ptr_anfang_scorekette = ptr_list1;											//Aneinander reihen der Pointer
+		ptr_list1->next = ptr_list2;
 		ptr_list2->next = ptr_list3;
-
+		ptr_list3->next = NULL;
 
 
 
@@ -195,30 +172,39 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		}
 
 
-		/*
-		for(int i=1; i<=3; i++)																//Vergleich mit allen 3 bestehenden Nutzern
-		{
-			ptr_scorekette = ptr_cursor_scorekette;
 
-			if((ptr_aktuell_scorekette->score)>=(ptr_cursor_scorekette))							//Vergleich Score des aktuellen Nutzers
-			{
-				ptr_aktuell_scorekette->next = ptr_cursor_scorekette;							//Vorranhängen des aktuellen users an listenelement
-				ptr_help_scorekette = ptr_aktuell_scorekette;								//help pointer auf aktuellen user
 
-			}
-
-			ptr_cursor_scorekette = ptr_cursor_scorekette->next;
-		}
-
-		*/
-
+		ptr_list1 = ptr_anfang_scorekette;													//Übertragen der Adressen der jeweiligen Listenelemente
+		ptr_list2 = ptr_list1->next;														//Zur einfachen weitergabe an File
+		ptr_list3 = ptr_list2->next;														//bspw. ptr_list3 zeigt auf letzten Platz der highscoreliste
 
 		ptr_cursor_scorekette = NULL;
 		ptr_scorekette = NULL;
 
+		ausgabe_scoreliste(ptr_anfang_scorekette);											//Ausgabe der neuen Liste, VORSICHT ptr_anfang_scorekette wird hierbei verändert!
 
 
-		ausgabe_scoreliste(ptr_anfang_scorekette);
+		//NEUE Verkettete Liste in Highscorefile überschreiben
+
+		fclose(datei_highscore_ptr);													//ausschließlich lesender Zugriff wird beendet
+
+
+		datei_highscore_ptr = fopen("Highscorelist.txt", "w+");							//Highscorelist wird überschreibend geöffnet
+
+		fprintf(datei_highscore_ptr, ptr_list1->username);
+		fprintf(datei_highscore_ptr,";");
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list1->score);			//Score wird geschrieben
+		fprintf(datei_highscore_ptr,";");
+		fprintf(datei_highscore_ptr, ptr_list2->username);
+		fprintf(datei_highscore_ptr,";");
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list2->score);			//Score wird geschrieben
+		fprintf(datei_highscore_ptr,";");
+		fprintf(datei_highscore_ptr, ptr_list3->username);
+		fprintf(datei_highscore_ptr,";");
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list3->score);			//Score wird geschrieben
+		fprintf(datei_highscore_ptr,";");
+
+		fclose(datei_highscore_ptr);
 
 
 	return 0;

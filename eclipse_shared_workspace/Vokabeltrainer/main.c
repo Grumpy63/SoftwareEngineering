@@ -57,6 +57,8 @@ int main()
 
 	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);
 
+
+	printf("Programm Ende in der Main");
 	int b = 0;
 	scanf("%d", &b);
 
