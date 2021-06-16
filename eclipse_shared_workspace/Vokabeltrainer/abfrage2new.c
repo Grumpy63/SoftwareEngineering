@@ -50,8 +50,8 @@ char eingabe [256];
 	 help_ptr = abzufragende_kategorie->erste_vokabel;
 
 
-
-	 zufall =irand(0, abzufragende_kategorie->anzahl_in_kategorie);
+	 srand(time(NULL));
+	 zufall =irand(0, abzufragende_kategorie->anzahl_in_kategorie-1);
 
 	 for(int i=0; i<zufall; i++)
 	 {
@@ -66,9 +66,8 @@ char eingabe [256];
 		 }
 	 }
 
-	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie)																	//zu entfernende Vok befindet sich mittendrin
+	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)																	//zu entfernende Vok befindet sich mittendrin
 	 {
-		help_ptr->next_vokabel =cursor_ptr->next_vokabel;
 		printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
 		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 		scanf("%c", &dummy_zeichen);															//Leeren des Puffers
@@ -86,12 +85,12 @@ char eingabe [256];
 		 {
 		 	printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache1);   //Feedback mit richtiger Übersetzung
 		 }
-		 abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
+		help_ptr->next_vokabel =cursor_ptr->next_vokabel;
+		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 	 }
 
 	 else if(zufall == 0)																// Vok am listenanfang
 	 {
-	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;	//erste Vokabel wird eins weitergesetzt
 	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
 	 	scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 	 	scanf("%c", &dummy_zeichen);															//Leeren des Puffers
@@ -109,12 +108,12 @@ char eingabe [256];
 	 	{
 	 		printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache1);
 	 	}
+	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;	//erste Vokabel wird eins weitergesetzt
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 	 }
 
-	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie)
+	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)
 	 {
-	 	help_ptr->next_vokabel = NULL;
 	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);
 	 	scanf("%[^\r\n]", eingabe);
 	 	scanf("%c", &dummy_zeichen);
@@ -132,6 +131,7 @@ char eingabe [256];
 	 	{
 	 		printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache1);
 	 	}
+	 	help_ptr->next_vokabel = NULL;
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 	 }
 
