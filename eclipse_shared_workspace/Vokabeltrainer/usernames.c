@@ -12,8 +12,8 @@
 #include "voc_functions.h"
 
 #define SEMIKOLON 59													//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
-int Aufzaehlung = 1;
-int Auswahl = 0;
+int Aufzaehlung = 1;													//Variable zum Aufzählen der Nutzer
+int Auswahl = 0;														//Variable zum Abspeichern der eingelesenen Nutzereingabe
 
 struct username *username_list()
 {
@@ -96,12 +96,12 @@ struct username *username_list()
 						user_help_ptr = NULL;
 
 
-
-
+						mark1:															//Sprungmarke mark1
+						Aufzaehlung = 1;												//Variable Aufzaehlung auf 1 gesetzt
 						//Ausgeben aller Nutzer aus der verketteten Liste
 						user_ptr = user_first_ptr;										//Beginn am Anfang der verketteten Liste
-						printf("(%d) Neuen User anlegen\n", Aufzaehlung);
-						Aufzaehlung++;
+						printf("(%d) Neuen Nutzer anlegen\n", Aufzaehlung);				//Ausgabe der Aufzählung aller Nutzer
+						Aufzaehlung++;													//Variable Aufzaehlung wird um eins inkrementiert
 						while (user_ptr != NULL)										//Solang bis Liste zuende ist
 							{
 							printf("(%d) %s\n", Aufzaehlung, user_ptr->name);			//Gib den aktuellen Namen mit Aufzählung aus
@@ -111,20 +111,20 @@ struct username *username_list()
 
 		}
 
-		mark1:
-		printf("Bitte einen Nutzernamen auswaehlen, oder einen neuen Namen anlegen:\n");				//Aufforderung einen Namen festzulegen
-		scanf("%d", &Auswahl);
-		scanf("%c", &dummy_zeichen);																//Leeren des Puffers
+
+		printf("Bitte einen Nutzernamen auswaehlen, oder die Option \"Neuen Nutzer anlegen\" waehlen:\n");		//Aufforderung einen Namen festzulegen
+		scanf("%d", &Auswahl);																					//Einlesen der Nutzereingabe für Variable Auswahl
+		scanf("%c", &dummy_zeichen);																			//Leeren des Puffers
 					if(dummy_zeichen == '\r')																	//auch auf anderen OS (haben evtl mehr Zeichen)
 						{
 							scanf("%c", &dummy_zeichen);
 						}
 		//Auswahl neuen User anlegen
-		if(Auswahl == 1)
+		if(Auswahl == 1)																				//If-Abfrage ob Variable Auswahl 1 ist
 		{
 
-			entered_user_ptr = malloc(sizeof(struct username));											//Festlegen des Pointers für den aktuell gewählten User
-			printf("Bitte den Namen des neuen Users eingeben:");
+			entered_user_ptr = malloc(sizeof(struct username));											//Allokieren einer neuen struct username auf den pointer entered_user_ptr
+			printf("Bitte den Namen des neuen Users eingeben:");										//Ausgeben einer Anweisung für den Nutzer
 			scanf("%[^\r\n]", entered_user_ptr->name);													//User mit Leerzeichen eingeben
 			scanf("%c", &dummy_zeichen);																//Leeren des Puffers
 			if(dummy_zeichen == '\r')																	//auch auf anderen OS (haben evtl mehr Zeichen)
@@ -132,54 +132,54 @@ struct username *username_list()
 					scanf("%c", &dummy_zeichen);
 				}
 			//Prüfen ob eingegebener User bereits vorhanden
-			user_ptr = user_first_ptr;
+			user_ptr = user_first_ptr;																	//Pointer user_ptr auf den Listenanfang (Pointer user_first_ptr) setzen
 
-			while(user_ptr != NULL && t == 0)
+			while(user_ptr != NULL && t == 0)															//While-Schleife wenn user_ptr nciht auf Null zeigt und Variable t 0 ist
 			{
-				if(strcmp(user_ptr->name,entered_user_ptr->name) == 0)
+				if(strcmp(user_ptr->name,entered_user_ptr->name) == 0)									//Vergleich der Strings user_ptr->name und entered_user_ptr->name (überprüfen ob eingegebener String bereits vorhanden)
 				{
-					printf("Der eingegebene User besteht bereits!\n\n");
+					printf("Der eingegebene User besteht bereits!\n\n");								//Nutzerhinweis ausgeben
 					t = 1;																				//User gefunden -> bereits vorhanden
-					free(entered_user_ptr);
-					goto mark1;
+					free(entered_user_ptr);																//Allokierter Speicher wird wieder frei gegeben
+					goto mark1;																			//Rücksprung zu mark1
 				}
-				else
+				else																					//Else-Verzweigung
 				{
-					user_ptr = user_ptr->next_user;
-					continue;
+					user_ptr = user_ptr->next_user;														//Pointer user_ptr wird um eins weiter gesetzt auf user_ptr->next_user (Durchlaufen der Liste)
+					continue;																			//Erneutes Durchlaufen der While-Schleife
 				}
 			}
 
-			fprintf(datei_users_ptr, entered_user_ptr->name);							//Angelegter Name wird  in Usernames.txt angehängt
-			fprintf(datei_users_ptr, ";");												//Semikolon wird angehängt
-			printf("Neuer Nutzer %s wurde erfolgreich angelegt.\n", entered_user_ptr->name);
+			fprintf(datei_users_ptr, entered_user_ptr->name);											//Angelegter Name wird  in Usernames.txt angehängt
+			fprintf(datei_users_ptr, ";");																//Semikolon wird angehängt
+			printf("Neuer Nutzer %s wurde erfolgreich angelegt.\n", entered_user_ptr->name);			//Nutzerhinweis ausgeben
 		}
 		//Bestehenden User ausgewählt
-		else
+		else																							//Else-Verzweigung
 		{
-			do
-			{																											//
-				if(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0)															//Eingabeüberprüfung der Nutzereingabe
+			do																							//Do-While-Schleife
+			{
+				if(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0)											//Eingabeüberprüfung der Nutzereingabe
 					{
-						printf("Die Eingabe ist ungueltig bitte geben Sie Ihre Auswahl erneut ein.\n");				//Ausgabe einer Informationsnachricht für den Nutzer
+						printf("Die Eingabe ist ungueltig bitte geben Sie Ihre Auswahl erneut ein.\n");			//Ausgabe einer Informationsnachricht für den Nutzer
 						scanf("%d", &Auswahl);																	//Bei Falscheingabe erneutes Einlesen der Nutzereingabe
-						continue;
+						continue;																				//Erneutes Durchlaufen der Do-While-Schleife
 					}
-				else
+				else																					//Else-Verzweigung
 				{
 					break;
 				}
-			}while(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0);
-			Aufzaehlung = 2;																						//Die Variable Aufzaehlung auf 1 setzen
-			user_ptr = user_first_ptr;																				//Durchlaufpointer entity_name_ptr auf die erste Struct setzen mit erste_entity_name_ptr
+			}while(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0);										//Abschlussprüfung der Do-While-Schleife
+			Aufzaehlung = 2;																			//Die Variable Aufzaehlung auf 2 setzen
+			user_ptr = user_first_ptr;																	//Durchlaufpointer entity_name_ptr auf die erste Struct setzen mit erste_entity_name_ptr
 
-			while(Auswahl != Aufzaehlung)																			//While-Schleife zum Durchlaufen der Struct entitiy_name bis der Pointer entity_name_ptr auf die Auswahl zeigt
+			while(Auswahl != Aufzaehlung)																//While-Schleife zum Durchlaufen der Struct entitiy_name bis der Pointer entity_name_ptr auf die Auswahl zeigt
 			{
-				user_ptr = user_ptr->next_user;																		//Pointer entity_name_ptr auf das folgende Element setzen
-				Aufzaehlung++;																						//Variable Aufzaehlung um eins inkrementieren
-				continue;																							//Neuer Durchlauf der While-Schleife
+				user_ptr = user_ptr->next_user;															//Pointer entity_name_ptr auf das folgende Element setzen
+				Aufzaehlung++;																			//Variable Aufzaehlung um eins inkrementieren
+				continue;																				//Neuer Durchlauf der While-Schleife
 			}
-		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n\n", user_ptr->name);
+		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n\n", user_ptr->name);							//Nutherhinweis ausgeben
 		}
 
 
@@ -211,6 +211,6 @@ struct username *username_list()
 		}
 
 */
-	fclose(datei_users_ptr);
-	return(entered_user_ptr);
+	fclose(datei_users_ptr);																			//File wird geschlossen
+	return(entered_user_ptr);																			//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 }
