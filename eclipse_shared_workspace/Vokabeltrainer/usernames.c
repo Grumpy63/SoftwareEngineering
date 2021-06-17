@@ -212,5 +212,5 @@ struct username *username_list()
 
 */
 	fclose(datei_users_ptr);																			//File wird geschlossen
-	return(entered_user_ptr);																			//Pointer auf den ausgewählten Nutzer wird zurückgegeben
+	return(user_ptr);																			//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 }
