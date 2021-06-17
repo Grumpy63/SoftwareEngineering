@@ -218,12 +218,16 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste)
 {
 
+	struct user_and_score *ptr_help = NULL;
+
+	ptr_help = ptr_scoreliste;
+
 	printf("\nDie aktuelle TOP 3 der Highscoreliste:\n");
 
 	for(int i=1; i<=3; i++)
 	{
-	printf("(%d) %s mit %0.2f Prozent\n", i, ptr_scoreliste->username, ptr_scoreliste->score);
-	ptr_scoreliste = ptr_scoreliste->next;
+	printf("(%d) %s mit %0.2f Prozent\n", i, ptr_help->username, ptr_help->score);
+	ptr_help = ptr_help->next;
 	}
 
 	return 0;
