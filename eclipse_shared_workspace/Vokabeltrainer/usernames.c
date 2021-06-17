@@ -180,6 +180,7 @@ struct username *username_list()
 				continue;																				//Neuer Durchlauf der While-Schleife
 			}
 		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n\n", user_ptr->name);							//Nutherhinweis ausgeben
+		return(user_ptr);
 		}
 
 
@@ -211,6 +212,6 @@ struct username *username_list()
 		}
 
 */
-	fclose(datei_users_ptr);																			//File wird geschlossen
-	return(user_ptr);																			//Pointer auf den ausgewählten Nutzer wird zurückgegeben
+	fclose(datei_users_ptr);															//File wird geschlossen
+	return(entered_user_ptr);																	//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 }
