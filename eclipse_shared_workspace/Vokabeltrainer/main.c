@@ -24,13 +24,13 @@ int main()
 
 	int korrekte_voc = 0;
 
-
+	printf("_______________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
 			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
 			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
 			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
-			"Und jetzt viel Spass!\n\n");
-
+			"Und jetzt viel Spass!\n");
+	printf("_______________________________________________________________________________________________________________________\n\n\n");
 
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
