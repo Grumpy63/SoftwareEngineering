@@ -30,7 +30,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		return(k_alle_erste_ptr->next_kategorie);
 	}
 
-	printf("\nFolgende Kategorien können gewählt werden: \n");
+	printf("\nFolgende Kategorien koennen gewaehlt werden: \n");
 
 	rueckgabe_help_ptr = k_alle_erste_ptr;
 
@@ -48,7 +48,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		scanf("%d", &i);
 		fflush(stdin);
 		if(i<1 || i>i_max){
-			printf("Ungültige Eingabe. Wählen Sie bitte eine Kategorie mit einer Eingabe zwischen 1 und %d.\n",i_max);
+			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Kategorie mit einer Eingabe zwischen 1 und %d.\n",i_max);
 		}
 		else{
 			break;

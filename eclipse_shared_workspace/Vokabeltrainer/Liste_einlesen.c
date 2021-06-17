@@ -126,13 +126,13 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
     }
     //Abfrage nach der zu öffnenden Datei
 
-    printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
+    printf("Bitte waehlen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
     do
     {
     	scanf("%d", &listenname);																			//Einlesen der Nutzereingabe zur Auswahl der Liste
     	if(listenname > Aufzaehlung || listenname <= 0)														//Eingabeüberprüfung der Nutzereingabe
     	    {
-    	    	printf("Die Eingabe ist ungültig bitte geben Sie Ihre Auswahl erneut ein.\n");				//Ausgabe einer Informationsnachricht für den Nutzer
+    	    	printf("Die Eingabe ist ungueltig bitte geben Sie Ihre Auswahl erneut ein.\n");				//Ausgabe einer Informationsnachricht für den Nutzer
     	    	scanf("%d", &listenname);																	//Bei Falscheingabe erneutes Einlesen der Nutzereingabe
     	    	continue;
     	    }
@@ -156,7 +156,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	if(datei_vorlage_ptr == NULL)																			//If-Abfrage ob der Pointer datei_vorlage_ptr auf NULL zeigt, denn dann konnte das File nicht geöffnet werden
 	{
-		printf("Die Datei konnte leider nicht geöffnet werden.\n");											//Ausgabe einer Informationsnachricht für den Nutzer
+		printf("Die Datei konnte leider nicht geoeffnet werden.\n");											//Ausgabe einer Informationsnachricht für den Nutzer
 		printf("Bitte geben Sie eine neue Auswahl ein:\n");													//Ausgabe einer Informationsnachricht für den Nutzer
 	}
 	}while(datei_vorlage_ptr == NULL);																		//Wenn der Pointer datei_vorlage_ptr auf NULL zeigt, beginnt ein neuer Durchlauf um die Auswahl zu wiederholen
