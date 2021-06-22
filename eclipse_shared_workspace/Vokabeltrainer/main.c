@@ -36,7 +36,7 @@ int main()
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
 
-	printf("\nWillkommen in der Main %s", aktueller_nutzer->name);
+	printf("\nWillkommen in der Main %s\n", aktueller_nutzer->name);
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));
 
@@ -50,7 +50,6 @@ int main()
 
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
-
 
 	user_ergebnis(korrekte_voc, user_vokabelzahl);
 

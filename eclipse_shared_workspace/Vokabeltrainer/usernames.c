@@ -48,8 +48,8 @@ struct username *username_list()
 			}
 
 
-			datei_users_ptr = fopen("Usernames.txt", "w+");						//Wenn Usernames.txt Datei also nicht existiert, erstelle sie
-						if(datei_users_ptr == NULL)								//aber erst nachdem ein User eingegeben wurde
+			datei_users_ptr = fopen("Usernames.txt", "w+");						//Wenn Usernames.txt Datei also nicht existiert, erstelle sie (nachdem ein Nutzer eingegeben wurde)
+						if(datei_users_ptr == NULL)								//Überprüfung ob Erstellung erfolgreich war
 						{
 							printf("Datei Usernames.txt konnte NICHT erstellt werden!\n");
 							return 0;
@@ -58,8 +58,8 @@ struct username *username_list()
 			fprintf(datei_users_ptr, entered_user_ptr->name);					//Eingegebenen Nutzernamen in die Datei Usernames.txt schreiben
 			fprintf(datei_users_ptr, ";");										//Anhängen des Semikolons in Datei Usernames.txt für Konformität
 			printf("Nutzer erfolgreich angelegt!\n");
-			fclose(datei_users_ptr);
-			return(entered_user_ptr);											//return 1 für neuer Nutzer erstellt
+			fclose(datei_users_ptr);											//Schließe den Datastream um Änderung in Usernames.txt wirksam zu speichern
+			return(entered_user_ptr);											//return Pointer auf den aktuellen User
 		}
 		else																	//Wenn Datei existiert (und entsprechend schon ein User bekannt ist); alle bekannten User auflisten
 		{
@@ -83,19 +83,20 @@ struct username *username_list()
 										user_help_ptr = user_ptr;						//Hilfspointer zeigt auf letzten User
 										user_ptr = malloc(sizeof(struct username));		//Neuer User wird angelegt (IMMER nach Semikolon, auch wenn keiner Folgt führt zu zusätzlichem Zeilenumbruch)
 										user_help_ptr->next_user = user_ptr;			//Neuer User wird an letzten User angehängt
-										u = 0;											//Rücksetzen der Variable zum wieder-verwenden in der oberen if-Bedingung
+										u = 0;											//Rücksetzen der Variable zum wiederverwenden in der oberen if-Bedingung
 									}
 								}
 
-						free(user_ptr);												//Löschen des Überflüssigen letzten User-Elements
+						free(user_ptr);													//Löschen des Überflüssigen letzten User-Elements
 
 
-						user_help_ptr->next_user = NULL;							////CRASHED HIER wenn Usernames.txt leer ist: Next Pointer des jetzt letzten Elements (nachdem leerer User gelöscht wurde) wird geerdet
-						user_ptr = NULL;
-						user_help_ptr = NULL;
+						user_help_ptr->next_user = NULL;								//Next Pointer des jetzt letzten Elements (nachdem leerer User gelöscht wurde) wird geerdet; Programmchrashed hier wenn Usernames.txt leer ist
+						user_ptr = NULL;												//Pointer werden geerdet
+						user_help_ptr = NULL;											//Pointer werden geerdet
 
 
 						mark1:															//Sprungmarke mark1
+						t = 0;															//Variable t wieder 0 setzen (Merker, dass bereits existenter Nutzer angelegt wurde)
 						Aufzaehlung = 1;												//Variable Aufzaehlung auf 1 gesetzt
 						//Ausgeben aller Nutzer aus der verketteten Liste
 						user_ptr = user_first_ptr;										//Beginn am Anfang der verketteten Liste
@@ -133,7 +134,7 @@ struct username *username_list()
 			//Prüfen ob eingegebener User bereits vorhanden
 			user_ptr = user_first_ptr;																	//Pointer user_ptr auf den Listenanfang (Pointer user_first_ptr) setzen
 
-			while(user_ptr != NULL && t == 0)															//While-Schleife wenn user_ptr nciht auf Null zeigt und Variable t 0 ist
+			while(user_ptr != NULL && t == 0)															//While-Schleife wenn user_ptr nicht auf Null zeigt und Variable t=0 ist
 			{
 				if(strcmp(user_ptr->name,entered_user_ptr->name) == 0)									//Vergleich der Strings user_ptr->name und entered_user_ptr->name (überprüfen ob eingegebener String bereits vorhanden)
 				{
@@ -152,6 +153,8 @@ struct username *username_list()
 			fprintf(datei_users_ptr, entered_user_ptr->name);											//Angelegter Name wird  in Usernames.txt angehängt
 			fprintf(datei_users_ptr, ";");																//Semikolon wird angehängt
 			printf("Neuer Nutzer %s wurde erfolgreich angelegt.\n", entered_user_ptr->name);			//Nutzerhinweis ausgeben
+			fclose(datei_users_ptr);																	//File wird geschlossen
+			return(entered_user_ptr);																//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 		}
 		//Bestehenden User ausgewählt
 		else																							//Else-Verzweigung
@@ -178,7 +181,8 @@ struct username *username_list()
 				Aufzaehlung++;																			//Variable Aufzaehlung um eins inkrementieren
 				continue;																				//Neuer Durchlauf der While-Schleife
 			}
-		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n\n", user_ptr->name);							//Nutherhinweis ausgeben
+		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n\n", user_ptr->name);							//Nutzerhinweis ausgeben
+		fclose(datei_users_ptr);
 		return(user_ptr);
 		}
 
@@ -211,6 +215,7 @@ struct username *username_list()
 		}
 
 */
+
 	fclose(datei_users_ptr);															//File wird geschlossen
-	return(entered_user_ptr);																	//Pointer auf den ausgewählten Nutzer wird zurückgegeben
+	return(entered_user_ptr);															//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 }
