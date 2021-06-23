@@ -124,15 +124,15 @@ struct username *username_list()
 
 		//Check ob tatsächlich nur eine Zahl eingegeben wurde
 
-		scanf("%d", &Auswahl);																					//Einlesen der Nutzereingabe für Variable Auswahl
+		scanf("%d", &Auswahl);																			//Einlesen der Nutzereingabe für Variable Auswahl
 
-		if(Auswahl > Aufzaehlung)
+		if(Auswahl > Aufzaehlung)																		//If-Abfrage ob Variable Auswahl größer ist als die Variable Aufzaehlung
 		{
-			printf("FalscheEingabe");
+			printf("FalscheEingabe");																	//Ausgeben einer Nachricht für den Nutzer
 		}
 
-		scanf("%c", &dummy_zeichen);																			//Leeren des Puffers
-		if(dummy_zeichen == '\r')																				//auch auf anderen OS (haben evtl mehr Zeichen)
+		scanf("%c", &dummy_zeichen);																	//Leeren des Puffers
+		if(dummy_zeichen == '\r')																		//auch auf anderen OS (haben evtl mehr Zeichen)
 							{
 								scanf("%c", &dummy_zeichen);
 							}
@@ -165,11 +165,11 @@ struct username *username_list()
 			//Prüfen ob eingegebener User bereits vorhanden
 			user_ptr = user_first_ptr;																	//Pointer user_ptr auf den Listenanfang (Pointer user_first_ptr) setzen
 
-			while(user_ptr != NULL)															//While-Schleife wenn user_ptr nicht auf Null zeigt und Variable t=0 ist
+			while(user_ptr != NULL)																		//While-Schleife wenn user_ptr nicht auf Null zeigt und Variable t=0 ist
 			{
 				if(strcmp(user_ptr->name,entered_user_ptr->name) == 0)									//Vergleich der Strings user_ptr->name und entered_user_ptr->name (überprüfen ob eingegebener String bereits vorhanden)
 				{
-					printf("Der eingegebene User besteht bereits!\n");								//Nutzerhinweis ausgeben
+					printf("Der eingegebene User besteht bereits!\n");									//Nutzerhinweis ausgeben
 					free(entered_user_ptr);																//Allokierter Speicher wird wieder frei gegeben
 					goto mark1;																			//Rücksprung zu mark1
 				}
@@ -189,12 +189,12 @@ struct username *username_list()
 		//Bestehenden User ausgewählt
 		else																							//Else-Verzweigung
 		{
-			if(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0)											//Eingabeüberprüfung der Nutzereingabe
+			if(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0)												//Eingabeüberprüfung der Nutzereingabe
 				{
-					printf("Die Eingabe ist ungueltig! ");											//Ausgabe einer Informationsnachricht für den Nutzer
-					printf("Bitte waehlen sie eine der angebotenen Zahlen.\n");
+					printf("Die Eingabe ist ungueltig! ");												//Ausgabe einer Informationsnachricht für den Nutzer
+					printf("Bitte waehlen sie eine der angebotenen Zahlen.\n");							//Ausgabe einer Informationsnachricht für den Nutzer
 					scanf("%[^\r\n]", dummy_array);
-					goto username_mark3;															//Sprung zur Abfrage
+					goto username_mark3;																//Sprung zur Abfrage
 				}
 
 			Aufzaehlung = 2;																			//Die Variable Aufzaehlung auf 2 setzen
@@ -208,12 +208,12 @@ struct username *username_list()
 			}
 
 		printf("Nutzer %s wurde erfolgreich ausgewaehlt.\n", user_ptr->name);							//Nutzerhinweis ausgeben
-		fclose(datei_users_ptr);
-		return(user_ptr);
+		fclose(datei_users_ptr);																		//File wird geschlossen
+		return(user_ptr);																				//Der pointer user_ptr wird aus der Funktion zurück gegeben
 		}
 
 
 
-	fclose(datei_users_ptr);															//File wird geschlossen
-	return(entered_user_ptr);															//Pointer auf den ausgewählten Nutzer wird zurückgegeben
+	fclose(datei_users_ptr);																			//File wird geschlossen
+	return(entered_user_ptr);																			//Pointer auf den ausgewählten Nutzer wird zurückgegeben
 }

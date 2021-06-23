@@ -79,7 +79,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	char needle2[] = "Usernames";																			//Variable zum Durchsuchen des Strings des Dateinamens auf "Usernames"
 	char needle3[] = "Highscore";																			//Variable zum Durchsuchen des Strings des Dateinamens auf "Highscore"
 	char needle4[] = ".csv";
-	int Aufzaehlung = 1;																					//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
+	int Aufzaehlung = 0;																					//Variable zum Hochzählen bei Ausgabe der Dateinamen beginnend bei 1
 	bool flag = false;																						//Variable zum Erkennen, ob mind. eine Vokabelliste vorhanden ist
 	DIR *dir;																								//DIR pointer zum Auslesen des Verzeichnises
 	struct dirent * entity;
@@ -87,12 +87,13 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	//Ausgeben der möglichen Vokabellisten
 	printf("Es wird in demselben Ordner, in welchem dieses Programm liegt, nach Vokabellisten gesucht:\n");	//Ausgabe die den Nutzer über die Suche nach Vokabellisten informiert
-	do{
-	setbuf(stdout, NULL);																					//Ein pointer entity vom Datentyp struct dirent
-    dir = opendir(".");																						//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
-    if (dir) {																								//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
-        while (0 != (entity = readdir(dir))) {																//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
-                if(strcmp(entity->d_name, ".") == 0 ||														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
+		setbuf(stdout, NULL);
+		dir = opendir(".");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
+		mark2:
+		Aufzaehlung = 1;																					//Variable Aufzaehlung wird auf 1 gesetzt
+		if(dir){																							//Wenn dir ungleich 0 wird in die if-Abfrage verzweigt
+			while (0 != (entity = readdir(dir))) {															//Schleife zum Auslesen aller Dateinamen, solange bis keine Einträge mehr im Verzeichnis sind
+				if(strcmp(entity->d_name, ".") == 0 ||														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
                    strcmp(entity->d_name, "..") == 0){														//Wird eventuell später benötigt, wenn Verzeichnis weiter verzeigt ist
                     continue;																				//
                     }																						//
@@ -101,7 +102,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
                    (strstr(entity->d_name, needle2) == 0) &&												//und nicht den String Usernames enthält, da dies keine Vokabelliste ist
 				   (strstr(entity->d_name, needle3) == 0)){													//und nicht den String Highscore enthält, da dies ebenfalls keine Vokabelliste ist
                     printf("(%d) %s\n", Aufzaehlung, entity->d_name);										//Printf Anweisung zum Ausgeben des Aufzählungspunkts mit dem Dateinamen
-
+                    Aufzaehlung ++;																			//Variable Aufzaehlung um eins inkrementieren
                     if(Flagge_Entity == false)																//If-Verzweigung zum Überprüfen ob eine struct entity_name besteht
                     {
                     	erste_entity_name_ptr = malloc(sizeof(struct entitiy_name));						//Allokieren einer ersten Struct enitiy_name auf den Pointer erste_entity_name_ptr
@@ -115,7 +116,6 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
                     	strcpy(ende_entity_name_ptr->next->name, entity->d_name);							//Der Name der nächsten Datei wird in die neu erstellte Struct geschrieben
                     	ende_entity_name_ptr = ende_entity_name_ptr->next;									//Der ende_entity_name_ptr wird auf den next Pointer der letzten Struct gesetzt
                     }
-                    Aufzaehlung ++;																			//Variable Aufzaehlung um eins inkrementieren
                     flag = true;																			//Wenn mind. eine Datei gefunden und ausgegeben wurde, wird die flag gesetzt
 
                 }
@@ -123,24 +123,19 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
         if(flag == false){																					//Flag überprüfen, für den Fall, dass keine Datei gefunden wurde
         	printf("Es konnte keine Vokabelliste in dem Verzeichnis der Anwendung gefunden werden.\n");		//Ausgabe einer Informationsnachricht für den Nutzer
         }																									//Nach dem Ablauf der Funktion wird das zu Beginn geöffnete Verzeichnis wieder geschlossen
-    }
+		}
     //Abfrage nach der zu öffnenden Datei
 
     printf("Bitte waehlen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
-    do
-    {
     	scanf("%d", &listenname);																			//Einlesen der Nutzereingabe zur Auswahl der Liste
-    	if(listenname > Aufzaehlung || listenname <= 0)														//Eingabeüberprüfung der Nutzereingabe
-    	    {
-    	    	printf("Die Eingabe ist ungueltig bitte geben Sie Ihre Auswahl erneut ein.\n");				//Ausgabe einer Informationsnachricht für den Nutzer
-    	    	scanf("%d", &listenname);																	//Bei Falscheingabe erneutes Einlesen der Nutzereingabe
-    	    	continue;
-    	    }
-    	else
-    	{
-    		break;
-    	}
-    }while(listenname > Aufzaehlung || listenname <= 0);													//Wenn Eingabe immer noch ungültig erneutes Durchlaufen der Schleife
+        	if(listenname >= Aufzaehlung || listenname <= 0)												//Eingabeüberprüfung der Nutzereingabe
+        	    {
+        	    	printf("Die Eingabe ist ungueltig.\n\n\n");												//Ausgabe einer Informationsnachricht für den Nutzer
+        	    	closedir(dir);																			//Das Verzeichnis wird geschlossen
+        	    	dir = opendir(".");																		//Das Verzeichnis wird geöffnet
+        	    	goto mark2;																				//Es wird zu Marke mark2 gesprungen
+        	    }
+
 
 
 	Aufzaehlung = 1;																						//Die Variable Aufzaehlung auf 1 setzen
@@ -156,11 +151,10 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	if(datei_vorlage_ptr == NULL)																			//If-Abfrage ob der Pointer datei_vorlage_ptr auf NULL zeigt, denn dann konnte das File nicht geöffnet werden
 	{
-		printf("Die Datei konnte leider nicht geoeffnet werden.\n");											//Ausgabe einer Informationsnachricht für den Nutzer
+		printf("Die Datei konnte leider nicht geoeffnet werden.\n");										//Ausgabe einer Informationsnachricht für den Nutzer
 		printf("Bitte geben Sie eine neue Auswahl ein:\n");													//Ausgabe einer Informationsnachricht für den Nutzer
-	}
-	}while(datei_vorlage_ptr == NULL);																		//Wenn der Pointer datei_vorlage_ptr auf NULL zeigt, beginnt ein neuer Durchlauf um die Auswahl zu wiederholen
-
+	}																										//Wenn der Pointer datei_vorlage_ptr auf NULL zeigt, beginnt ein neuer Durchlauf um die Auswahl zu wiederholen
+	printf("Es wurde die Datei \"%s\" ausgewaehlt.\n", entity_name_ptr->name);								//Ausgabe einer Informationsnachricht für den Nutzer
 
 
 	//datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt", "r");
