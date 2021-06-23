@@ -28,7 +28,7 @@ int main()
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
 			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
 			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
-			"-Du kannst dein Koennen beweisen, indem du es in die Top3 der besten Vokabelpauker schaffst!\n"
+			"-Du kannst dein Koennen beweisen, indem du es in die Top 3 der besten Vokabelpauker schaffst!\n"
 			"Und jetzt viel Spass!\n");
 	printf("_______________________________________________________________________________________________________________________\n\n\n");
 
@@ -36,7 +36,7 @@ int main()
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
 
-	printf("\nWillkommen in der Main %s\n", aktueller_nutzer->name);
+	printf("Willkommen beim Vokabeltrainer %s!\n", aktueller_nutzer->name);
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));
 
