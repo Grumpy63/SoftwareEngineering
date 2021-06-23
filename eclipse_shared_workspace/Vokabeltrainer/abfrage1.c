@@ -34,6 +34,7 @@ struct vokabel* help_ptr = NULL;														// Hilfszeiger soll auf vorherige 
 
 int zufall = 0;																			// Variable zum Abspeichern der Zufallszahl
 char dummy_zeichen = ' ';																// Dummy zeichen zum Realisieren von Leerzeichen
+char dummy_array[255];
 char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 
@@ -71,13 +72,22 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)				//zu entfernende Vok befindet sich mittendrin
 	 {
+		 abfrage11:
 		printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);// Aufforderung zur Eingabe
+		eingabe[0] = ' ';
 		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
-		scanf("%c", &dummy_zeichen);															//Leeren des Puffers
-		if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
-		 {
-		 	scanf("%c", &dummy_zeichen);
-		 }
+		scanf("%c", &dummy_zeichen);										//Leeren des Puffers
+					if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+					{
+						scanf("%c", &dummy_zeichen);
+					}
+		if(eingabe[0] == ' ')
+		{
+			printf("Bitte geben Sie eine gueltige Antwort an.\n");
+			goto abfrage11;
+		}
+
+
 		strlwr(eingabe);																		// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
 		if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)  								//Vergleich der beiden Strings.
@@ -87,7 +97,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 		 }
 		 else
 		 {
-		 	printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
+		 	printf("Leider falsch! Korrekt waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
 		 }
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;											//weiterouten der vorherigen vok auf die ünernächste => vok auf die cursor ptr zeigt wird gelöscht bzw. nicht mehr berücksichtigt
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Anzahl in Kategorie nach Löschen einer Vok.
@@ -95,13 +105,22 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 else if(zufall == 0)																			// Vok am listenanfang die entfernt wird
 	 {
+		 abfrage12:
 	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	// Aufforderung zur Eingabe
+	 	eingabe[0] = ' ';
 	 	scanf("%[^\r\n]", eingabe);																	//Es können auch Leerzeichen eingegeben werden
-	 	scanf("%c", &dummy_zeichen);																//Leeren des Puffers
-	 	if(dummy_zeichen == '\r')																	//auch auf anderen OS (haben evtl mehr Zeichen)
-	 	{
-	     	scanf("%c", &dummy_zeichen);
-	 	}
+	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
+	 				if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+	 				{
+	 					scanf("%c", &dummy_zeichen);
+	 				}
+	 	if(eingabe[0] == ' ')
+	 			{
+	 				printf("Bitte geben Sie eine gueltige Antwort an.\n");
+	 				goto abfrage12;
+	 			}
+
+
 	 	strlwr(eingabe);																			// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
 	 	if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)  									//Vergleich der beiden Strings mit feedback und zählen der Richtigen
@@ -111,7 +130,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);
+	 		printf("Leider falsch! Korrekt waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);
 	 	}
 
 	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;							//erste Vokabel wird eins weitergesetzt, somit neuer listenanfang und alte erste vokabel wird gelöscht
@@ -120,13 +139,22 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)								//die zu löschende Vokabel ist die letzte der liste
 	 {
+		 abfrage13:
 	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	//Aufforderung zur eingabe
+	 	eingabe[0] = ' ';
 	 	scanf("%[^\r\n]", eingabe);
-	 	scanf("%c", &dummy_zeichen);																//Berücksichtigung des einlesen von Leerzeichen
-	 	if(dummy_zeichen == '\r')
-	 	{
-	 		scanf("%c", &dummy_zeichen);
-	 	}
+	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
+	 				if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+	 				{
+	 					scanf("%c", &dummy_zeichen);
+	 				}
+	 	if(eingabe[0] == ' ')
+	 			{
+	 				printf("\nBitte geben Sie eine gueltige Antwort an.");
+	 				goto abfrage13;
+	 			}
+
+
 	 	strlwr(eingabe);																					//Umwandlung in Lower string, groß/kleinschreibung spielt keine rolle mehr
 
 	 	if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)												//Vergleich der eingabe mit lösung aus liste
@@ -136,7 +164,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekte waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);			//anzeigen der Verbesserung
+	 		printf("Leider falsch! Korrekt waere gewesen: %s\n", cursor_ptr->vokabel_sprache2);			//anzeigen der Verbesserung
 	 	}
 
 	 	help_ptr->next_vokabel = NULL;																		//neues listenende wird realisiert! ehemalige letzte Vokabel von cursor ptr spielt keine rolle mehr

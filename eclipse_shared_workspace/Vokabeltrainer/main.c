@@ -17,6 +17,7 @@ int main()
 	struct vokabel * sprache = NULL;
 	sprache = malloc(sizeof(struct vokabel));
 
+	char dummy_zeichen;
 	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
 	int user_vokabelzahl = 0;								//User gewählte Abzufragende Vokabelzahl
@@ -24,19 +25,25 @@ int main()
 
 	int korrekte_voc = 0;
 
+
 	printf("_______________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
 			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
 			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
 			"-Du kannst dein Koennen beweisen, indem du es in die Top 3 der besten Vokabelpauker schaffst!\n"
 			"Und jetzt viel Spass!\n");
-	printf("_______________________________________________________________________________________________________________________\n\n\n");
+	printf("_______________________________________________________________________________________________________________________\n\n");
 
+
+	scanf("%c", &dummy_zeichen);							//warten auf enter-befehl des Users
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
 
-	printf("Willkommen beim Vokabeltrainer %s!\n", aktueller_nutzer->name);
+	printf("_______________________________________________________________________________________________________________________\n\n");
+	printf("Willkommen beim Vokabeltrainer, %s!\n", aktueller_nutzer->name);
+	printf("_______________________________________________________________________________________________________________________\n\n");
+
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));
 
@@ -51,14 +58,19 @@ int main()
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
 
+	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
+
 	user_ergebnis(korrekte_voc, user_vokabelzahl);
 
 	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);
 
+	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 
-	printf("Programm Ende in der Main");
-	int b = 0;
-	scanf("%d", &b);
+	printf("\nSchoen, dass Sie sich Zeit zum Lernen genommen haben.\n");
+	printf("Bis bald!\n");
+	printf("Das Programm laesst sich durch Betaetigung der Enter-Taste schliessen...");
+
+	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 
 
 	return 0;
