@@ -18,7 +18,7 @@ int user_ergebnis(int korrekte_voc, int user_vokabelzahl)								//Funktion zur 
 {
 	float prozentual = 0.0;																//Hier wird der Prozentuale Wert der richtig beantworteten Vocs gespeichert
 
-	printf("\n\nAnzahl Korrekter Eingaben: %d von %d", korrekte_voc, user_vokabelzahl);	//Ausgabe der Richtigen Antworten verglichen mit abgefragten Vocs
+	printf("Anzahl korrekter Eingaben: %d von %d", korrekte_voc, user_vokabelzahl);	//Ausgabe der Richtigen Antworten verglichen mit abgefragten Vocs
 
 	prozentual =  (float) korrekte_voc / user_vokabelzahl * 100;						//Hier wird der Prozentuale Wert der richtig beantworteten Vocs berechnet
 
@@ -107,7 +107,6 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 	}
 	else																			//Wenn Highscorelist.txt schon existiert
 	{
-		printf("Highscorelist.txt wird ausgelesen\n");
 
 		//Gesamte Liste als Verkettung abschreiben
 

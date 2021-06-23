@@ -22,6 +22,7 @@ struct username *username_list()
 	FILE* datei_users_ptr = NULL;										//FILE* pointer zum öffnen der Usernames.txt Datei
 
 	char dummy_zeichen = ' ';											//Zum einlesen von Leerzeichen
+	char dummy_array[255];
 	int c = 0;															//Char Platzhalter zum auslesen der Datei
 	int u = 0;															//Variable benutzt in Erstellung User verkettete Liste
 
@@ -38,8 +39,10 @@ struct username *username_list()
 
 			entered_user_ptr = malloc(sizeof(struct username));					//Setze entered_user_ptr auf neu erstelltes Element (ersten User)
 
+			printf("Noch keine Nutzer bekannt! \n");
+
 			username_mark1:
-			printf("Noch keine Nutzer bekannt! \nBitte einen neuen Nutzernamen eingeben: ");
+			printf("Bitte einen neuen Nutzernamen eingeben: ");
 
 			entered_user_ptr->name[0] = ' ';									//Setze den Namen auf 'Leerzeichen'
 			scanf("%[^\r\n]", entered_user_ptr->name);							//Es können auch Leerzeichen eingegeben werden
@@ -117,10 +120,11 @@ struct username *username_list()
 
 		}
 
-		char dummy_array[255];
+
 		username_mark3:
 
-		printf("Bitte einen Nutzernamen auswaehlen, oder die Option \"Neuen Nutzer anlegen\" waehlen:\n");		//Aufforderung einen Namen festzulegen
+		printf("Bitte einen Nutzernamen auswaehlen, oder die Option \"Neuen Nutzer anlegen\" waehlen,\n");		//Aufforderung einen Namen festzulegen
+		printf("indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen: ");
 
 		//Check ob tatsächlich nur eine Zahl eingegeben wurde
 
