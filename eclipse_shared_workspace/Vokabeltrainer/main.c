@@ -26,14 +26,14 @@ int main()
 	int korrekte_voc = 0;
 
 
-	printf("_______________________________________________________________________________________________________________________\n\n");
+	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
-			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
-			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
-			"-Du kannst dein Koennen beweisen, indem du es in die Top 3 der besten Vokabelpauker schaffst!\n"
-			"-Mit ENTER kommst du ins Hauptmenue\n"
+			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
+			"-Sie bekommen ein Feedback zum Festhalten Ihres Lernerfolgs\n"
+			"-Sie koennen Ihr Koennen beweisen, indem Sie es in die Top 3 der besten Vokabelpauker schaffen!\n"
+			"-Mit ENTER kommen Sie ins Hauptmenue\n"
 			"Und jetzt viel Spass!\n");
-	printf("_______________________________________________________________________________________________________________________\n\n");
+	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 
 	scanf("%c", &dummy_zeichen);							//warten auf enter-befehl des Users
@@ -41,9 +41,9 @@ int main()
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
 
-	printf("_______________________________________________________________________________________________________________________\n\n");
+	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen beim Vokabeltrainer, %s!\n", aktueller_nutzer->name);
-	printf("_______________________________________________________________________________________________________________________\n\n");
+	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 
 	abzufragende_kategorie = kategorie_waehlen(liste_einlesen(sprache));

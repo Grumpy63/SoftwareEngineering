@@ -80,7 +80,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 if (zufall_voc != 0 && zufall_voc != abzufragende_kategorie->anzahl_in_kategorie-1)						//zu entfernende Vok befindet sich mittendrin
 					 {
 						 abfrage31:
-						printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				// Aufforderung zur Eingabe
+						printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				// Aufforderung zur Eingabe
 					 	eingabe[0]	= ' ';
 					 	scanf("%[^\r\n]", eingabe);
 					 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -112,7 +112,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 else if(zufall_voc == 0)																					// zu entfernende Vok am listenanfang
 					 {
 						 abfrage32:
-					 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				// Aufforderung zur Eingabe
+					 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				// Aufforderung zur Eingabe
 					 	eingabe[0]	= ' ';
 					 	scanf("%[^\r\n]", eingabe);
 					 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -145,7 +145,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 else if(zufall_voc ==abzufragende_kategorie->anzahl_in_kategorie-1)										//zu entfernende Vok am Listenende
 					 {
 						 abfrage33:
-					 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				//Beginn der eigentlichen Abfrage
+					 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);				//Beginn der eigentlichen Abfrage
 					 	eingabe[0]	= ' ';
 					 	scanf("%[^\r\n]", eingabe);
 					 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -181,7 +181,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 if (zufall_voc != 0 && zufall_voc != abzufragende_kategorie->anzahl_in_kategorie-1)																	//zu entfernende Vok befindet sich mittendrin
 						 {
 						 	 abfrage34:
-							printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe
+							printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe
 						 	eingabe[0]	= ' ';
 						 	scanf("%[^\r\n]", eingabe);
 						 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -213,7 +213,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 else if(zufall_voc == 0)																				// Vok am listenanfang
 						 {
 							 abfrage35:
-						 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe
+						 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe
 						 	eingabe[0]	= ' ';
 						 	scanf("%[^\r\n]", eingabe);
 						 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -245,7 +245,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 else if(zufall_voc ==abzufragende_kategorie->anzahl_in_kategorie-1)									//letzte Vok wird entfernt
 						 {
 							 abfrage36:
-						 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			//Beginn Abfrage
+						 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			//Beginn Abfrage
 						 	eingabe[0]	= ' ';
 						 	scanf("%[^\r\n]", eingabe);
 						 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers

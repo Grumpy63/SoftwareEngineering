@@ -55,9 +55,9 @@
 		struct entitiy_name *next;																				//Pointer zur Verkettung der entitiy_namen
 	};
 
-	struct kategorie *liste_einlesen(struct vokabel * sprache);																			//Deklaration der Funktion liste_einlesen()
-	struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr);									//Deklaration der Funktion *kategorie_waehlen()
-	int richtung_waehlen(struct vokabel * sprache);																						//Deklaration der Funktion richtung_waehlen()
+	struct kategorie *liste_einlesen(struct vokabel * sprache);													//Deklaration der Funktion liste_einlesen()
+	struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr);				//Deklaration der Funktion *kategorie_waehlen()
+	int richtung_waehlen(struct vokabel * sprache);																//Deklaration der Funktion richtung_waehlen()
 	int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie);										//Deklaration der Funktion vokabelzahl_feststellen()
 	struct kategorie *liste_einlesen();																			//Deklaration der Funktion *liste_einlesen()
 	int vokabelzahl_feststellen(struct kategorie *k_alle_erste_ptr);											//Deklaration der Funktion vokabelzahl_feststellen()

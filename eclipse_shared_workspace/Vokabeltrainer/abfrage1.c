@@ -73,7 +73,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)				//zu entfernende Vok befindet sich mittendrin
 	 {
 		 abfrage11:
-		printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);// Aufforderung zur Eingabe
+		printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);// Aufforderung zur Eingabe
 		eingabe[0] = ' ';
 		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 		scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -106,7 +106,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 else if(zufall == 0)																			// Vok am listenanfang die entfernt wird
 	 {
 		 abfrage12:
-	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	// Aufforderung zur Eingabe
+	 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	// Aufforderung zur Eingabe
 	 	eingabe[0] = ' ';
 	 	scanf("%[^\r\n]", eingabe);																	//Es können auch Leerzeichen eingegeben werden
 	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
@@ -140,7 +140,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)								//die zu löschende Vokabel ist die letzte der liste
 	 {
 		 abfrage13:
-	 	printf("\nBitte geben sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	//Aufforderung zur eingabe
+	 	printf("\nBitte geben Sie die Uebersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	//Aufforderung zur eingabe
 	 	eingabe[0] = ' ';
 	 	scanf("%[^\r\n]", eingabe);
 	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers

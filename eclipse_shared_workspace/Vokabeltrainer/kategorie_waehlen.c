@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <dirent.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "voc_functions.h"
@@ -17,11 +18,14 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 	int i_max = 1;
 	int i = 1;
 	int a = 1;
+	char dummy_zeichen;
 
+	mark1:
+	i = 1;
 	setbuf(stdout, NULL);
 	if(k_alle_erste_ptr->next_kategorie == NULL)
 	{
-		printf("Kategorie %s wird abgefragt.\n\n", k_alle_erste_ptr->kategorie_name);
+		printf("Kategorie %s wird abgefragt, da es keine anderen Kategorien in der Vokabelliste gibt.\n\n", k_alle_erste_ptr->kategorie_name);
 		return(k_alle_erste_ptr);
 	}
 	else if(k_alle_erste_ptr->next_kategorie->next_kategorie == NULL)
@@ -43,17 +47,16 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 
 	i_max = i-1;
 
-	while(1){
-		printf("\nZur Auswahl bitte die Nummer der Kategorie eingeben:\n");
+
+		printf("\nBitte waehlen Sie die Kategorie aus, welche abgefragt werden soll, indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen:\n");
 		scanf("%d", &i);
 		fflush(stdin);
-		if(i<1 || i>i_max){
-			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Kategorie mit einer Eingabe zwischen 1 und %d.\n",i_max);
+		if(i<1 || i>i_max || isalpha(i) !=0){
+			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Kategorie mit einer Eingabe einer Zahl zwischen 1 und %d.\n",i_max);
+			scanf("%c", &dummy_zeichen);
+			goto mark1;
 		}
-		else{
-			break;
-		}
-	}
+
 
 
 	rueckgabe_help_ptr = k_alle_erste_ptr;
@@ -64,7 +67,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		rueckgabe_help_ptr = rueckgabe_help_ptr->next_kategorie;
 		a++;
 	}
-
+	printf("Es wurde die Kategorie \"%s\" ausgewaehlt.\n", rueckgabe_help_ptr->kategorie_name);
 	//printf("\nSie haben sich erfolgreich für die Kategorie \"%s\" entschieden!\n\n",rueckgabe_help_ptr->kategorie_name);//brauchen wir nicht ? hmmmm
 
 	return(rueckgabe_help_ptr);

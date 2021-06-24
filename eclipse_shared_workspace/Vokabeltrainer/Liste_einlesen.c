@@ -31,7 +31,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	FILE *datei_vorlage_ptr;																				//
 
 	char c = ' ';																							//
-	int listenname;																						//
+	int listenname;																							//
 	char dummy_zeichen = ' ';
 	int i = 0;
 
@@ -131,7 +131,8 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		}
     //Abfrage nach der zu öffnenden Datei
 
-    printf("Bitte waehlen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
+    printf("Bitte waehlen Sie die Liste aus, welche abgefragt werden soll, "									//Ausgabe einer Informationsnachricht für den Nutzer
+    		"indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen:\n");			//Ausgabe einer Informationsnachricht für den Nutzer
     scanf("%d", &listenname);																				//Einlesen der Nutzereingabe zur Auswahl der Liste
 	if(dummy_zeichen == '\r')																				//auch auf anderen OS (haben evtl mehr Zeichen)
 	{
@@ -139,7 +140,8 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	}
     	if(listenname >= Aufzaehlung || listenname <= 0 || isalpha(listenname) != 0)						//Eingabeüberprüfung der Nutzereingabe
 			{
-				printf("Die Eingabe ist ungueltig.\n\n\n");													//Ausgabe einer Informationsnachricht für den Nutzer
+				printf("Ungueltige Eingabe! Waehlen Sie bitte eine Kategorie mit der "						//Ausgabe einer Informationsnachricht für den Nutzer
+						"Eingabe einer Zahl zwischen 1 und %d.\n\n\n", Aufzaehlung-1);
 				closedir(dir);																				//Das Verzeichnis wird geschlossen
 				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
 				dir = opendir(".");																			//Das Verzeichnis wird geöffnet
@@ -154,7 +156,8 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 				}
 			if(Flagge_gueltige_Eingabe == false)															//If-Verzweigung, wenn Variable Flagge_gueltige_Eingabe gleich false ist
 			{
-				printf("Die Eingabe ist ungueltig.\n\n\n");													//Ausgabe einer Informationsnachricht für den Nutzer
+				printf("Ungueltige Eingabe! Waehlen Sie bitte eine Kategorie mit der "						//Ausgabe einer Informationsnachricht für den Nutzer
+						"Eingabe einer Zahl zwischen 1 und %d.\n\n\n", Aufzaehlung-1);
 				closedir(dir);																				//Das Verzeichnis wird geschlossen
 				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
 				dir = opendir(".");																			//Das Verzeichnis wird geöffnet

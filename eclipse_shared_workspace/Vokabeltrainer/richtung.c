@@ -8,6 +8,7 @@
 
 #include <string.h>
 #include <dirent.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -17,22 +18,34 @@
 int richtung_waehlen(struct vokabel * sprache)
 {
 	int richtung = 0;
-	printf("\nBitte waehlen Sie den Abfragemodus:\n");
+	char dummy_zeichen;
+	mark1:
+	printf("\nBitte waehlen Sie den Abfragemodus aus, indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen:\n");
 	printf("(1) %s zu %s\n",sprache->vokabel_sprache1,sprache->vokabel_sprache2);
 	printf("(2) %s zu %s\n",sprache->vokabel_sprache2,sprache->vokabel_sprache1);
 	printf("(3) Zufaellige Abfragesprache\n");
 
-	while(1)
-	{
+
 		scanf("%d", &richtung);
 		fflush(stdin);
-		if(richtung < 1 || richtung > 3)
+		if(richtung < 1 || richtung > 3 || isalpha(richtung) !=0)
 		{
-			printf("Die Eingabe ist ungueltig bitte geben Sie Ihre Auswahl erneut ein.\n");
+			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Richtung mit einer Eingabe einer Zahl zwischen 1 und 3.\n");
+						scanf("%c", &dummy_zeichen);
+						goto mark1;
 		}
-		else
-		{
+		switch (richtung) {
+			case 1:
+				printf("Du hast dich fuer den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache1,sprache->vokabel_sprache2);
+				break;
+			case 2:
+				printf("Du hast dich fuer den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache2,sprache->vokabel_sprache1);
+				break;
+			case 3:
+				printf("Du hast dich fuer den zufaelligen Abfragemodus entschieden.");
+				break;
+			default:
+				break;
+		}
 			return(richtung);
-		}
-	}
 }
