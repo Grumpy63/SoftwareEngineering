@@ -29,6 +29,7 @@
 int abfrage1(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc)
 {
 
+
 int anzahl_korrekter_voc = 0;
 struct vokabel* cursor_ptr = NULL; 														//Cursor soll auf die abzufragende Vokabel zeigen
 struct vokabel* help_ptr = NULL;														// Hilfszeiger soll auf vorherige Vokabel in Liste zeigen
@@ -94,15 +95,16 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  						//Vergleich der beiden Strings groß/kleinschreibung egal.
 		 {
-			printf("Ihre Eingabe war richtig!\n");												//Ausgabe eines Feedbacks
+			printf("Ihre Eingabe war richtig! ");												//Ausgabe eines Feedbacks
 			anzahl_korrekter_voc++;																// Counter für richtige Vokabeln wird hochgesetzt
 		 }
 		 else
 		 {
-		 	printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
+		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
 		 }
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;											//weiterouten der vorherigen vok auf die Übernächste => vok auf die cursor ptr zeigt wird gelöscht bzw. nicht mehr berücksichtigt
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Anzahl in Kategorie nach Löschen einer Vok.
+		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
 	 }
 
 	 else if(zufall == 0)																			// Vok am listenanfang die entfernt wird
@@ -127,16 +129,16 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  									//Vergleich der beiden Strings mit feedback und zählen der Richtigen
 	 	{
-	 		printf("Ihre Eingabe war richtig!\n");
+	 		printf("Ihre Eingabe war richtig! ");
 	 		anzahl_korrekter_voc++;
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);
 	 	}
-
 	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;							//erste Vokabel wird eins weitergesetzt, somit neuer listenanfang und alte erste vokabel wird gelöscht
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Vokabelanzahl
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
 	 }
 
 	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)								//die zu löschende Vokabel ist die letzte der liste
@@ -161,16 +163,16 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 	if(strcmp(eingabe, strlwr( cursor_ptr->vokabel_sprache2)) == 0)												//Vergleich der eingabe mit lösung aus liste
 	 	{
-	 		printf("Ihre Eingabe war richtig!\n");															//positives feedback
+	 		printf("Ihre Eingabe war richtig! ");															//positives feedback
 	 		anzahl_korrekter_voc++;																			//Zahl der richtigen wird erhöht
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);			//anzeigen der Verbesserung
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);			//anzeigen der Verbesserung
 	 	}
-
 	 	help_ptr->next_vokabel = NULL;																		//neues listenende wird realisiert! ehemalige letzte Vokabel von cursor ptr spielt keine rolle mehr
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;			//Angleich der Vokabelanzahl in kategorie
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
 	 }
 
 	 cursor_ptr = NULL;																						//Beide verwendeten Pointer werden genullt für nächsten abfragezyklus/durchlauf der forschleife

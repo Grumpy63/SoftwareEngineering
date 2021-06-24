@@ -99,14 +99,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 						if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  												//Vergleich der beiden Strings.
 						 {
-							printf("Ihre Eingabe war richtig!\n");																	//Ausgabe eines Feedbacks
+							printf("Ihre Eingabe war richtig! ");																	//Ausgabe eines Feedbacks
 							anzahl_korrekter_voc++;																				// Counter für richtige Vokabeln wird hochgesetzt
 						 }
 						 else
 						 {
-						 	printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);   				//Feedback mit richtiger Übersetzung
+						 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);   				//Feedback mit richtiger Übersetzung
 						 }
-
+						printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));						//Ausgabe der Anzahl übriger Vokabeln
 						help_ptr->next_vokabel =cursor_ptr->next_vokabel;														//Weiterrouten von help_ptr auf Übernächstes Element: hiermit wird abzufragende Vok gelöscht
 						abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;				// Angleichen der Anzahl von Vok in Liste, eins weniger
 					 }
@@ -132,14 +132,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 					 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  												//Vergleich der beiden Strings.
 					 	{
-					 		printf("Ihre Eingabe war richtig!\n");																//positives Feedback, Anzahl der Richtigen wird erhöht
+					 		printf("Ihre Eingabe war richtig! ");																//positives Feedback, Anzahl der Richtigen wird erhöht
 					 		anzahl_korrekter_voc++;
 					 	}
 					 	else
 					 	{
-					 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);
+					 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);
 					 	}
-
+					 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));						//Ausgabe der Anzahl übriger Vokabeln
 					 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;										//erste Vokabel wird eins weitergesetzt, neuer Listenanfang
 					 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;				//Angleich der Vokabelanzahl in Liste nach rauslöschen
 					 }
@@ -164,14 +164,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 	strlwr(eingabe);
 					 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)
 					 	{
-					 		printf("Ihre Eingabe war richtig!\n");
+					 		printf("Ihre Eingabe war richtig! ");
 					 		anzahl_korrekter_voc++;
 					 	}
 					 	else
 					 	{
-					 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache2);
+					 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);
 					 	}
-
+					 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));						//Ausgabe der Anzahl übriger Vokabeln
 					 	help_ptr->next_vokabel = NULL;																			//Neues Listenende wird festgelegt, letzte Vok wird rausgelöscht
 					 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1; 				//Angleich der Anzahl
 					 }
@@ -200,14 +200,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 							strlwr(eingabe);																					// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 							if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  											//Vergleich der beiden Strings.
 							 {
-								printf("Ihre Eingabe war richtig!\n");																//Ausgabe eines Feedbacks
+								printf("Ihre Eingabe war richtig! ");																//Ausgabe eines Feedbacks
 								anzahl_korrekter_voc++;																			// Counter für richtige Vokabeln wird hochgesetzt
 							 }
 							 else
 							 {
-							 	printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache1);   			//Feedback mit richtiger Übersetzung
+							 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);   			//Feedback mit richtiger Übersetzung
 							 }
-
+							printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
 							help_ptr->next_vokabel =cursor_ptr->next_vokabel;
 							abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 						 }
@@ -232,14 +232,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		strlwr(eingabe);																					// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 						 		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  											//Vergleich der beiden Strings.
 						 	{
-						 		printf("Ihre Eingabe war richtig!\n");
+						 		printf("Ihre Eingabe war richtig! ");
 						 		anzahl_korrekter_voc++;
 						 	}
 						 	else
 						 	{
-						 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache1);
+						 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);
 						 	}
-
+						 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
 						 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;									//erste Vokabel wird eins weitergesetzt
 						 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 						 }
@@ -265,14 +265,14 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 						 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)												//Vergleich der Eingabe mit Lösung
 						 	{
-						 		printf("Ihre Eingabe war richtig!\n");
+						 		printf("Ihre Eingabe war richtig! ");
 						 		anzahl_korrekter_voc++;
 						 	}
 						 	else
 						 	{
-						 		printf("Leider falsch! Korrekt wäre gewesen: %s\n", cursor_ptr->vokabel_sprache1);
+						 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);
 						 	}
-
+						 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
 						 	help_ptr->next_vokabel = NULL;																		//neues Listenende wird festgelegt
 						 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;			//Angleich der Vokabelanzahl
 						 }
