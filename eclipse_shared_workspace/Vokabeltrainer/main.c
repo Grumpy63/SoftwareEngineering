@@ -26,7 +26,6 @@ int main()
 	int korrekte_voc = 0;
 
 
-	printf("äöü?ß=}");
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
 			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begr��ung mit Ablauf des Programms
