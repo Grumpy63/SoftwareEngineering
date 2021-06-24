@@ -175,7 +175,7 @@ struct username *username_list()
 				{
 					printf("Der eingegebene User besteht bereits!\n");									//Nutzerhinweis ausgeben
 					free(entered_user_ptr);																//Allokierter Speicher wird wieder frei gegeben
-					goto mark1;																			//R�cksprung zu mark1
+					goto mark1;																			//Rücksprung zu mark1
 				}
 				else																					//Else-Verzweigung
 				{
@@ -195,7 +195,7 @@ struct username *username_list()
 		{
 			if(Auswahl > (Aufzaehlung - 1) || Auswahl <= 0)												//Eingabe�berpr�fung der Nutzereingabe
 				{
-					printf("Die Eingabe ist ungültig! ");												//Ausgabe einer Informationsnachricht f�r den Nutzer
+					printf("\nDie Eingabe ist ungültig! ");												//Ausgabe einer Informationsnachricht f�r den Nutzer
 					printf("Bitte wählen sie eine der angebotenen Zahlen.\n");							//Ausgabe einer Informationsnachricht f�r den Nutzer
 					scanf("%[^\r\n]", dummy_array);
 					goto username_mark3;																//Sprung zur Abfrage
