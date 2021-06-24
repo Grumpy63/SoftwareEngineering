@@ -68,7 +68,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		a++;
 	}
 	printf("\nEs wurde die Kategorie \"%s\" ausgewählt.\n", rueckgabe_help_ptr->kategorie_name);
-	//printf("\nSie haben sich erfolgreich f�r die Kategorie \"%s\" entschieden!\n\n",rueckgabe_help_ptr->kategorie_name);//brauchen wir nicht ? hmmmm
+
 
 	return(rueckgabe_help_ptr);
 }

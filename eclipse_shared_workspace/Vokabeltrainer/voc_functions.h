@@ -12,33 +12,33 @@
 
 
 
-	//Definitionen für usernames_list() (Luca&Alex)
+	//Definitionen fÃ¼r usernames_list() (Luca&Alex)
 
 
 	//FILE *datei_users_ptr;
 
-	struct username																								//Struct um Nutzernamen zu managen; zur Erstellung von verketteter Liste benötigt
+	struct username																								//Struct um Nutzernamen zu managen; zur Erstellung von verketteter Liste benÃ¶tigt
 	{
 		char name[256];																							//Nutzername mit Begrenzung auf 256 Zeichen
-		struct username *next_user;																				//Pointer zeigt auf nächsten Nutzer in der verketteten Liste
+		struct username *next_user;																				//Pointer zeigt auf nÃ¤chsten Nutzer in der verketteten Liste
 	};
 
 
 
 	struct username *username_list();																			//Deklaration der Funktion username_list()
 
-	//Ende der Deklarationen für usernames_list()
+	//Ende der Deklarationen fÃ¼r usernames_list()
 
 
 
-	//Definition für Liste einlesen, Kategoriewahl, Abfragerichtung, Abfragezahl (David&David)
+	//Definition fÃ¼r Liste einlesen, Kategoriewahl, Abfragerichtung, Abfragezahl (David&David)
 
 	struct vokabel																								//Struct zur Erstellung einer verketteten Liste der Vokabeln
 	{
 		char vokabel_sprache1[256];																				//Variable zum Abspeichern der Vokabel in Sprache 1
 		char vokabel_sprache2[256];																				//Variable zum Abspeichern der Vokabel in Sprache 2
 		int flag;                                                                								//Variable zum Detektieren ob Vokabel bereits abgefragt; wurde Vokabel bereits abgefragt? 0: nicht abgefragt, 1: abgefragt
-		struct vokabel *next_vokabel;                                            								//Pointer für Verkettung der Kategorien
+		struct vokabel *next_vokabel;                                            								//Pointer fÃ¼r Verkettung der Kategorien
 	};
 
 	struct kategorie																							//Struct zur Erstellung einer verketteten Liste der Kategorien
@@ -46,7 +46,7 @@
 		char kategorie_name[256];            																	//Bezeichnung der Kategorie
 		struct vokabel *erste_vokabel;   																		//pointer auf das erste Vokabel-Paar in der Kategorie
 		int anzahl_in_kategorie;                                                								//wieviele Vokabeln befinden sich in der Kategorie
-		struct kategorie *next_kategorie;                                      									//Pointer für Verkettung der Kategorien
+		struct kategorie *next_kategorie;                                      									//Pointer fÃ¼r Verkettung der Kategorien
 	};
 
 	struct entitiy_name																							//Struct zur Erstellung einer verketteten Liste der Listennamen
@@ -62,37 +62,37 @@
 	struct kategorie *liste_einlesen();																			//Deklaration der Funktion *liste_einlesen()
 	int vokabelzahl_feststellen(struct kategorie *k_alle_erste_ptr);											//Deklaration der Funktion vokabelzahl_feststellen()
 
-	//Ende der Definition für Abfrage der Vokabeln
+	//Ende der Definition fÃ¼r Abfrage der Vokabeln
 
 
 
-	//Deklarationen für Vokabelabfrage
+	//Deklarationen fÃ¼r Vokabelabfrage
 
-	int irand( int a, int e);																					//Deklaration für die Funktion irand(); Erzeugt zufällige Zahl x mit a<=x<=e
+	int irand( int a, int e);																					//Deklaration fÃ¼r die Funktion irand(); Erzeugt zufÃ¤llige Zahl x mit a<=x<=e
 
 	int abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc, int modus); 				//Deklaration der Funktion abfrage()
 	int abfrage1(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc); 						//Deklaration der Funktion abfrage1()
 	int abfrage2(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc); 						//Deklaration der Funktion abfrage2()
 	int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc); 						//Deklaration der Funktion abfrage3(); gemischte Abfrage
 
-	//Ende der Deklarationen für Vokabelabfrage
+	//Ende der Deklarationen fÃ¼r Vokabelabfrage
 
 
 
-	//Definitionen für Abfrage der Vokabeln (Luca&Alex&Julian)
+	//Definitionen fÃ¼r Abfrage der Vokabeln (Luca&Alex&Julian)
 
 
-	int vokabel_abfrage(int abfrage_modus, int anzahl_abzufragen, struct kategorie *aktuelle_kategorie);		//Funktion fragt so viele Vokabeln aus der übergebenen Kategorie ab
+	int vokabel_abfrage(int abfrage_modus, int anzahl_abzufragen, struct kategorie *aktuelle_kategorie);		//Funktion fragt so viele Vokabeln aus der Ãœbergebenen Kategorie ab
 																												//wie anzahl_abzufragen es befiehlt, und in der Reihenfolge wie der abfrage_modus sagt
 
-	//Ende der Definitionen für Abfrage der Vokabeln
+	//Ende der Definitionen fÃ¼r Abfrage der Vokabeln
 
 
 
-	//Definition für highscores
+	//Definition fÃ¼r highscores
 
 
-	struct user_and_score																						//struct für das handling der highscores
+	struct user_and_score																						//struct fÃ¼r das handling der highscores
 	{
 		char username[256];
 		float score;
@@ -104,7 +104,7 @@
 	int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste);												//Gibt verkettete Liste von user&score auf dem Bildschirm aus (wird in fkt highscore_list aufgerufen)
 
 
-	//Ende der Definition für highscores
+	//Ende der Definition fÃ¼r highscores
 
 
 

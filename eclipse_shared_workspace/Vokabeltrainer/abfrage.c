@@ -34,5 +34,5 @@ int abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_vo
 			default: printf("Programminterner Fehler. Bitte starte die Anwendung erneut!");
 		}
 
-		return(anzahl_korrekter_voc);																	//Rückgabe der Richtigen an main-fkt für Highscore liste
+		return(anzahl_korrekter_voc);																	//RÃ¼ckgabe der Richtigen an main-fkt fÃ¼r Highscore liste
 }

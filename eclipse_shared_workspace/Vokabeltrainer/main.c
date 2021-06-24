@@ -18,17 +18,17 @@ int main()
 	sprache = malloc(sizeof(struct vokabel));
 
 	char dummy_zeichen;
-	int modus = 0;											//Richtungsmodus 0 f�r Sprache1->Sprache2; 1 S2->S1; 2 f�r Zufall
+	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2  für Zufall
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
-	int user_vokabelzahl = 0;								//User gew�hlte Abzufragende Vokabelzahl
-	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um R�ckgabewert der Funktion username_list verwenden zu k�nnen
+	int user_vokabelzahl = 0;								//User gewählte Abzufragende Vokabelzahl
+	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
 
 	int korrekte_voc = 0;
 
 
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
-			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begr��ung mit Ablauf des Programms
+			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
 			"-Sie bekommen ein Feedback zum Festhalten Ihres Lernerfolgs\n"
 			"-Sie können Ihr Können beweisen, indem Sie es in die Top 3 der besten Vokabelpauker schaffen!\n"
 			"-Mit ENTER kommen Sie ins Hauptmenü\n"
