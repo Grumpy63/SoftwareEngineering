@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "voc_functions.h"																//Einbinden der Header-Dateien
+#include <time.h>    																	// Headerfile für die Verwendung der Funktion: time()
+
 
 /*	aktualisiert 16.06.21: Flags ersetzt durch verkettete Liste
  * +bessere Performance besonders bei der Laufzeit

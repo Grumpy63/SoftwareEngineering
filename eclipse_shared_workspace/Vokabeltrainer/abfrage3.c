@@ -10,6 +10,7 @@
 #include <string.h>
 #include"voc_functions.h"
 #include <string.h>
+#include <time.h>
 
 
 
