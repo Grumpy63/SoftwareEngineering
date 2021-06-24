@@ -19,13 +19,24 @@ endif
 
 -include ../makefile.defs
 
+OPTIONAL_TOOL_DEPS := \
+$(wildcard ../makefile.defs) \
+$(wildcard ../makefile.init) \
+$(wildcard ../makefile.targets) \
+
+
+BUILD_ARTIFACT_NAME := Vokabeltrainer
+BUILD_ARTIFACT_EXTENSION := exe
+BUILD_ARTIFACT_PREFIX :=
+BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
+
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
 all: Vokabeltrainer.exe
 
 # Tool invocations
-Vokabeltrainer.exe: $(OBJS) $(USER_OBJS)
+Vokabeltrainer.exe: $(OBJS) $(USER_OBJS) makefile objects.mk $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cygwin C Linker'
 	gcc  -o "Vokabeltrainer.exe" $(OBJS) $(USER_OBJS) $(LIBS)

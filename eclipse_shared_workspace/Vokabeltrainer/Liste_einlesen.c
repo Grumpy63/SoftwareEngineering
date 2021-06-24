@@ -38,6 +38,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	bool Flagge_Neue_Kategorie = false;																		//
 	bool Flagge_Kategorie_mind = false;																		//
 
+	bool Flagge_Sprache_wird_festgestellt = false;
 	bool Flagge_Sprache1_begonnen = false;
 	bool Flagge_Sprache1_zuende = false;
 	bool Flagge_Sprache2_begonnen = false;
@@ -51,7 +52,12 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	bool Flagge_aktuelles_Vokablpaar = false;																//
 	bool Flagge_alleVokabel1_fertig = false;																//
+	bool Flagge_alle_Vokabel1_beschreibbar = false;
+	bool Flagge_alle_Vokabel2_beschreibbar = false;
 
+	bool Flagge_Sprache_herausgefiltert = false;
+	int anzahl_sprachen_gefiltert = 0;
+	bool Flagge_filtert_Sprache = false;
 
 	bool Flagge_erster_Durchlauf = false;																	//
 	bool Flagge_Semikolon = false;																			//
@@ -205,9 +211,12 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	fseek(datei_vorlage_ptr, 0, SEEK_SET);																	//Die Funktion fseek() setzt den Pointer datei_vorlage_ptr zurück auf den Anfang des Files
 
 
+
 	//Die Sprachen in denen abgefragt wird, werden ausgelesen
-	while(c != EOF)																							//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
+
+	while(c != EOF || Flagge_Sprache_wird_festgestellt == false)											//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
 	{
+		Flagge_Sprache_wird_festgestellt = true;
 		c = fgetc(datei_vorlage_ptr);																		//Mit der Funktion fgetc() wird ein Zeichen aus dem File ausgelesen und in die Variable c geschrieben
 
 		if(c == ';' || c == '\r' || c == '\n'){																//Zeichen die das Ende eines Wortes, oder den Platz dazwischen signalisieren werden abgefangen
@@ -216,7 +225,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 			}
 			if(Flagge_Sprache1_begonnen == true && Flagge_Sprache2_begonnen == false){						//Das erste Formatierungszeichen nach dem Beginn des ersten Wortes signalisiert dessen Ende
 				Flagge_Sprache1_zuende = true;																//Mit dieser Flagge wird der Zugang zu Sprache1 verschlossen und der zu Sprache2 geöffnet
-				array_position_vokabel = 0;																	//Zähl Variable muss zurück auf 0 gesetzt werden für Sprache 2
+				array_position_vokabel = 0;																	//Zäl Variable muss zurück auf 0 gesetzt werden für Sprache 2
 				continue;
 			}
 			if(Flagge_Sprache2_begonnen == true){															//Das erste Formatierungszeichen nach dem Beginn des zweiten Wortes signalisiert dessen Ende
@@ -239,6 +248,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		}
 
 	}
+
 
 	fseek(datei_vorlage_ptr, 0, SEEK_SET);																	//Die Funktion fseek() setzt den Pointer datei_vorlage_ptr zurück auf den Anfang des Files
 
@@ -353,8 +363,24 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		{
 			Flagge_erster_Durchlauf = false;																//Setzen der Variablen Flagge_erster_Durchlauf auf false
 
-		  //Nächstes Zeichen auslesen
+		  //Nï¿½chstes Zeichen auslesen
 		  c = fgetc(datei_vorlage_ptr);																		//Mit der Funktion fgetc() wird ein Zeichen aus dem File ausgelesen und in die Variable c geschrieben
+
+		  if((Flagge_Sprache_herausgefiltert == false) && (c == ';' || c == '\r' || c == '\n')){
+
+			  if(Flagge_filtert_Sprache == true){
+				  anzahl_sprachen_gefiltert++;
+				  Flagge_filtert_Sprache = false;
+			  }
+			  if(anzahl_sprachen_gefiltert == 2){
+				  Flagge_Sprache_herausgefiltert = true;
+			  }
+			  continue;
+		  }
+		  else if(Flagge_Sprache_herausgefiltert == false){
+			  Flagge_filtert_Sprache = true;
+			  continue;
+		  }
 
     	  if((Flagge_Semikolon == true && c == ';') ||c == '\r' || c == EOF)								//If-Abfrage ob die Variable Flagge_Semikolon true und c ein ";" ist oder c ein "\r" oder End-Of-File ist
     	  {
@@ -379,8 +405,32 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 			  Flagge_aktuelles_Vokablpaar = true;															//Setzen der Variablen Flagge_aktuelles_Vokablpaar auf true
 		  }
 
+
+
+		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == false){
+			  if( (c == ';' || c == '\n')){
+				  continue;
+			  }
+			  else{
+				  Flagge_alle_Vokabel1_beschreibbar = true;
+			  }
+
+		  }
+
+		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == true){
+			  if( (c == ';' || c == '\n')){
+				  continue;
+			  }
+			  else{
+				  Flagge_alle_Vokabel2_beschreibbar = true;
+			  }
+
+		  }
+
+
+
 		  //Vokabel 1
-		  if(Flagge_alleVokabel1_fertig == false){															//If-Abfrage ob die Variable Flagge_alleVokabel1_fertig false ist
+		  if(Flagge_alle_Vokabel1_beschreibbar == true){													//If-Abfrage ob die Variable Flagge_alleVokabel1_fertig false ist
 
 			  if(Flagge_aktuelles_Vokablpaar == false){														//If-Abfrage ob die Variable Flagge_aktuelles_Vokablpaar false ist
 				  alle_vokablen_ende_ptr->next_vokabel = malloc(sizeof(struct vokabel));					//Auf den Pointer alle_vokablen_ende_ptr->next_vokabel wird eine neue struct vokabel allokiert
@@ -388,8 +438,10 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 				  Flagge_aktuelles_Vokablpaar = true;														//Setzen der Variablen Flagge_aktuelles_Vokablpaar auf true
 			  }
 
-			  if(c == ';'){																					//If-Abfrage ob c ein ";" ist
-				  Flagge_alleVokabel1_fertig = true;														//Setzen der Variablen Flagge_alleVokabel1_fertig auf true
+			  if(c == ';' || c == '\n'){																	//If-Abfrage ob c ein ";" ist
+				  Flagge_alle_Vokabel1_beschreibbar = false;												//Setzen der Variablen Flagge_alleVokabel1_fertig auf true
+				  Flagge_alleVokabel1_fertig = true;
+				  array_position_vokabel = 0;
 				  continue;																					//Erneuter Beginn der While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
 			  }
 			  alle_vokablen_ende_ptr->vokabel_sprache1[array_position_vokabel] = c;							//Dem Array vokabel_sprache1 wird das eingelesene Zeichen an der Position array_position_vokabel zugewiesen
@@ -397,11 +449,13 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		  }
 
 		  //Vokabel 2
-		  if(Flagge_alleVokabel1_fertig == true){															//If-Abfrage ob die Variable Flagge_alleVokabel1_fertig true ist
+		  if(Flagge_alle_Vokabel2_beschreibbar == true){													//If-Abfrage ob die Variable Flagge_alleVokabel1_fertig true ist
 
-			  if(c == ';'){																					//If-Abfrage ob c ein ";" ist
-				  Flagge_alleVokabel1_fertig = false;														//Setzen der Variablen auf false
+			  if(c == ';' || c == '\n'){																	//If-Abfrage ob c ein ";" ist
+				  Flagge_alle_Vokabel2_beschreibbar = false;												//Setzen der Variablen auf false
+				  Flagge_alleVokabel1_fertig = false;
 				  Flagge_aktuelles_Vokablpaar = false;														//Setzen der Variablen auf false
+				  array_position_vokabel = 0;
 				  alle_kategorien_ptr->anzahl_in_kategorie++;												//über den Pointer alle_kategorien_ptr wird die Variable anzahl_in_kategorie um eins inkrementiert
 				  continue;																					//Erneuter Beginn der While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
 			  }
@@ -410,7 +464,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 			  array_position_vokabel++;																		//Die Variable array_position_vokabel wird um eins inkrementiert
 		  }
 
-		}//Ende While EOF fürt alle vok
+		}//Ende While EOF für alle vok
 		fclose(datei_vorlage_ptr);
 		return(alle_kategorien_ptr);																		//Der Pointer alle_kategorien_ptr wird von der Funktion zurück gegeben
 	}//Ende else für abfrage ob !kategorie
