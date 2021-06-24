@@ -31,6 +31,7 @@ int main()
 			"-Nach der Auswahl der abzufragenden Vokabeldatei, Abfragemodus und Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
 			"-Du bekommst ein Feedback zum Festhalten deines Lernerfolgs\n"
 			"-Du kannst dein Koennen beweisen, indem du es in die Top 3 der besten Vokabelpauker schaffst!\n"
+			"-Mit ENTER kommst du ins Hauptmenue\n"
 			"Und jetzt viel Spass!\n");
 	printf("_______________________________________________________________________________________________________________________\n\n");
 

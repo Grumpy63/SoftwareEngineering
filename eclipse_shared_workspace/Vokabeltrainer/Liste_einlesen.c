@@ -6,6 +6,7 @@
  */
 
 #include <string.h>
+#include <ctype.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +31,9 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	FILE *datei_vorlage_ptr;																				//
 
 	char c = ' ';																							//
-	int listenname = 0;																						//
+	int listenname;																						//
+	char dummy_zeichen = ' ';
+	int i = 0;
 
 	bool Flagge_Neue_Kategorie = false;																		//
 	bool Flagge_Kategorie_mind = false;																		//
@@ -54,6 +57,8 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	bool Flagge_Semikolon = false;																			//
 
 	bool Flagge_Entity = false;																				//
+
+	bool Flagge_gueltige_Eingabe = false;
 
 	int array_position_kategorie = 0;																		//
 	int array_position_vokabel = 0;																			//
@@ -127,14 +132,34 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
     //Abfrage nach der zu öffnenden Datei
 
     printf("Bitte waehlen Sie die Liste aus, welche abgefragt werden soll:\n");								//Ausgabe einer Informationsnachricht für den Nutzer
-    	scanf("%d", &listenname);																			//Einlesen der Nutzereingabe zur Auswahl der Liste
-        	if(listenname >= Aufzaehlung || listenname <= 0)												//Eingabeüberprüfung der Nutzereingabe
-        	    {
-        	    	printf("Die Eingabe ist ungueltig.\n\n\n");												//Ausgabe einer Informationsnachricht für den Nutzer
-        	    	closedir(dir);																			//Das Verzeichnis wird geschlossen
-        	    	dir = opendir(".");																		//Das Verzeichnis wird geöffnet
-        	    	goto mark2;																				//Es wird zu Marke mark2 gesprungen
-        	    }
+    scanf("%d", &listenname);																				//Einlesen der Nutzereingabe zur Auswahl der Liste
+	if(dummy_zeichen == '\r')																				//auch auf anderen OS (haben evtl mehr Zeichen)
+	{
+		scanf("%c", &dummy_zeichen);
+	}
+    	if(listenname >= Aufzaehlung || listenname <= 0 || isalpha(listenname) != 0)						//Eingabeüberprüfung der Nutzereingabe
+			{
+				printf("Die Eingabe ist ungueltig.\n\n\n");													//Ausgabe einer Informationsnachricht für den Nutzer
+				closedir(dir);																				//Das Verzeichnis wird geschlossen
+				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
+				dir = opendir(".");																			//Das Verzeichnis wird geöffnet
+				goto mark2;																					//Es wird zu Marke mark2 gesprungen
+			}
+				for(i = 1; i <= Aufzaehlung; i++)															//For-Schleife
+				{
+					if(listenname == i)																		//If-Verzweigung, wenn Varibale listenname gleich Variable i ist
+					{
+						Flagge_gueltige_Eingabe = true;														//Setzen der Variable Flagge_gueltige_Eingabe
+					}
+				}
+			if(Flagge_gueltige_Eingabe == false)															//If-Verzweigung, wenn Variable Flagge_gueltige_Eingabe gleich false ist
+			{
+				printf("Die Eingabe ist ungueltig.\n\n\n");													//Ausgabe einer Informationsnachricht für den Nutzer
+				closedir(dir);																				//Das Verzeichnis wird geschlossen
+				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
+				dir = opendir(".");																			//Das Verzeichnis wird geöffnet
+				goto mark2;																					//Es wird zu Marke mark2 gesprungen
+			}
 
 
 
