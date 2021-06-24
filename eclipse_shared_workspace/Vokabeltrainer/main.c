@@ -18,19 +18,20 @@ int main()
 	sprache = malloc(sizeof(struct vokabel));
 
 	char dummy_zeichen;
-	int modus = 0;											//Richtungsmodus 0 für Sprache1->Sprache2; 1 S2->S1; 2 für Zufall
+	int modus = 0;											//Richtungsmodus 0 fï¿½r Sprache1->Sprache2; 1 S2->S1; 2 fï¿½r Zufall
 	struct kategorie * abzufragende_kategorie = NULL;		//Pointer auf abzufragende Kategorie
-	int user_vokabelzahl = 0;								//User gewählte Abzufragende Vokabelzahl
-	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rückgabewert der Funktion username_list verwenden zu können
+	int user_vokabelzahl = 0;								//User gewï¿½hlte Abzufragende Vokabelzahl
+	struct username *aktueller_nutzer = NULL;				//Erstelle pointer auf struct username um Rï¿½ckgabewert der Funktion username_list verwenden zu kï¿½nnen
 
 	int korrekte_voc = 0;
 
 
+	printf("Ã¤Ã¶Ã¼?ÃŸ=}");
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Willkommen zum Vokabeltrainer!\n\nVorab ein paar kurze Infos:\n"
-			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrüßung mit Ablauf des Programms
+			"-Nach der Auswahl der abzufragenden Vokabeldatei, dem Abfragemodus und der Anzahl der Vokabeln erfolgt die eigentliche Abfrage\n" //Begrï¿½ï¿½ung mit Ablauf des Programms
 			"-Sie bekommen ein Feedback zum Festhalten Ihres Lernerfolgs\n"
-			"-Sie koennen Ihr Koennen beweisen, indem Sie es in die Top 3 der besten Vokabelpauker schaffen!\n"
+			"-Sie kÃ¶nnen Ihr KÃ¶nnen beweisen, indem Sie es in die Top 3 der besten Vokabelpauker schaffen!\n"
 			"-Mit ENTER kommen Sie ins Hauptmenue\n"
 			"Und jetzt viel Spass!\n");
 	printf("_______________________________________________________________________________________________________________________________\n\n");
@@ -67,9 +68,9 @@ int main()
 
 	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 
-	printf("\nSchoen, dass Sie sich Zeit zum Lernen genommen haben.\n");
+	printf("\nSchÃ¶n, dass Sie sich Zeit zum Lernen genommen haben.\n");
 	printf("Bis bald!\n");
-	printf("Das Programm laesst sich durch Betaetigung der Enter-Taste schliessen...");
+	printf("Das Programm lÃ¤sst sich durch BetÃ¤tigung der Enter-Taste schlieÃŸen...");
 
 	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 

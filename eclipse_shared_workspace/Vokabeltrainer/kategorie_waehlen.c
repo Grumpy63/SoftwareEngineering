@@ -34,7 +34,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		return(k_alle_erste_ptr->next_kategorie);
 	}
 
-	printf("\nFolgende Kategorien koennen gewaehlt werden: \n");
+	printf("\nFolgende Kategorien koennen gewählt werden: \n");
 
 	rueckgabe_help_ptr = k_alle_erste_ptr;
 
@@ -48,11 +48,11 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 	i_max = i-1;
 
 
-		printf("\nBitte waehlen Sie die Kategorie aus, welche abgefragt werden soll, indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen:\n");
+		printf("\nBitte wählen Sie die Kategorie aus, welche abgefragt werden soll, \nindem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
 		scanf("%d", &i);
 		fflush(stdin);
 		if(i<1 || i>i_max || isalpha(i) !=0){
-			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Kategorie mit einer Eingabe einer Zahl zwischen 1 und %d.\n",i_max);
+			printf("\nUngültige Eingabe. Wählen Sie bitte eine Kategorie mit einer Eingabe einer Zahl zwischen 1 und %d.\n",i_max);
 			scanf("%c", &dummy_zeichen);
 			goto mark1;
 		}
@@ -67,8 +67,8 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		rueckgabe_help_ptr = rueckgabe_help_ptr->next_kategorie;
 		a++;
 	}
-	printf("Es wurde die Kategorie \"%s\" ausgewaehlt.\n", rueckgabe_help_ptr->kategorie_name);
-	//printf("\nSie haben sich erfolgreich f�r die Kategorie \"%s\" entschieden!\n\n",rueckgabe_help_ptr->kategorie_name);//brauchen wir nicht ? hmmmm
+	printf("\nEs wurde die Kategorie \"%s\" ausgewählt.\n", rueckgabe_help_ptr->kategorie_name);
+	//printf("\nSie haben sich erfolgreich f�r die Kategorie \"%s\" entschieden!\n\n",rueckgabe_help_ptr->kategorie_name);//brauchen wir nicht ? hmmmm
 
 	return(rueckgabe_help_ptr);
 }

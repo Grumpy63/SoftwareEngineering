@@ -20,29 +20,29 @@ int richtung_waehlen(struct vokabel * sprache)
 	int richtung = 0;
 	char dummy_zeichen;
 	mark1:
-	printf("\nBitte waehlen Sie den Abfragemodus aus, indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestaetigen:\n");
+	printf("Folgende Abfragemodi stehen zur Verfügung:\n");
 	printf("(1) %s zu %s\n",sprache->vokabel_sprache1,sprache->vokabel_sprache2);
 	printf("(2) %s zu %s\n",sprache->vokabel_sprache2,sprache->vokabel_sprache1);
-	printf("(3) Zufaellige Abfragesprache\n");
-
+	printf("(3) Zufällige Abfragesprache\n");
+	printf("Bitte wählen Sie den Abfragemodus aus, \nindem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
 
 		scanf("%d", &richtung);
 		fflush(stdin);
 		if(richtung < 1 || richtung > 3 || isalpha(richtung) !=0)
 		{
-			printf("Ungueltige Eingabe. Waehlen Sie bitte eine Richtung mit einer Eingabe einer Zahl zwischen 1 und 3.\n");
+			printf("\nUngültige Eingabe. Wählen Sie bitte eine Richtung mit einer Eingabe einer Zahl zwischen 1 und 3.\n");
 						scanf("%c", &dummy_zeichen);
 						goto mark1;
 		}
 		switch (richtung) {
 			case 1:
-				printf("Du hast dich fuer den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache1,sprache->vokabel_sprache2);
+				printf("\nDu hast dich für den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache1,sprache->vokabel_sprache2);
 				break;
 			case 2:
-				printf("Du hast dich fuer den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache2,sprache->vokabel_sprache1);
+				printf("\nDu hast dich für den Abfragemodus \"%s zu %s\" entschieden.",sprache->vokabel_sprache2,sprache->vokabel_sprache1);
 				break;
 			case 3:
-				printf("Du hast dich fuer den zufaelligen Abfragemodus entschieden.");
+				printf("\nDu hast dich für den zufaelligen Abfragemodus entschieden.");
 				break;
 			default:
 				break;
