@@ -92,7 +92,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 		strlwr(eingabe);																		// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
-		if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)  								//Vergleich der beiden Strings.
+		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  						//Vergleich der beiden Strings groß/kleinschreibung egal.
 		 {
 			printf("Ihre Eingabe war richtig!\n");												//Ausgabe eines Feedbacks
 			anzahl_korrekter_voc++;																// Counter für richtige Vokabeln wird hochgesetzt
@@ -125,7 +125,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 	strlwr(eingabe);																			// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
-	 	if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)  									//Vergleich der beiden Strings mit feedback und zählen der Richtigen
+	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  									//Vergleich der beiden Strings mit feedback und zählen der Richtigen
 	 	{
 	 		printf("Ihre Eingabe war richtig!\n");
 	 		anzahl_korrekter_voc++;
@@ -159,7 +159,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 	strlwr(eingabe);																					//Umwandlung in Lower string, groß/kleinschreibung spielt keine rolle mehr
 
-	 	if(strcmp(eingabe, cursor_ptr->vokabel_sprache2) == 0)												//Vergleich der eingabe mit lösung aus liste
+	 	if(strcmp(eingabe, strlwr( cursor_ptr->vokabel_sprache2)) == 0)												//Vergleich der eingabe mit lösung aus liste
 	 	{
 	 		printf("Ihre Eingabe war richtig!\n");															//positives feedback
 	 		anzahl_korrekter_voc++;																			//Zahl der richtigen wird erhöht
