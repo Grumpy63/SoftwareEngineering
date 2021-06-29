@@ -17,6 +17,7 @@
  * +bessere Performance besonders bei der Laufzeit
  *
  *
+ *
  * Funktion zur Abfrage der Vokabeln: Richtung/Modus 2: Sprache 2 -> Sprache 1
  *
  *	sie erhält die Kategorie, die abgefragt werden soll sowie anzahl der abzufragenden Vokabeln
@@ -77,8 +78,8 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 		printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
 		eingabe[0]	= ' ';
 		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
-		scanf("%c", &dummy_zeichen);										//Leeren des Puffers
-		if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+		scanf("%c", &dummy_zeichen);															//Leeren des Puffers
+		if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
 			{
 			scanf("%c", &dummy_zeichen);
 			}
@@ -108,8 +109,8 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
 	 	eingabe[0]	= ' ';
 	 	scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
-	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
-	 	if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+	 	scanf("%c", &dummy_zeichen);															//Leeren des Puffers
+	 	if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
@@ -135,14 +136,14 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1; 		//Angleich der Anzahl nach Löschen des ersten Elements
 	 }
 
-	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)							//letztes Element wird entfernt
+	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)									//letztes Element wird entfernt
 	 {
 		 abfrage23:
-	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe. Rest siehe oben
+	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe. Rest siehe oben
 	 	eingabe[0]	= ' ';
 	 	scanf("%[^\r\n]", eingabe);
-	 	scanf("%c", &dummy_zeichen);										//Leeren des Puffers
-	 	if(dummy_zeichen == '\r')											//auch auf anderen OS (haben evtl mehr Zeichen)
+	 	scanf("%c", &dummy_zeichen);																	//Leeren des Puffers
+	 	if(dummy_zeichen == '\r')																		//auch auf anderen OS (haben evtl mehr Zeichen)
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
@@ -152,7 +153,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 		goto abfrage23;
 	 	}
 
-	 	strlwr(eingabe);																		//Umwandlung in Lowerstring; hiermit spielt Groß und kleinschreibung keine Rolle mehr
+	 	strlwr(eingabe);																				//Umwandlung in Lowerstring; hiermit spielt Groß und kleinschreibung keine Rolle mehr
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)									//Vergleich der Eingabe mit Listenelement inkl. Feedback etc.
 	 	{
@@ -168,7 +169,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;		//Angleich der Vokabelanzahl in Kategorie
 	 }
 
-	cursor_ptr = NULL;													//Verwendete Zeiger werden wieder geerdet
+	cursor_ptr = NULL;																					//Verwendete Zeiger werden wieder geerdet
 	help_ptr = NULL;
 
 
@@ -177,7 +178,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 
 
  }
-	return(anzahl_korrekter_voc);			//Rückgabe der Anzahl der richtigen Vokabel, wichtig für die sich anschließende Auswertung mit Highscore liste.
+	return(anzahl_korrekter_voc);																		//Rückgabe der Anzahl der richtigen Vokabel, wichtig für die sich anschließende Auswertung mit Highscore liste.
 }
 
 
