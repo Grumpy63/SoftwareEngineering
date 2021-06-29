@@ -132,7 +132,10 @@ struct username *username_list()
 
 		if(Auswahl > Aufzaehlung)																		//If-Abfrage ob Variable Auswahl größer ist als die Variable Aufzaehlung
 		{
-			printf("FalscheEingabe");																	//Ausgeben einer Nachricht für den Nutzer
+			printf("Ungültige Zahl! Bitte wählen sie eine der folgenden Optionen.\n");					//Ausgeben einer Nachricht für den Nutzer
+
+			scanf("%[^\r\n]", dummy_array);																//Leeren
+			goto mark1;
 		}
 
 		scanf("%c", &dummy_zeichen);																	//Leeren des Puffers

@@ -99,7 +99,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 						if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  												//Vergleich der beiden Strings.
 						 {
-							printf("Ihre Eingabe war richtig! ");																	//Ausgabe eines Feedbacks
+							printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);																	//Ausgabe eines Feedbacks
 							anzahl_korrekter_voc++;																				// Counter für richtige Vokabeln wird hochgesetzt
 						 }
 						 else
@@ -132,7 +132,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 					 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  												//Vergleich der beiden Strings.
 					 	{
-					 		printf("Ihre Eingabe war richtig! ");																//positives Feedback, Anzahl der Richtigen wird erhöht
+					 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);																//positives Feedback, Anzahl der Richtigen wird erhöht
 					 		anzahl_korrekter_voc++;
 					 	}
 					 	else
@@ -164,7 +164,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 	strlwr(eingabe);
 					 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)
 					 	{
-					 		printf("Ihre Eingabe war richtig! ");
+					 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);
 					 		anzahl_korrekter_voc++;
 					 	}
 					 	else
@@ -200,7 +200,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 							strlwr(eingabe);																					// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 							if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  											//Vergleich der beiden Strings.
 							 {
-								printf("Ihre Eingabe war richtig! ");																//Ausgabe eines Feedbacks
+								printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);																//Ausgabe eines Feedbacks
 								anzahl_korrekter_voc++;																			// Counter für richtige Vokabeln wird hochgesetzt
 							 }
 							 else
@@ -232,7 +232,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		strlwr(eingabe);																					// Umwandlung in einen lower String; Groß-Kleinschreibung egal
 						 		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  											//Vergleich der beiden Strings.
 						 	{
-						 		printf("Ihre Eingabe war richtig! ");
+						 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);
 						 		anzahl_korrekter_voc++;
 						 	}
 						 	else
@@ -265,7 +265,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 						 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)												//Vergleich der Eingabe mit Lösung
 						 	{
-						 		printf("Ihre Eingabe war richtig! ");
+						 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);
 						 		anzahl_korrekter_voc++;
 						 	}
 						 	else
