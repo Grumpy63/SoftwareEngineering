@@ -212,7 +212,7 @@ int ausgabe_scoreliste(struct user_and_score *ptr_scoreliste)						//Gibt verket
 	struct user_and_score *ptr_help = NULL;											//Help Pointer innerhalb der Funktion,
 	ptr_help = ptr_scoreliste;														//damit übergebener Zeiger nicht verändert wird
 
-	printf("\nDie aktuelle TOP 3 der Highscoreliste:\n");
+	printf("\nDie aktuelle TOP 3 der Highscoreliste:\n\n");
 
 	for(int i=1; i<=3; i++)															//Schleife über die drei Listenelemente
 	{

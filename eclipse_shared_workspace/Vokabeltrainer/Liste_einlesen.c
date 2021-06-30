@@ -97,7 +97,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 
 	//Ausgeben der möglichen Vokabellisten
-	printf("Es wird im gleichen Ordner, in welchem dieses Programm liegt, nach Vokabellisten gesucht:\n");	//Ausgabe die den Nutzer über die Suche nach Vokabellisten informiert
+	printf("Es wird im gleichen Ordner, in welchem dieses Programm liegt, nach Vokabellisten gesucht:\n\n");	//Ausgabe die den Nutzer über die Suche nach Vokabellisten informiert
 		setbuf(stdout, NULL);
 		dir = opendir(".");																					//Mit der Funktion opendir wird ein Verzeichnis geöffnet, in diesem Fall das Verzeichnis, in dem die Anwendung liegt -> (".") und dir zugewiesen
 		mark2:
@@ -137,7 +137,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		}
     //Abfrage nach der zu öffnenden Datei
 
-    printf("Bitte wählen Sie die Liste aus, welche abgefragt werden soll, \n"									//Ausgabe einer Informationsnachricht für den Nutzer
+    printf("\nBitte wählen Sie die Liste aus, welche abgefragt werden soll, \n"									//Ausgabe einer Informationsnachricht für den Nutzer
     		"indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");			//Ausgabe einer Informationsnachricht für den Nutzer
     scanf("%d", &listenname);																				//Einlesen der Nutzereingabe zur Auswahl der Liste
 	if(dummy_zeichen == '\r')																				//auch auf anderen OS (haben evtl mehr Zeichen)

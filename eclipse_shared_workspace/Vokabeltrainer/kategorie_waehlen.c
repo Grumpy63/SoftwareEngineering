@@ -14,6 +14,8 @@
 
 struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 {
+	printf("_______________________________________________________________________________________________________________________________\n\n");
+
 	struct kategorie *rueckgabe_help_ptr = NULL;
 	int i_max = 1;
 	int i = 1;
@@ -34,7 +36,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		return(k_alle_erste_ptr->next_kategorie);
 	}
 
-	printf("\nFolgende Kategorien koennen gewählt werden: \n");
+	printf("\nFolgende Kategorien koennen gewählt werden: \n\n");
 
 	rueckgabe_help_ptr = k_alle_erste_ptr;
 

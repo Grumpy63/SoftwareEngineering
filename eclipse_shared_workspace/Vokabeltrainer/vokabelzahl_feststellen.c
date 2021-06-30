@@ -20,10 +20,10 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 
 	setbuf(stdout, NULL);
 	printf("\nDie abzufragende Kategorie \"%s\" enhält %d Vokabeln.\n\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
-	printf("Möchten Sie über:\n");
+	printf("Möchten Sie über:\n\n");
 	printf("(1) alle Vokabeln abgefragt werden oder\n");
 	printf("(2) nur über eine bestimmte Anzahl abgefragt werden?\n");
-	printf("Zur Auswahl bitte die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
+	printf("\nZur Auswahl bitte die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
 	mark2:
 		scanf("%d", &x);
 		if(x == 1)
@@ -43,8 +43,16 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 				}
 				else
 				{
-					printf("\nIm Folgenden werden/ wird %d Vokabeln abgefragt.\n", anzahl);
+					if(anzahl == 1)
+					{
+						printf("\nIm Folgenden wird eine Vokabel abgefragt.\n");
+						return(anzahl);
+					}
+					else
+					{
+					printf("\nIm Folgenden werden %d Vokabeln abgefragt.\n", anzahl);
 					return(anzahl);
+					}
 				}
 			}
 		else if(isalpha(x) !=1){

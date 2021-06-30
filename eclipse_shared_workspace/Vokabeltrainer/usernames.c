@@ -123,7 +123,7 @@ struct username *username_list()
 
 		username_mark3:
 
-		printf("Bitte einen Nutzernamen auswählen, oder die Option \"Neuen Nutzer anlegen\" wählen,\n");		//Aufforderung einen Namen festzulegen
+		printf("\nBitte einen Nutzernamen auswählen, oder die Option \"Neuen Nutzer anlegen\" wählen,\n");		//Aufforderung einen Namen festzulegen
 		printf("indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
 
 		//Check ob tatsächlich nur eine Zahl eingegeben wurde
