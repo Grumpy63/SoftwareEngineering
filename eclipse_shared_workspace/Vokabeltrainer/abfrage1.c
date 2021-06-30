@@ -85,7 +85,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 					{
 						scanf("%c", &dummy_zeichen);
 					}
-		if(eingabe[0] == ' ')																	// Eingabeschutz, Verhindern der Eingabe von Leerzeichen
+		if(eingabe[0] == ' ' || eingabe[0] == '\t')																	// Eingabeschutz, Verhindern der Eingabe von Leerzeichen
 		{
 			printf("Bitte geben Sie eine gültige Antwort an.\n");
 			goto abfrage11;																		// Sprung zum Marker: erneute Eingabe nach ungültiger Eingabe
@@ -119,7 +119,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ')																		//Eingabeschutz mit anschließendem Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																		//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
 	 				printf("Bitte geben Sie eine gültige Antwort an.\n");
 	 				goto abfrage12;
@@ -153,7 +153,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ')																		//Eingabeschutz mit anschließendem Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																		//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
 	 				printf("\nBitte geben Sie eine gültige Antwort an.");
 	 				goto abfrage13;
