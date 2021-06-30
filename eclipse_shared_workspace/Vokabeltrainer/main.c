@@ -59,17 +59,24 @@ int main()
 
 	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
 
-	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
+
+
+	printf("\nMit ENTER die Highscoreliste anzeigen...");
+
+	scanf("%c", &dummy_zeichen);							//warten auf enter-befehl des Users
+
+	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 	user_ergebnis(korrekte_voc, user_vokabelzahl);
 
 	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);
 
+	printf("\nMit ENTER die Abschlussnachricht anzeigen...");
 	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 
 	printf("\nSchön, dass Sie sich Zeit zum Lernen genommen haben.\n");
 	printf("Bis bald!\n");
-	printf("Das Programm lässt sich durch Betätigung der Enter-Taste schließen...");
+	printf("Das Programm lässt sich mit ENTER schließen...");
 
 	scanf("%c", &dummy_zeichen);									//warten auf enter-befehl des Users
 
