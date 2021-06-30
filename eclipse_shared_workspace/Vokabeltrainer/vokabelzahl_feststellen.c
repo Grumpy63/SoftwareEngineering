@@ -28,12 +28,12 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 		scanf("%d", &x);
 		if(x == 1)
 		{
-			printf("Es wurde die Auswahl getroffen, dass alle Vokabeln abgefragt werden.\n");
+			printf("\nEs wurde die Auswahl getroffen, dass alle Vokabeln abgefragt werden.\n");
 			return(abzufragende_kategorie->anzahl_in_kategorie);
 		}
 		else if(x == 2)
 		{
-			printf("Es wurde die Auswahl getroffen, dass über eine bestimmte Anzahl abgefragt wird, die vom Nutzer bestimmt wird.\n");
+			printf("\nEs wurde die Auswahl getroffen, dass über eine bestimmte Anzahl abgefragt wird, die vom Nutzer bestimmt wird.\n");
 			mark1:
 				printf("\nWie viele Vokabeln möchten Sie abgefragt werden?:");
 				scanf("%d", &anzahl);

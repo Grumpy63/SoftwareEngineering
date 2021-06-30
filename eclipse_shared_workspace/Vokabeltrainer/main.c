@@ -67,7 +67,7 @@ int main()
 
 	printf("\nMit ENTER die Highscoreliste anzeigen...");
 	scanf("%c", &dummy_zeichen);											//warten auf ENTER-Befehls des Users
-	printf("_______________________________________________________________________________________________________________________________\n\n");
+	printf("\n_______________________________________________________________________________________________________________________________\n\n");
 	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);		//Highscoreliste anzeigen
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 
