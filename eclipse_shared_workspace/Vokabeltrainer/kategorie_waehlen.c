@@ -36,7 +36,7 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 		return(k_alle_erste_ptr->next_kategorie);
 	}
 
-	printf("\nFolgende Kategorien koennen gewählt werden: \n\n");
+	printf("\nFolgende Kategorien können gewählt werden: \n\n");
 
 	rueckgabe_help_ptr = k_alle_erste_ptr;
 
