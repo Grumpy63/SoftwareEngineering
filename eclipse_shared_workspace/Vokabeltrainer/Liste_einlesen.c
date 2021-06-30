@@ -191,8 +191,6 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 	printf("\nEs wurde die Datei \"%s\" ausgewählt.\n", entity_name_ptr->name);								//Ausgabe einer Informationsnachricht für den Nutzer
 
 
-	//datei_vorlage_ptr = fopen("C:\\Users\\DDevi\\AppData\\Local\\GitHubDesktop\\app-2.8.1\\SoftwareEngineering\\eclipse_shared_workspace\\Vokabeltrainer\\Debug\\Beispiel_Vokabelliste.txt", "r");
-
 	//Überprüfen des Files auf mindestens eine Kategorie
 
 	while(c != EOF)																							//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
@@ -216,7 +214,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 	while(c != EOF || Flagge_Sprache_wird_festgestellt == false)											//While-Schleife zum zeichenweisen Auslesen des Files solange c nicht End-Of-File beinhaltet
 	{
-		Flagge_Sprache_wird_festgestellt = true;
+		Flagge_Sprache_wird_festgestellt = true;															//Flagge dient nur dem Eintritt in die while, falls c = EOF zu beginn. Jetzt also auf true damit man später aus der while raus kann
 		c = fgetc(datei_vorlage_ptr);																		//Mit der Funktion fgetc() wird ein Zeichen aus dem File ausgelesen und in die Variable c geschrieben
 
 		if(c == ';' || c == '\r' || c == '\n'){																//Zeichen die das Ende eines Wortes, oder den Platz dazwischen signalisieren werden abgefangen
@@ -309,7 +307,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 			  }
 
 			  //Neues Vokabelpaar anzulegen
-			  if(Flagge_Vokabelpaar_beschreibbar == false && Flagge_Kategorie_befuellbar == true && c!='\n' && c!=';'){		//
+			  if(Flagge_Vokabelpaar_beschreibbar == false && Flagge_Kategorie_befuellbar == true && c!='\n' && c!=';'){		//Neuer Speicher für Vokabelpaar reserviert, falls Kategorie vorhanden, altes Paar voll ist, und c kein Wort-Ende Zeichen enthält
 				  Flagge_Vokabel1_vorhanden = false;														//Setzen der Variablen Flagge_Vokabel1_vorhanden auf false
 				  Flagge_Vokabel2_vorhanden = false;														//Setzen der Variablen Flagge_Vokabel2_vorhanden auf false
 
@@ -363,23 +361,23 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		{
 			Flagge_erster_Durchlauf = false;																//Setzen der Variablen Flagge_erster_Durchlauf auf false
 
-		  //Nï¿½chstes Zeichen auslesen
+		  //Nächstes Zeichen auslesen
 		  c = fgetc(datei_vorlage_ptr);																		//Mit der Funktion fgetc() wird ein Zeichen aus dem File ausgelesen und in die Variable c geschrieben
 
-		  if((Flagge_Sprache_herausgefiltert == false) && (c == ';' || c == '\r' || c == '\n')){
+		  if((Flagge_Sprache_herausgefiltert == false) && (c == ';' || c == '\r' || c == '\n')){			//Sprachangabe(zB eng/deut) muss zu Beginn gefiltert werden. Also solange das noch nicht passiert ist und es sich bei c um kein Wort-Ende Zeichen handelt
 
-			  if(Flagge_filtert_Sprache == true){
-				  anzahl_sprachen_gefiltert++;
-				  Flagge_filtert_Sprache = false;
+			  if(Flagge_filtert_Sprache == true){															//Falls bereits im Filter-Prozess und c = Wort-Ende Zeichen...
+				  anzahl_sprachen_gefiltert++;																//Ist also jetzt gerade eine Sprache (ein Wort) fertig gefilter
+				  Flagge_filtert_Sprache = false;															//Jetzt sind wir also wieder zwischen wörtern -> Filter-Prozess inaktiv
 			  }
-			  if(anzahl_sprachen_gefiltert == 2){
-				  Flagge_Sprache_herausgefiltert = true;
+			  if(anzahl_sprachen_gefiltert == 2){															//Falls zwei Wörter//Sprachen erfolgreich gefiltert wurden...
+				  Flagge_Sprache_herausgefiltert = true;													//Ist der Prozess der beendet
 			  }
 			  continue;
 		  }
-		  else if(Flagge_Sprache_herausgefiltert == false){
-			  Flagge_filtert_Sprache = true;
-			  continue;
+		  else if(Flagge_Sprache_herausgefiltert == false){													//Falls Sprachen noch nicht gefiltert sind...
+			  Flagge_filtert_Sprache = true;																//Sind wir noch im Filter-Prozess (true)...
+			  continue;																						//Und springen an den Anfang der Schleife um den nächsten Buchstaben zu filtern
 		  }
 
     	  if((Flagge_Semikolon == true && c == ';') ||c == '\r' || c == EOF)								//If-Abfrage ob die Variable Flagge_Semikolon true und c ein ";" ist oder c ein "\r" oder End-Of-File ist
@@ -407,7 +405,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 
 
-		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == false){
+		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == false){ //If-Abfrage um alle ungewünschten Zeichen vor dem einlesen von Vokabel 1 zu filtern
 			  if( (c == ';' || c == '\n')){
 				  continue;
 			  }
@@ -417,7 +415,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 
 		  }
 
-		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == true){
+		  if(Flagge_alle_Vokabel1_beschreibbar == false && Flagge_alle_Vokabel2_beschreibbar == false && Flagge_alleVokabel1_fertig == true){//If-Abfrage um alle ungewünschten Zeichen vor dem einlesen von Vokabel 2 zu filtern
 			  if( (c == ';' || c == '\n')){
 				  continue;
 			  }
