@@ -74,66 +74,66 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 		 }
 	 }
 
-	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)				//zu entfernende Vok befindet sich mittendrin
+	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)					//zu entfernende Vok befindet sich mittendrin
 	 {
 		 abfrage11:
-		printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);	// Aufforderung zur Eingabe
+		printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);		//Aufforderung zur Eingabe
 		eingabe[0] = ' ';
-		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
-		scanf("%c", &dummy_zeichen);															//Leeren des Puffers
-					if(dummy_zeichen == '\r')													//auch auf anderen OS (haben evtl mehr Zeichen)
+		scanf("%[^\r\n]", eingabe);																	//Es können auch Leerzeichen eingegeben werden
+		scanf("%c", &dummy_zeichen);																//Leeren des Puffers
+					if(dummy_zeichen == '\r')														//auch auf anderen OS (haben evtl mehr Zeichen)
 					{
 						scanf("%c", &dummy_zeichen);
 					}
-		if(eingabe[0] == ' ' || eingabe[0] == '\t')																	// Eingabeschutz, Verhindern der Eingabe von Leerzeichen
+		if(eingabe[0] == ' ' || eingabe[0] == '\t')													//Eingabeschutz, Verhindern der Eingabe von Leerzeichen
 		{
-			printf("Bitte geben Sie eine gültige Antwort an.\n");
-			goto abfrage11;																		// Sprung zum Marker: erneute Eingabe nach ungültiger Eingabe
+			printf("Bitte geben Sie eine gültige Antwort an.\n");									//Ausgabe einer Hinweisnachricht an den Nutzer
+			goto abfrage11;																			//Sprung zum Marker: erneute Eingabe nach ungültiger Eingabe
 		}
 
 
-		strlwr(eingabe);																		// Umwandlung in einen lower String; Groß-Kleinschreibung egal
+		strlwr(eingabe);																			//Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
-		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  						//Vergleich der beiden Strings groß/kleinschreibung egal.
+		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  							//Vergleich der beiden Strings groß/kleinschreibung egal.
 		 {
-			printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);												//Ausgabe eines Feedbacks
-			anzahl_korrekter_voc++;																// Counter für richtige Vokabeln wird hochgesetzt
+			printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);					//Ausgabe eines Feedbacks
+			anzahl_korrekter_voc++;																	//Counter für richtige Vokabeln wird hochgesetzt
 		 }
-		 else
+		 else																						//Else Verzweigung
 		 {
-		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);   //Feedback mit richtiger Übersetzung
+		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);   	//Feedback mit richtiger Übersetzung
 		 }
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;											//weiterouten der vorherigen vok auf die Übernächste => vok auf die cursor ptr zeigt wird gelöscht bzw. nicht mehr berücksichtigt
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Anzahl in Kategorie nach Löschen einer Vok.
 		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));			//Rückgabe der noch verbleibenden # abzufragenden Vok
 	 }
 
-	 else if(zufall == 0)																			// Vok am listenanfang die entfernt wird
+	 else if(zufall == 0)																			//Vok am listenanfang die entfernt wird
 	 {
 		 abfrage12:
-	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);		// Aufforderung zur Eingabe
-	 	eingabe[0] = ' ';
+	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);		// ufforderung zur Eingabe
+	 	eingabe[0] = ' ';																			//Arrayplatz 0 der Variablen eingabe auf leer setzen
 	 	scanf("%[^\r\n]", eingabe);																	//Es können auch Leerzeichen eingegeben werden
 	 	scanf("%c", &dummy_zeichen);																//Leeren des Puffers
 	 				if(dummy_zeichen == '\r')														//auch auf anderen OS (haben evtl mehr Zeichen)
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																		//Eingabeschutz mit anschließendem Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')													//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
 	 				printf("Bitte geben Sie eine gültige Antwort an.\n");
 	 				goto abfrage12;
 	 			}
 
 
-	 	strlwr(eingabe);																			// Umwandlung in einen lower String; Groß-Kleinschreibung egal
+	 	strlwr(eingabe);																			//Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  							//Vergleich der beiden Strings mit feedback und zählen der Richtigen
 	 	{
 	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);					//positives Feddback mit Wdh der Eingabe
-	 		anzahl_korrekter_voc++;
+	 		anzahl_korrekter_voc++;																	//Variable anzahl_korrekter_voc um eins inkrementieren
 	 	}
-	 	else
+	 	else																						//Else Verzweigung
 	 	{
 	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);		//negatives feedback mit verbesserung
 	 	}
@@ -144,19 +144,19 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)								//die zu löschende Vokabel ist die letzte der liste
 	 {
-		 abfrage13:
-	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);		//Aufforderung zur eingabe
-	 	eingabe[0] = ' ';
+		 abfrage13:																					//Sprungmarke abfrage13
+	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache1);		//Aufforderung zur Eingabe
+	 	eingabe[0] = ' ';																			//Arrayplatz 0 der Variablen eingabe auf leer setzen
 	 	scanf("%[^\r\n]", eingabe);
 	 	scanf("%c", &dummy_zeichen);																//Leeren des Puffers
 	 				if(dummy_zeichen == '\r')														//auch auf anderen OS (haben evtl mehr Zeichen)
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																		//Eingabeschutz mit anschließendem Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')													//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
-	 				printf("\nBitte geben Sie eine gültige Antwort an.");
-	 				goto abfrage13;
+	 				printf("\nBitte geben Sie eine gültige Antwort an.");							//Aufforderung zur Eingabe
+	 				goto abfrage13;																	//Zur Sprungmarke abfrage13 gehen
 	 			}
 
 
@@ -165,9 +165,9 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 	if(strcmp(eingabe, strlwr( cursor_ptr->vokabel_sprache2)) == 0)								//Vergleich der eingabe mit lösung aus liste
 	 	{
 	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);					//positives feedback
-	 		anzahl_korrekter_voc++;																	//Zahl der richtigen wird erhöht
+	 		anzahl_korrekter_voc++;																	//Zahl der Richtigen wird erhöht
 	 	}
-	 	else
+	 	else																						//Else Verzweigung
 	 	{
 	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);		//anzeigen der Verbesserung
 	 	}
@@ -177,7 +177,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 }
 
 	 cursor_ptr = NULL;																				//Beide verwendeten Pointer werden genullt für nächsten abfragezyklus/durchlauf der forschleife
-	help_ptr = NULL;
+	 help_ptr = NULL;
 
 
  }

@@ -28,62 +28,62 @@ void cpy_vokabel(struct vokabel * copy,struct vokabel * original);
  */
 struct kategorie *liste_einlesen(struct vokabel * sprache){
 
-	FILE *datei_vorlage_ptr;																				//
+	FILE *datei_vorlage_ptr;																				//Pointer vom Type File
 
-	char c = ' ';																							//
-	int listenname;																							//
-	char dummy_zeichen = ' ';
-	int i = 0;
+	char c = ' ';																							//Variable c auf leer setzen
+	int listenname;																							//Variable listenname
+	char dummy_zeichen = ' ';																				//Variable dummy_zeichen auf leer setzen
+	int i = 0;																								//Variable i auf 0 setzen
 
-	bool Flagge_Neue_Kategorie = false;																		//
-	bool Flagge_Kategorie_mind = false;																		//
+	bool Flagge_Neue_Kategorie = false;																		//Variable Flagge_Neue_Kategorie zum Speichern einer neuen Kategorie
+	bool Flagge_Kategorie_mind = false;																		//Variable Flagge_Kategorie_mind zum Speichern, dass mind. 1 Kategorie vorhanden ist
 
-	bool Flagge_Sprache_wird_festgestellt = false;
-	bool Flagge_Sprache1_begonnen = false;
-	bool Flagge_Sprache1_zuende = false;
-	bool Flagge_Sprache2_begonnen = false;
+	bool Flagge_Sprache_wird_festgestellt = false;															//Variable Flagge_Sprache_wird_festgestellt zum Speichern, dass die Sprachen ausgelesen werden
+	bool Flagge_Sprache1_begonnen = false;																	//Variable Flagge_Sprache1_begonnen, dass Sprache 1 eingelesn wird
+	bool Flagge_Sprache1_zuende = false;																	//Variable Flagge_Sprache1_zuende, dass Sprache 1 abgeschlossen ist
+	bool Flagge_Sprache2_begonnen = false;																	//Variable Flagge_Sprache2_begonnen, dass Sprache 2 eingelesn wird
 	
-	bool Flagge_Vokabelpaar_beschreibbar = false;															//
-	bool Flagge_Kategorie_befuellbar = false;																//
+	bool Flagge_Vokabelpaar_beschreibbar = false;															//Variable Flagge_Vokabelpaar_beschreibbar, dass eine neue struct vokabel allokiert wurde
+	bool Flagge_Kategorie_befuellbar = false;																//Variable Flagge_Kategorie_befuellbar, dass eine neue struct kategorie allokiert wurde
 
-	bool Flagge_Vokabel1_vorhanden = false;																	//
-	bool Flagge_Vokabel2_vorhanden = false;																	//
-
-
-	bool Flagge_aktuelles_Vokablpaar = false;																//
-	bool Flagge_alleVokabel1_fertig = false;																//
-	bool Flagge_alle_Vokabel1_beschreibbar = false;
-	bool Flagge_alle_Vokabel2_beschreibbar = false;
-
-	bool Flagge_Sprache_herausgefiltert = false;
-	int anzahl_sprachen_gefiltert = 0;
-	bool Flagge_filtert_Sprache = false;
-
-	bool Flagge_erster_Durchlauf = false;																	//
-	bool Flagge_Semikolon = false;																			//
-
-	bool Flagge_Entity = false;																				//
-
-	bool Flagge_gueltige_Eingabe = false;
-
-	int array_position_kategorie = 0;																		//
-	int array_position_vokabel = 0;																			//
+	bool Flagge_Vokabel1_vorhanden = false;																	//Variable Flagge_Vokabel1_vorhanden
+	bool Flagge_Vokabel2_vorhanden = false;																	//Variable Flagge_Vokabel2_vorhanden
 
 
-	struct kategorie * alle_kategorien_ptr = NULL;															//
-	struct vokabel * alle_vokablen_ende_ptr = NULL;															//
+	bool Flagge_aktuelles_Vokablpaar = false;																//Variable Flagge_aktuelles_Vokablpaar
+	bool Flagge_alleVokabel1_fertig = false;																//Variable Flagge_alleVokabel1_fertig
+	bool Flagge_alle_Vokabel1_beschreibbar = false;															//Variable Flagge_alle_Vokabel1_beschreibbar
+	bool Flagge_alle_Vokabel2_beschreibbar = false;															//Variable Flagge_alle_Vokabel2_beschreibbar
 
-	struct kategorie * erste_kategorie_ptr = NULL;															//
-	struct kategorie * ende_kategorie_ptr = NULL;															//
-	struct vokabel * ende_vokabel_ptr = NULL;																//
+	bool Flagge_Sprache_herausgefiltert = false;															//Variable Flagge_Sprache_herausgefiltert
+	int anzahl_sprachen_gefiltert = 0;																		//Variable anzahl_sprachen_gefiltert auf 0 gesetzt
+	bool Flagge_filtert_Sprache = false;																	//Variable Flagge_filtert_Sprache
 
-	struct vokabel * vokabel_cpy_laeufer_ptr = NULL;														//
-	struct kategorie * kategorie_laeufer_ptr = NULL;														//
-	struct vokabel * vokabel_org_laeufer_ptr = NULL;														//
+	bool Flagge_erster_Durchlauf = false;																	//Variable Flagge_erster_Durchlauf
+	bool Flagge_Semikolon = false;																			//Variable Flagge_Semikolon zum Speichern, dass ein Semikolon ausgelesen wurde
 
-	struct entitiy_name *erste_entity_name_ptr = NULL;														//
-	struct entitiy_name *ende_entity_name_ptr = NULL;														//
-	struct entitiy_name *entity_name_ptr = NULL;															//
+	bool Flagge_Entity = false;																				//Variable Flagge_Entity
+
+	bool Flagge_gueltige_Eingabe = false;																	//Variable Flagge_gueltige_Eingabe
+
+	int array_position_kategorie = 0;																		//Variable array_position_kategorie auf 0 gesetzt
+	int array_position_vokabel = 0;																			//Variable array_position_vokabel auf 0 gesetzt
+
+
+	struct kategorie * alle_kategorien_ptr = NULL;															//Pointer alle_kategorien_ptr auf NULL setzen
+	struct vokabel * alle_vokablen_ende_ptr = NULL;															//Pointer alle_vokablen_ende_ptr auf NULL setzen
+
+	struct kategorie * erste_kategorie_ptr = NULL;															//Pointer erste_kategorie_ptr auf NULL setzen
+	struct kategorie * ende_kategorie_ptr = NULL;															//Pointer ende_kategorie_ptr auf NULL setzen
+	struct vokabel * ende_vokabel_ptr = NULL;																//Pointer ende_vokabel_ptr auf NULL setzen
+
+	struct vokabel * vokabel_cpy_laeufer_ptr = NULL;														//Pointer vokabel_cpy_laeufer_ptr auf NULL setzen
+	struct kategorie * kategorie_laeufer_ptr = NULL;														//Pointer kategorie_laeufer_ptr auf NULL setzen
+	struct vokabel * vokabel_org_laeufer_ptr = NULL;														//Pointer vokabel_org_laeufer_ptr auf NULL setzen
+
+	struct entitiy_name *erste_entity_name_ptr = NULL;														//Pointer erste_entity_name_ptr auf NULL setzen
+	struct entitiy_name *ende_entity_name_ptr = NULL;														//Pointer ende_entity_name_ptr auf NULL setzen
+	struct entitiy_name *entity_name_ptr = NULL;															//Pointer entity_name_ptr auf NULL setzen
 
 
 	char needle[] = ".txt";																					//Variable zum Durchsuchen des Strings des Dateinamens auf ".txt"
@@ -137,8 +137,8 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 		}
     //Abfrage nach der zu öffnenden Datei
 
-    printf("\nBitte wählen Sie die Liste aus, welche abgefragt werden soll, \n"									//Ausgabe einer Informationsnachricht für den Nutzer
-    		"indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");			//Ausgabe einer Informationsnachricht für den Nutzer
+    printf("\nBitte wählen Sie die Liste aus, welche abgefragt werden soll, \n"								//Ausgabe einer Informationsnachricht für den Nutzer
+    		"indem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");				//Ausgabe einer Informationsnachricht für den Nutzer
     scanf("%d", &listenname);																				//Einlesen der Nutzereingabe zur Auswahl der Liste
 	if(dummy_zeichen == '\r')																				//auch auf anderen OS (haben evtl mehr Zeichen)
 	{

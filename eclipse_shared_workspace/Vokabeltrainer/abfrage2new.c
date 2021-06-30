@@ -35,12 +35,12 @@ int abfrage2(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 int anzahl_korrekter_voc = 0;
 struct vokabel* cursor_ptr = NULL; 																//Cursor soll auf die abzufragende Vokabel zeigen
-struct vokabel* help_ptr = NULL;																// Hilfszeiger soll auf vorherige Vokabel in Liste zeigen
+struct vokabel* help_ptr = NULL;																//Hilfszeiger soll auf vorherige Vokabel in Liste zeigen
 
 
-int zufall = 0;																					// Variable zum Abspeichern der Zufallszahl
-char dummy_zeichen = ' ';																		// Dummy zeichen zum Realisieren von Leerzeichen
-char eingabe [256];																				// Array zum Zwischenspeichern der Eingabe
+int zufall = 0;																					//Variable zum Abspeichern der Zufallszahl
+char dummy_zeichen = ' ';																		//Dummy zeichen zum Realisieren von Leerzeichen
+char eingabe [256];																				//Array zum Zwischenspeichern der Eingabe
 
 
 	scanf("%c", &dummy_zeichen);																//Leeren des Puffers
@@ -54,124 +54,124 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
  for(int i=0; i<number_abzufragende_voc; i++)													//Abfragezyklus mit Laufvariable i = Anzahl der abzufragenden Vok/Zyklen
  {
 
-	 cursor_ptr = abzufragende_kategorie->erste_vokabel;										// BEide Pointer zeigen erstmal auf Listenanfang und somit erste Vokabel
+	 cursor_ptr = abzufragende_kategorie->erste_vokabel;										//Beide Pointer zeigen erstmal auf Listenanfang und somit erste Vokabel
 	 help_ptr = abzufragende_kategorie->erste_vokabel;
 
 
 	 srand(time(NULL));																			//Zufallzahl unabhängig von System!!! Sehr wichtig sonst kein Zufall
 	 zufall =irand(0, abzufragende_kategorie->anzahl_in_kategorie-1);							//Generieren der Zufallszahl für abfragereihenfolge mit irand funktion
 
-	 for(int i=0; i<zufall; i++)																// For schleife um Lste je nach Zufallszahl durchzugehen bis gewünschte vok erreicht ist
+	 for(int i=0; i<zufall; i++)																//For schleife um Lste je nach Zufallszahl durchzugehen bis gewünschte vok erreicht ist
 	 {
-		 cursor_ptr = cursor_ptr->next_vokabel;
+		 cursor_ptr = cursor_ptr->next_vokabel;													//Pointer cursor_ptr auf cursor_ptr->next_vokabel setzen
 	 }
 
 	 if(zufall>1)																				//Sobald dritte Vok abgefragt wird also zafall =2 -> 3. Vok: bewegt sich Helppointer
 	 {
 		 for(int i=0; i<zufall-1;i++)															//Pointer wandert cursor immer eine vok hinterher
 		 {
-			 help_ptr = help_ptr->next_vokabel;
+			 help_ptr = help_ptr->next_vokabel;													//Pointer help_ptr auf help_ptr->next_vokabel setzen
 		 }
 	 }
 
 	 if (zufall != 0 && zufall != abzufragende_kategorie->anzahl_in_kategorie-1)				//zu entfernende Vok befindet sich mittendrin
 	 {
 		 abfrage21:																				//Beginn abfrage
-		printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
-		eingabe[0]	= ' ';
+		printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);	//Aufforderung zur Eingabe
+		eingabe[0]	= ' ';																		//Arrayplatz 0 der Variablen eingabe auf leer gesetzt
 		scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 		scanf("%c", &dummy_zeichen);															//Leeren des Puffers
 		if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
 			{
 			scanf("%c", &dummy_zeichen);
 			}
-		if(eingabe[0] == ' ' || eingabe[0] == '\t')																	//Eingabeschutz mit Sprung zu Marker
+		if(eingabe[0] == ' ' || eingabe[0] == '\t')												//Eingabeschutz mit Sprung zu Marker
 			{
-			printf("Bitte geben Sie eine gültige Antwort an.\n");
-			goto abfrage21;
+			printf("Bitte geben Sie eine gültige Antwort an.\n");								//Ausgabe einer Hinweisnachricht an den Nutzer
+			goto abfrage21;																		//Zu Sprungmarke abfrage21 springen
 			}
-		strlwr(eingabe);																		// Umwandlung in einen lower String; Groß-Kleinschreibung egal
+		strlwr(eingabe);																		//Umwandlung in einen lower String; Groß-Kleinschreibung egal
 		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  						//Vergleich der beiden Strings.
 		 {
 			printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);				//Ausgabe eines Feedbacks
-			anzahl_korrekter_voc++;																// Counter für richtige Vokabeln wird hochgesetzt
+			anzahl_korrekter_voc++;																//Counter für richtige Vokabeln wird hochgesetzt
 		 }
-		 else
+		 else																					//Else Verzweigung
 		 {
-		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);   //Feedback mit richtiger Übersetzung
+		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);  //Feedback mit richtiger Übersetzung
 		 }
 		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));		//Ausgabe der Anzahl übriger Vokabeln
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;										//Weiterrouten vorletztes Element auf Übernächstes Listenelement => Löschen des Jetzigen Elements (cursor ptr)
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleichen der Vokabelanzahl nach Löschen
 	 }
 
-	 else if(zufall == 0)																		// Vok am listenanfang wird entfernt
+	 else if(zufall == 0)																		//Vok am listenanfang wird entfernt
 	 {
-		 abfrage22:
-	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);// Aufforderung zur Eingabe
-	 	eingabe[0]	= ' ';
+		 abfrage22:																				//Sprungmarke abfrage22
+	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);	//Aufforderung zur Eingabe
+	 	eingabe[0]	= ' ';																		//Arrayplatz 0 der Variablen eingabe auf leer gesetzt
 	 	scanf("%[^\r\n]", eingabe);																//Es können auch Leerzeichen eingegeben werden
 	 	scanf("%c", &dummy_zeichen);															//Leeren des Puffers
 	 	if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
-	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																	//Eingabeschutz mit Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')												//Eingabeschutz mit Sprung zu Marker
 	 		{
-	 		printf("Bitte geben Sie eine gültige Antwort an.\n");
-	 		goto abfrage22;
+	 		printf("Bitte geben Sie eine gültige Antwort an.\n");								//Ausgabe einer Hinweisnachricht an den Nutzer
+	 		goto abfrage22;																		//Zu Sprungmarke abfrage22 springen
 	 		}
 
-	 	strlwr(eingabe);																				// Umwandlung in einen lower String; Groß-Kleinschreibung egal
+	 	strlwr(eingabe);																		//Umwandlung in einen lower String; Groß-Kleinschreibung egal
 
-	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  								//Vergleich der beiden Strings mit feedback etc.
+	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  						//Vergleich der beiden Strings mit feedback etc.
 	 	{
-	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);						//positives feedback mit wdh korrekter eingabe
-	 		anzahl_korrekter_voc++;																		// Anzahl korrekter voc erhöhen
+	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);				//positives feedback mit wdh korrekter eingabe
+	 		anzahl_korrekter_voc++;																//Anzahl korrekter voc erhöhen
 	 	}
-	 	else
+	 	else																					//Else Verzweigung
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);			//negatives Feedback mit Verbesserung
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);	//negatives Feedback mit Verbesserung
 	 	}
-	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));				//Ausgabe der Anzahl übriger Vokabeln
-	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;								//erste Vokabel wird eins weitergesetzt, neuer Listenanfang
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));		//Ausgabe der Anzahl übriger Vokabeln
+	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;						//erste Vokabel wird eins weitergesetzt, neuer Listenanfang
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1; 		//Angleich der Anzahl nach Löschen des ersten Elements
 	 }
 
-	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)									//letztes Element wird entfernt
+	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)							//letztes Element wird entfernt
 	 {
-		 abfrage23:
-	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);			// Aufforderung zur Eingabe. Rest siehe oben
-	 	eingabe[0]	= ' ';
+		 abfrage23:																				//Sprungmarke abfrage23
+	 	printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);	//Aufforderung zur Eingabe. Rest siehe oben
+	 	eingabe[0]	= ' ';																		//Arrayplatz 0 der Variablen eingabe auf leer gesetzt
 	 	scanf("%[^\r\n]", eingabe);
-	 	scanf("%c", &dummy_zeichen);																	//Leeren des Puffers
-	 	if(dummy_zeichen == '\r')																		//auch auf anderen OS (haben evtl mehr Zeichen)
+	 	scanf("%c", &dummy_zeichen);															//Leeren des Puffers
+	 	if(dummy_zeichen == '\r')																//auch auf anderen OS (haben evtl mehr Zeichen)
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
-	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																			//Eingabeschutz mit Sprung zu Marker
+	 	if(eingabe[0] == ' ' || eingabe[0] == '\t')												//Eingabeschutz mit Sprung zu Marker
 	 		{
-	 		printf("Bitte geben Sie eine gültige Antwort an.\n");
-	 		goto abfrage23;
+	 		printf("Bitte geben Sie eine gültige Antwort an.\n");								//Aufforderung zur Eingabe
+	 		goto abfrage23;																		//Zur Sprungmarke abfrage23 springen
 	 	}
 
-	 	strlwr(eingabe);																				//Umwandlung in Lowerstring; hiermit spielt Groß und kleinschreibung keine Rolle mehr
+	 	strlwr(eingabe);																		//Umwandlung in Lowerstring; hiermit spielt Groß und kleinschreibung keine Rolle mehr
 
-	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)									//Vergleich der Eingabe mit Listenelement inkl. Feedback etc.
+	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)							//Vergleich der Eingabe mit Listenelement inkl. Feedback etc.
 	 	{
-	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);						//positives feedback mit wdh korrekter eingabe
-	 		anzahl_korrekter_voc++;
+	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);				//positives feedback mit wdh korrekter eingabe
+	 		anzahl_korrekter_voc++;																//Variable anzahl_korrekter_voc um 1 inkrementieren
 	 	}
-	 	else
+	 	else																					//Else Verzweigung
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);			//negatives Feedback mit Verbesserung
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);	//negatives Feedback mit Verbesserung
 	 	}
-	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));				//Ausgabe der Anzahl übriger Vokabeln
-	 	help_ptr->next_vokabel = NULL;																	//Bestimmen eines neuen Listenende, Herauslöschen des letzten Elements
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));		//Ausgabe der Anzahl übriger Vokabeln
+	 	help_ptr->next_vokabel = NULL;															//Bestimmen eines neuen Listenende, Herauslöschen des letzten Elements
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;		//Angleich der Vokabelanzahl in Kategorie
 	 }
 
-	cursor_ptr = NULL;																					//Verwendete Zeiger werden wieder geerdet
+	cursor_ptr = NULL;																			//Verwendete Zeiger werden wieder geerdet
 	help_ptr = NULL;
 
 
@@ -180,7 +180,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 
 
  }
-	return(anzahl_korrekter_voc);																		//Rückgabe der Anzahl der richtigen Vokabel, wichtig für die sich anschließende Auswertung mit Highscore liste.
+	return(anzahl_korrekter_voc);																//Rückgabe der Anzahl der richtigen Vokabel, wichtig für die sich anschließende Auswertung mit Highscore liste.
 }
 
 

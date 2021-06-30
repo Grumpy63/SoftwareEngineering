@@ -15,6 +15,9 @@
 int Aufzaehlung = 1;															//Variable zum Aufzählen der Nutzer
 int Auswahl = 0;																//Variable zum Abspeichern der eingelesenen Nutzereingabe
 
+/*In dieser Funktion werden alle bestehenden Nutzer ausgegeben, sodass der Nutzer die Möglichkeit hat
+ * einen der bestehenden Nutzer zu wählen oder einen neuen Nutzer anzulegen*/
+
 struct username *username_list()
 {
 

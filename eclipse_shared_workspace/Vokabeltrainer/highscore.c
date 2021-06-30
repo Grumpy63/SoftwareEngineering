@@ -11,7 +11,9 @@
 
 #define SEMIKOLON 59																	//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
 
-
+/*In dieser Funktion wird bei bestehender Highscore-Liste diese eingelesen und ausgegeben.
+ * Sollte es einen neuen Highscore geben wird die dieser in das File geschrieben, sodass darin immer die 3 besten Ergebnisse enthalten sind
+ * Sollte es noch keine Highscore-Liste geben, wird diese in dieser Funktion erstmalig erstellt*/
 
 
 int user_ergebnis(int korrekte_voc, int user_vokabelzahl)								//Funktion zur Ausgabe des Nutzerergebnisses der aktuellen Sitzung
@@ -84,7 +86,7 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		ptr_cursor_scorekette = NULL;												//Erdung der Pointer
 
 
-		ptr_cursor_scorekette = ptr_anfang_scorekette;
+		ptr_cursor_scorekette = ptr_anfang_scorekette;								//Pointer ptr_cursor_scorekette aauf Pointer ptr_anfang_scorekette setzen
 
 		ausgabe_scoreliste(ptr_anfang_scorekette);									//Ausgabe der neuen Liste
 
@@ -113,7 +115,7 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		ptr_list2 = malloc(sizeof(struct user_and_score));
 		ptr_list3 = malloc(sizeof(struct user_and_score));
 
-		float fscore1 = 0;																//Hilfsvariablen zum auslesen der Scores aus der Datei
+		float fscore1 = 0;																//Hilfsvariablen zum Auslesen der Scores aus der Datei
 		float fscore2 = 0;
 		float fscore3 = 0;
 

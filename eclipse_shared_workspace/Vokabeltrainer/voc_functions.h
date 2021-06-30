@@ -94,9 +94,9 @@
 
 	struct user_and_score																						//struct für das handling der highscores
 	{
-		char username[256];
-		float score;
-		struct user_and_score *next;
+		char username[256];																						//Varibale zum Abspeichern des Usernamens
+		float score;																							//Variable zum Abspeichern des erreichten Scores
+		struct user_and_score *next;																			//Pointer zur Erstellung einer verketteten Liste
 	};
 
 	int user_ergebnis(int korrekte_voc, int user_vokabelzahl);													//Gibt das aktuelle Ergebnis des Nutzers aus
