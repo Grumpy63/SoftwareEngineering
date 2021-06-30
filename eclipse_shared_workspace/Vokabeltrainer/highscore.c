@@ -9,7 +9,7 @@
 #include <string.h>
 #include "voc_functions.h"
 
-#define SEMIKOLON 59													//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
+#define SEMIKOLON 59																	//Makro zur Übersichtlichkeit; 59 entspricht  Semikolon in ASCII
 
 
 
@@ -18,7 +18,7 @@ int user_ergebnis(int korrekte_voc, int user_vokabelzahl)								//Funktion zur 
 {
 	float prozentual = 0.0;																//Hier wird der Prozentuale Wert der richtig beantworteten Vocs gespeichert
 
-	printf("Anzahl korrekter Eingaben: %d von %d", korrekte_voc, user_vokabelzahl);	//Ausgabe der Richtigen Antworten verglichen mit abgefragten Vocs
+	printf("Anzahl korrekter Eingaben: %d von %d", korrekte_voc, user_vokabelzahl);		//Ausgabe der Richtigen Antworten verglichen mit abgefragten Vocs
 
 	prozentual =  (float) korrekte_voc / user_vokabelzahl * 100;						//Hier wird der Prozentuale Wert der richtig beantworteten Vocs berechnet
 
@@ -41,12 +41,12 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 	struct user_and_score *ptr_aktuell_scorekette = NULL;							//Zeiger auf aktuellen user mit score
 	struct user_and_score *ptr_help_scorekette = NULL;								//Hilfszeiger auf user mit score
 
-	struct user_and_score *ptr_list1 = NULL;									//Zeiger auf user_and_score zum eintragen der Werte
-	struct user_and_score *ptr_list2 = NULL;									//Zeiger auf user_and_score zum eintragen der Werte
-	struct user_and_score *ptr_list3 = NULL;									//Zeiger auf user_and_score zum eintragen der Werte
+	struct user_and_score *ptr_list1 = NULL;										//Zeiger auf user_and_score zum eintragen der Werte
+	struct user_and_score *ptr_list2 = NULL;										//Zeiger auf user_and_score zum eintragen der Werte
+	struct user_and_score *ptr_list3 = NULL;										//Zeiger auf user_and_score zum eintragen der Werte
 
-	float prozentual = 0.0;														//Prozentual richtiges vom aktuellen Nutzer
-	prozentual = (float) korrekte_voc / user_vokabelzahl * 100;					//Zum weiteren verwenden
+	float prozentual = 0.0;															//Prozentual richtiges vom aktuellen Nutzer
+	prozentual = (float) korrekte_voc / user_vokabelzahl * 100;						//Zum weiteren verwenden
 
 	datei_highscore_ptr = fopen("Highscorelist.txt", "r");							//Versuch Usernames.txt lesend zuöffnen
 	if (datei_highscore_ptr == NULL)												//Wenn Versuch fehlschlägt
@@ -105,26 +105,26 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		fclose(datei_highscore_ptr);													//Schließen des Streams um Änderungen in Highscorelist.txt zu speichern
 		return 0;
 	}
-	else																			//Wenn Highscorelist.txt schon existiert
+	else																				//Wenn Highscorelist.txt schon existiert
 	{
 
 		//Gesamte Liste als Verkettung abschreiben
 
-		ptr_list1 = malloc(sizeof(struct user_and_score));							//Hilfspointer: für jeden Platz auf der Highscorelist eigenen Pointer
+		ptr_list1 = malloc(sizeof(struct user_and_score));								//Hilfspointer: für jeden Platz auf der Highscorelist eigenen Pointer
 		ptr_list2 = malloc(sizeof(struct user_and_score));
 		ptr_list3 = malloc(sizeof(struct user_and_score));
 
-		float fscore1 = 0;															//hilfsvariablen zum auslesen der Scores aus der Datei
+		float fscore1 = 0;																//hilfsvariablen zum auslesen der Scores aus der Datei
 		float fscore2 = 0;
 		float fscore3 = 0;
 
 		fscanf(datei_highscore_ptr,"%[^';'];%f;%[^';'];%f;%[^';'];%f;", ptr_list1->username, &fscore1, ptr_list2->username, &fscore2, ptr_list3->username, &fscore3);		//Standardisiertes Auslesen, strings werden gelesen bis Semikolon;
 
-		ptr_list1->score = fscore1;													//Übertragen der Hilfsvars in korrekte structs
+		ptr_list1->score = fscore1;														//Übertragen der Hilfsvars in korrekte structs
 		ptr_list2->score = fscore2;
 		ptr_list3->score = fscore3;
 
-		ptr_anfang_scorekette = ptr_list1;											//Aneinander reihen der Pointer
+		ptr_anfang_scorekette = ptr_list1;												//Aneinander reihen der Pointer
 		ptr_list1->next = ptr_list2;
 		ptr_list2->next = ptr_list3;
 		ptr_list3->next = NULL;
@@ -179,25 +179,25 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 
 		//NEUE Verkettete Liste in Highscorefile überschreiben
 
-		fclose(datei_highscore_ptr);													//ausschließlich lesender Zugriff wird beendet
+		fclose(datei_highscore_ptr);														//ausschließlich lesender Zugriff wird beendet
 
 
-		datei_highscore_ptr = fopen("Highscorelist.txt", "w+");							//Highscorelist wird überschreibend geöffnet
+		datei_highscore_ptr = fopen("Highscorelist.txt", "w+");								//Highscorelist wird überschreibend geöffnet
 
 		fprintf(datei_highscore_ptr, ptr_list1->username);
 		fprintf(datei_highscore_ptr,";");
-		fprintf(datei_highscore_ptr, "%0.5f", ptr_list1->score);						//Score vom 1. Platz wird geschrieben
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list1->score);							//Score vom 1. Platz wird geschrieben
 		fprintf(datei_highscore_ptr,";");
 		fprintf(datei_highscore_ptr, ptr_list2->username);
 		fprintf(datei_highscore_ptr,";");
-		fprintf(datei_highscore_ptr, "%0.5f", ptr_list2->score);						//Score vom 2. Platzwird geschrieben
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list2->score);							//Score vom 2. Platzwird geschrieben
 		fprintf(datei_highscore_ptr,";");
 		fprintf(datei_highscore_ptr, ptr_list3->username);
 		fprintf(datei_highscore_ptr,";");
-		fprintf(datei_highscore_ptr, "%0.5f", ptr_list3->score);						//Score vom 3. Platz wird geschrieben
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list3->score);							//Score vom 3. Platz wird geschrieben
 		fprintf(datei_highscore_ptr,";");
 
-		fclose(datei_highscore_ptr);													//Schließen des Streams um Änderungen in Highscorelist.txt zu speichern
+		fclose(datei_highscore_ptr);														//Schließen des Streams um Änderungen in Highscorelist.txt zu speichern
 		return 0;
 	}
 }

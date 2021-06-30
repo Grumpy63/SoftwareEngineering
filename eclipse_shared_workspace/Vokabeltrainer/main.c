@@ -36,7 +36,7 @@ int main()
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 
-	scanf("%c", &dummy_zeichen);							//warten auf enter-befehl des Users
+	scanf("%c", &dummy_zeichen);							//warten auf ENTER-Befehls des Users
 
 	aktueller_nutzer = username_list();						//Funktion zeigt alle bestehenden Nutzer auf bzw. legt Usernames.txt Datei an, liest aktuellen Nutzernamen ein und returned Pointer auf den aktuellen Nutzer
 
@@ -55,36 +55,31 @@ int main()
 	user_vokabelzahl = vokabelzahl_feststellen(abzufragende_kategorie);
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 
-	//printf("Kritische Vokabel: %s\n", abzufragende_kategorie->erste_vokabel->next_vokabel->vokabel_sprache1);
 
-	//printf("\nIhre Auswahl lautet:\nModus: %d; Abzufragende Vokablen: %d; Kategorie: %s", modus, user_vokabelzahl, abzufragende_kategorie->kategorie_name);
-
-
-	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);
-
+	korrekte_voc = abfrage(abzufragende_kategorie, user_vokabelzahl, modus);			//Eigentliche Abfrage der Vokabeln
 
 
 	printf("\nMit ENTER das eigene Ergebnis anzeigen...");
-	scanf("%c", &dummy_zeichen);											//warten auf enter-befehl des Users
+	scanf("%c", &dummy_zeichen);											//warten auf ENTER-Befehls des Users
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	user_ergebnis(korrekte_voc, user_vokabelzahl);							//Userscore anzeigen
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 	printf("\nMit ENTER die Highscoreliste anzeigen...");
-	scanf("%c", &dummy_zeichen);											//warten auf enter-befehl des Users
+	scanf("%c", &dummy_zeichen);											//warten auf ENTER-Befehls des Users
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	highscore_list(aktueller_nutzer, korrekte_voc, user_vokabelzahl);		//Highscoreliste anzeigen
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 
 
 	printf("\nMit ENTER die Abschlussnachricht anzeigen...");
-	scanf("%c", &dummy_zeichen);											//warten auf enter-befehl des Users
+	scanf("%c", &dummy_zeichen);											//warten auf ENTER-Befehls des Users
 	printf("_______________________________________________________________________________________________________________________________\n\n");
 	printf("Schön, dass Sie sich Zeit zum Lernen genommen haben.\n");
 	printf("Bis bald!\n");
 	printf("Das Programm lässt sich mit ENTER schließen...");
 
-	scanf("%c", &dummy_zeichen);											//warten auf enter-befehl des Users zum beenden des Programms
+	scanf("%c", &dummy_zeichen);											//warten auf ENTER-Befehls des Users zum beenden des Programms
 
 
 	return 0;																//Programmende
