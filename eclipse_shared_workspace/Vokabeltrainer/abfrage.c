@@ -10,12 +10,16 @@
 #include <string.h>
 #include "voc_functions.h"																				//Einbinden der Header-Dateien
 
-//srand(time(NULL));																					//Initialisieren des Seeds mit der Systemzeit, vor jedem Aufruf von irand verwenden!
-		int irand( int a, int e)																		//Funktion zum Erzeugen von Zufallszahlen im Intervall a-e
+
+
+
+		int irand( int a, int e)																		//Funktion zum Erzeugen von Zufallszahlen im Intervall a-e, wird in abfrage1-3 benötigt
 		{
 			double r = e - a + 1;
 			return a + (int)(r * rand()/(RAND_MAX+1.0));
 		}
+
+// Funktion prüft den Eingegebenen Modus und verzweigt anschließend in jeweilige Unterfunktion (in den einzelnen c-Files)
 
 
 int abfrage(struct kategorie* abzufragende_kategorie, int number_abzufragende_voc, int modus) 			//Definition der Abfrage-Fkt

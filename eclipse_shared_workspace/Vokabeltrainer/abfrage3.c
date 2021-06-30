@@ -17,6 +17,9 @@
 /*	aktualisiert 16.06.21: Flags ersetzt durch verkettete Liste
  * +bessere Performance besonders bei der Laufzeit
  *
+ *aktualisiert 20.06.21: Realisierung eines Eingabeschutzes: Einfügen von Sprüngen
+ *
+ *
  *
  * Funktion zur Abfrage der Vokabeln: Richtung/Modus 3: Sprache 1 -> Sprache 2 oder Sprache 2 -> Sprache 1
  *
@@ -90,7 +93,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ')
+					 	if(eingabe[0] == ' ')																					//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage31;
@@ -122,7 +125,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ')
+					 	if(eingabe[0] == ' ')																					//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage32;
@@ -155,7 +158,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ')
+					 	if(eingabe[0] == ' ')																					//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage33;
@@ -180,7 +183,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 				case 1: 										// Zufallszahl gleich 1 entspricht: Sprache2 ->Sprache1
 
-					 if (zufall_voc != 0 && zufall_voc != abzufragende_kategorie->anzahl_in_kategorie-1)																	//zu entfernende Vok befindet sich mittendrin
+					 if (zufall_voc != 0 && zufall_voc != abzufragende_kategorie->anzahl_in_kategorie-1)						//zu entfernende Vok mittendrin in Liste											//zu entfernende Vok befindet sich mittendrin
 						 {
 						 	 abfrage34:
 							printf("\nBitte geben Sie die Übersetzung von %s ein: ", cursor_ptr->vokabel_sprache2);				// Aufforderung zur Eingabe
@@ -191,7 +194,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ')
+						 	if(eingabe[0] == ' ')																				//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage34;
@@ -208,7 +211,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 							 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);   			//Feedback mit richtiger Übersetzung
 							 }
 							printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
-							help_ptr->next_vokabel =cursor_ptr->next_vokabel;
+							help_ptr->next_vokabel =cursor_ptr->next_vokabel;													//Zeiger auf nächstes Listenelement weiterleiten
 							abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
 						 }
 
@@ -223,7 +226,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ')
+						 	if(eingabe[0] == ' ')																				//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage35;
@@ -241,7 +244,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 	}
 						 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
 						 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;									//erste Vokabel wird eins weitergesetzt
-						 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;
+						 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;			//Anzahl wird um eins verringert
 						 }
 
 						 else if(zufall_voc ==abzufragende_kategorie->anzahl_in_kategorie-1)									//letzte Vok wird entfernt
@@ -255,7 +258,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ')
+						 	if(eingabe[0] == ' ')																				//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage36;
@@ -265,12 +268,12 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 						 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)										//Vergleich der Eingabe mit Lösung
 						 	{
-						 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);
+						 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);							//positves feedback mit wdh der  korrekten eingabe
 						 		anzahl_korrekter_voc++;
 						 	}
 						 	else
 						 	{
-						 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);
+						 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);				//falsch mit verbesserung
 						 	}
 						 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));					//Ausgabe der Anzahl übriger Vokabeln
 						 	help_ptr->next_vokabel = NULL;																		//neues Listenende wird festgelegt

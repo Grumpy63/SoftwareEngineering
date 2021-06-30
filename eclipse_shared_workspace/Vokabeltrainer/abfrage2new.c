@@ -16,6 +16,8 @@
 /*	aktualisiert 16.06.21: Flags ersetzt durch verkettete Liste
  * +bessere Performance besonders bei der Laufzeit
  *
+ *aktualisiert 20.06.21: Realisierung eines Eingabeschutzes: Einfügen von Sprüngen
+ *
  *
  *
  * Funktion zur Abfrage der Vokabeln: Richtung/Modus 2: Sprache 2 -> Sprache 1
@@ -83,22 +85,22 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 			{
 			scanf("%c", &dummy_zeichen);
 			}
-		if(eingabe[0] == ' ')
+		if(eingabe[0] == ' ')																	//Eingabeschutz mit Sprung zu Marker
 			{
 			printf("Bitte geben Sie eine gültige Antwort an.\n");
 			goto abfrage21;
 			}
 		strlwr(eingabe);																		// Umwandlung in einen lower String; Groß-Kleinschreibung egal
-		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  								//Vergleich der beiden Strings.
+		if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  						//Vergleich der beiden Strings.
 		 {
-			printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);												//Ausgabe eines Feedbacks
+			printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);				//Ausgabe eines Feedbacks
 			anzahl_korrekter_voc++;																// Counter für richtige Vokabeln wird hochgesetzt
 		 }
 		 else
 		 {
 		 	printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);   //Feedback mit richtiger Übersetzung
 		 }
-		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));				//Ausgabe der Anzahl übriger Vokabeln
+		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));		//Ausgabe der Anzahl übriger Vokabeln
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;										//Weiterrouten vorletztes Element auf Übernächstes Listenelement => Löschen des Jetzigen Elements (cursor ptr)
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleichen der Vokabelanzahl nach Löschen
 	 }
@@ -114,7 +116,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
-	 	if(eingabe[0] == ' ')
+	 	if(eingabe[0] == ' ')																	//Eingabeschutz mit Sprung zu Marker
 	 		{
 	 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 	 		goto abfrage22;
@@ -124,12 +126,12 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)  								//Vergleich der beiden Strings mit feedback etc.
 	 	{
-	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);
-	 		anzahl_korrekter_voc++;
+	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);						//positives feedback mit wdh korrekter eingabe
+	 		anzahl_korrekter_voc++;																		// Anzahl korrekter voc erhöhen
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);			//negatives Feedback mit Verbesserung
 	 	}
 	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));				//Ausgabe der Anzahl übriger Vokabeln
 	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;								//erste Vokabel wird eins weitergesetzt, neuer Listenanfang
@@ -147,7 +149,7 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 	 		{
 	 		scanf("%c", &dummy_zeichen);
 	 		}
-	 	if(eingabe[0] == ' ')
+	 	if(eingabe[0] == ' ')																			//Eingabeschutz mit Sprung zu Marker
 	 		{
 	 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 	 		goto abfrage23;
@@ -157,12 +159,12 @@ char eingabe [256];																				// Array zum Zwischenspeichern der Eingab
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache1)) == 0)									//Vergleich der Eingabe mit Listenelement inkl. Feedback etc.
 	 	{
-	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);
+	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache1);						//positives feedback mit wdh korrekter eingabe
 	 		anzahl_korrekter_voc++;
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache1);			//negatives Feedback mit Verbesserung
 	 	}
 	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));				//Ausgabe der Anzahl übriger Vokabeln
 	 	help_ptr->next_vokabel = NULL;																	//Bestimmen eines neuen Listenende, Herauslöschen des letzten Elements

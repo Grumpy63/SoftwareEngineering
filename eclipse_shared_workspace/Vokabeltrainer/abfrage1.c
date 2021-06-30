@@ -14,6 +14,8 @@
 /*	aktualisiert 16.06.21: Flags ersetzt durch verkettete Liste
  * +bessere Performance besonders bei der Laufzeit
  *
+ * aktualisiert 20.06.21: Realisierung eines Eingabeschutzes: Einfügen von Sprüngen
+ *
  *
  * Funktion zur Abfrage der Vokabeln: Richtung/Modus 1: Sprache 1 -> Sprache 2
  *
@@ -83,10 +85,10 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 					{
 						scanf("%c", &dummy_zeichen);
 					}
-		if(eingabe[0] == ' ')
+		if(eingabe[0] == ' ')																	// Eingabeschutz, Verhindern der Eingabe von Leerzeichen
 		{
 			printf("Bitte geben Sie eine gültige Antwort an.\n");
-			goto abfrage11;
+			goto abfrage11;																		// Sprung zum Marker: erneute Eingabe nach ungültiger Eingabe
 		}
 
 
@@ -103,7 +105,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 		 }
 		help_ptr->next_vokabel =cursor_ptr->next_vokabel;											//weiterouten der vorherigen vok auf die Übernächste => vok auf die cursor ptr zeigt wird gelöscht bzw. nicht mehr berücksichtigt
 		abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Anzahl in Kategorie nach Löschen einer Vok.
-		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
+		printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));			//Rückgabe der noch verbleibenden # abzufragenden Vok
 	 }
 
 	 else if(zufall == 0)																			// Vok am listenanfang die entfernt wird
@@ -117,7 +119,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ')
+	 	if(eingabe[0] == ' ')																		//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
 	 				printf("Bitte geben Sie eine gültige Antwort an.\n");
 	 				goto abfrage12;
@@ -128,16 +130,16 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 
 	 	if(strcmp(eingabe, strlwr(cursor_ptr->vokabel_sprache2)) == 0)  							//Vergleich der beiden Strings mit feedback und zählen der Richtigen
 	 	{
-	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);
+	 		printf("Ihre Eingabe: %s war richtig! ", cursor_ptr->vokabel_sprache2);					//positives Feddback mit Wdh der Eingabe
 	 		anzahl_korrekter_voc++;
 	 	}
 	 	else
 	 	{
-	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);
+	 		printf("Leider falsch! Korrekt wäre gewesen: %s. ", cursor_ptr->vokabel_sprache2);		//negatives feedback mit verbesserung
 	 	}
 	 	abzufragende_kategorie->erste_vokabel = cursor_ptr->next_vokabel;							//erste Vokabel wird eins weitergesetzt, somit neuer listenanfang und alte erste vokabel wird gelöscht
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Vokabelanzahl
-	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));			//Rückgabe der noch verbleibenden # abzufragenden Vok
 	 }
 
 	 else if(zufall ==abzufragende_kategorie->anzahl_in_kategorie-1)								//die zu löschende Vokabel ist die letzte der liste
@@ -151,7 +153,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 				{
 	 					scanf("%c", &dummy_zeichen);
 	 				}
-	 	if(eingabe[0] == ' ')
+	 	if(eingabe[0] == ' ')																		//Eingabeschutz mit anschließendem Sprung zu Marker
 	 			{
 	 				printf("\nBitte geben Sie eine gültige Antwort an.");
 	 				goto abfrage13;
@@ -171,7 +173,7 @@ char eingabe [256];																		// Array zum Zwischenspeichern der Eingabe
 	 	}
 	 	help_ptr->next_vokabel = NULL;																//neues listenende wird realisiert! ehemalige letzte Vokabel von cursor ptr spielt keine rolle mehr
 	 	abzufragende_kategorie->anzahl_in_kategorie=abzufragende_kategorie->anzahl_in_kategorie-1;	//Angleich der Vokabelanzahl in kategorie
-	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));
+	 	printf("Es verbleiben %d abzufragende Vokabeln.\n", number_abzufragende_voc-(i+1));			//Rückgabe der noch verbleibenden # abzufragenden Vok
 	 }
 
 	 cursor_ptr = NULL;																				//Beide verwendeten Pointer werden genullt für nächsten abfragezyklus/durchlauf der forschleife
