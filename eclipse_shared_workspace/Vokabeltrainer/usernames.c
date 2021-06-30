@@ -52,9 +52,9 @@ struct username *username_list()
 				scanf("%c", &dummy_zeichen);
 			}
 
-			if(entered_user_ptr->name[0] == ' ')								//Wenn der Name nicht geändert wurde (d.h. einfach Enter gedrückt) frage erneut den Namen
+			if(entered_user_ptr->name[0] == ' ' || entered_user_ptr->name[0] == '\t')								//Wenn der Name nicht geändert wurde (d.h. einfach Enter gedrückt) frage erneut den Namen
 			{
-				printf("Keine gültige Eingabe! Bitte beginnen sie den Namen nicht mit einem Leerzeichen.\n");
+				printf("Keine gültige Eingabe! Bitte beginnen sie den Namen nicht mit einem Leerzeichen oder Tabulatorzeichen.\n");
 				goto username_mark1;
 			}
 
@@ -163,9 +163,9 @@ struct username *username_list()
 
 			//Prüfen ob eingegebener User mit Leerzeichen beginnt, oder ob einfach Leerzeichen benötigt wurde statt einen Namen einzugeben
 
-			if(entered_user_ptr->name[0] == ' ')																//Wenn der Name nicht geändert wurde (d.h. einfach Enter gedrückt) frage erneut den Namen
+			if(entered_user_ptr->name[0] == ' '|| entered_user_ptr->name[0] == '\t')																//Wenn der Name nicht geändert wurde (d.h. einfach Enter gedrückt) frage erneut den Namen
 			{
-				printf("Keine gültige Eingabe! Bitte beginnen sie den Namen nicht mit einem Leerzeichen.\n");
+				printf("Keine gültige Eingabe! Bitte beginnen sie den Namen nicht mit einem Leerzeichen oder Tabulatorzeichen.\n");
 				goto username_mark2;																			//Rücksprung zur Abfrage des Namens
 			}
 
