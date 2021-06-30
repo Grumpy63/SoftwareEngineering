@@ -75,7 +75,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 
 		//Beginn zufälliger Sprachreihenfolge (1 oder 2) mit Switch case Struktur
 
-				srand(time(NULL));																								//Generieren einer von Zufallszahl für Sprachreihenfolge
+				srand(time(NULL));																								//Generieren einer von zwei Zufallszahl für Sprachreihenfolge
 				zufall_sprache = irand(0, 1);
 
 				switch(zufall_sprache)
@@ -93,7 +93,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																					//Eingabeschutz mit Sprung zu Marker
+					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage31;
@@ -125,7 +125,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																					//Eingabeschutz mit Sprung zu Marker
+					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage32;
@@ -158,7 +158,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 					 		{
 					 		scanf("%c", &dummy_zeichen);
 					 		}
-					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																					//Eingabeschutz mit Sprung zu Marker
+					 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																//Eingabeschutz mit Sprung zu Marker
 					 		{
 					 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 					 		goto abfrage33;
@@ -194,7 +194,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																				//Eingabeschutz mit Sprung zu Marker
+						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')															//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage34;
@@ -226,7 +226,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																				//Eingabeschutz mit Sprung zu Marker
+						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')															//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage35;
@@ -258,7 +258,7 @@ int abfrage3(struct kategorie* abzufragende_kategorie, int number_abzufragende_v
 						 		{
 						 		scanf("%c", &dummy_zeichen);
 						 		}
-						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')																				//Eingabeschutz mit Sprung zu Marker
+						 	if(eingabe[0] == ' ' || eingabe[0] == '\t')															//Eingabeschutz mit Sprung zu Marker
 						 		{
 						 		printf("Bitte geben Sie eine gültige Antwort an.\n");
 						 		goto abfrage36;

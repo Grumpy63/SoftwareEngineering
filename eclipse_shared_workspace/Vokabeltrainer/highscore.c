@@ -51,7 +51,6 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 	datei_highscore_ptr = fopen("Highscorelist.txt", "r");							//Versuch Usernames.txt lesend zuöffnen
 	if (datei_highscore_ptr == NULL)												//Wenn Versuch fehlschlägt
 	{
-		printf("Highscorelist.txt existiert noch nicht!\n");
 		datei_highscore_ptr = fopen("Highscorelist.txt", "w+");						//Wenn Highscorelist.txt Datei also nicht existiert, erstelle sie
 
 		//Verkettete Liste aus tatsächlichem Nutzer und unused Platzhaltern
