@@ -149,7 +149,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 				printf("\nUngültige Eingabe! Wählen Sie bitte eine Kategorie mit der "						//Ausgabe einer Informationsnachricht für den Nutzer
 						"Eingabe einer Zahl zwischen 1 und %d.\n\n\n", Aufzaehlung-1);
 				closedir(dir);																				//Das Verzeichnis wird geschlossen
-				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
+				while ((dummy_zeichen = getchar()) != '\n' && dummy_zeichen != EOF) {}						//warten auf enter-befehl des Users
 				dir = opendir(".");																			//Das Verzeichnis wird geöffnet
 				goto mark2;																					//Es wird zu Marke mark2 gesprungen
 			}
@@ -165,7 +165,7 @@ struct kategorie *liste_einlesen(struct vokabel * sprache){
 				printf("\nUngültige Eingabe! Wählen Sie bitte eine Kategorie mit der "						//Ausgabe einer Informationsnachricht für den Nutzer
 						"Eingabe einer Zahl zwischen 1 und %d.\n\n\n", Aufzaehlung-1);
 				closedir(dir);																				//Das Verzeichnis wird geschlossen
-				scanf("%c", &dummy_zeichen);																//warten auf enter-befehl des Users
+				while ((dummy_zeichen = getchar()) != '\n' && dummy_zeichen != EOF) {}						//warten auf enter-befehl des Users
 				dir = opendir(".");																			//Das Verzeichnis wird geöffnet
 				goto mark2;																					//Es wird zu Marke mark2 gesprungen
 			}
