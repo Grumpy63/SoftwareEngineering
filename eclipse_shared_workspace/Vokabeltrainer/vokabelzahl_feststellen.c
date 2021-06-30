@@ -16,7 +16,7 @@
 int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 	int x = 0;
 	int anzahl = 0;
-	char dummy_zeichen;
+	char dummy_zeichen[256];
 
 	setbuf(stdout, NULL);
 	printf("\nDie abzufragende Kategorie \"%s\" enhält %d Vokabeln.\n\n",abzufragende_kategorie->kategorie_name,abzufragende_kategorie->anzahl_in_kategorie);
@@ -38,7 +38,7 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 				if(anzahl <= 0 || anzahl > abzufragende_kategorie->anzahl_in_kategorie || isalpha(anzahl) !=0)
 				{
 					printf("\nUngültige Eingabe. Wählen Sie bitte eine Anzahl mit der Eingabe einer Zahl zwischen 1 und %d.\n",abzufragende_kategorie->anzahl_in_kategorie);
-					scanf("%c", &dummy_zeichen);
+					scanf("%[^\r\n]", dummy_zeichen);
 					goto mark1;
 				}
 				else
@@ -57,7 +57,7 @@ int vokabelzahl_feststellen(struct kategorie *abzufragende_kategorie){
 			}
 		else if(isalpha(x) !=1){
 			printf("\nUngültige Eingabe. Wählen Sie bitte Ihre Auswahl mit der Eingabe der Zahl 1 oder 2.\n");
-			scanf("%c", &dummy_zeichen);
+			scanf("%[^\r\n]", dummy_zeichen);
 			goto mark2;
 		}
 		return(anzahl);
