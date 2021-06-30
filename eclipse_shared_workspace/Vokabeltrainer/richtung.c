@@ -31,7 +31,7 @@ int richtung_waehlen(struct vokabel * sprache)
 		if(richtung < 1 || richtung > 3 || isalpha(richtung) !=0)
 		{
 			printf("\nUngültige Eingabe. Wählen Sie bitte eine Richtung mit einer Eingabe einer Zahl zwischen 1 und 3.\n");
-						scanf("%c", &dummy_zeichen);
+						while ((dummy_zeichen = getchar()) != '\n' && dummy_zeichen != EOF) {}
 						goto mark1;
 		}
 		switch (richtung) {
