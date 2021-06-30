@@ -114,7 +114,7 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		ptr_list2 = malloc(sizeof(struct user_and_score));
 		ptr_list3 = malloc(sizeof(struct user_and_score));
 
-		float fscore1 = 0;																//hilfsvariablen zum auslesen der Scores aus der Datei
+		float fscore1 = 0;																//Hilfsvariablen zum auslesen der Scores aus der Datei
 		float fscore2 = 0;
 		float fscore3 = 0;
 
@@ -190,7 +190,7 @@ int highscore_list(struct username *aktueller_nutzer, int korrekte_voc, int user
 		fprintf(datei_highscore_ptr,";");
 		fprintf(datei_highscore_ptr, ptr_list2->username);
 		fprintf(datei_highscore_ptr,";");
-		fprintf(datei_highscore_ptr, "%0.5f", ptr_list2->score);							//Score vom 2. Platzwird geschrieben
+		fprintf(datei_highscore_ptr, "%0.5f", ptr_list2->score);							//Score vom 2. Platz wird geschrieben
 		fprintf(datei_highscore_ptr,";");
 		fprintf(datei_highscore_ptr, ptr_list3->username);
 		fprintf(datei_highscore_ptr,";");
