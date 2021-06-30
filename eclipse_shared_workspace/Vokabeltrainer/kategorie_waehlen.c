@@ -22,8 +22,6 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 	int a = 1;
 	char dummy_zeichen;
 
-	mark1:
-	i = 1;
 	setbuf(stdout, NULL);
 	if(k_alle_erste_ptr->next_kategorie == NULL)
 	{
@@ -50,14 +48,17 @@ struct kategorie *kategorie_waehlen(struct kategorie *k_alle_erste_ptr)
 	i_max = i-1;
 
 
+	while(1){
 		printf("\nBitte wählen Sie die Kategorie aus, welche abgefragt werden soll, \nindem Sie die entsprechende Nummer eingeben und mit der Enter-Taste bestätigen:");
 		scanf("%d", &i);
-		fflush(stdin);
-		if(i<1 || i>i_max || isalpha(i) !=0){
+		if(i<1 || i>i_max){
 			printf("\nUngültige Eingabe. Wählen Sie bitte eine Kategorie mit einer Eingabe einer Zahl zwischen 1 und %d.\n",i_max);
-			scanf("%c", &dummy_zeichen);
-			goto mark1;
+			while ((dummy_zeichen = getchar()) != '\n' && dummy_zeichen != EOF) {}
+			continue;
 		}
+		break;
+	}//Ende Schleife für User Eingabe der Kategoriezahl
+
 
 
 
